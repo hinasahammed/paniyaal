@@ -82,7 +82,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                 children: [
                   SizedBox(
                     width: 40,
-                    child: TextField(
+                    child: TextFormField(
                       controller: countryCode,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -95,7 +95,8 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                   ),
                   SizedBox(width: 10,),
                   Expanded(
-                    child: TextField(
+                    child: TextFormField(
+
                       onChanged: (value){
                         phone = value;
                       },

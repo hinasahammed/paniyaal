@@ -5,6 +5,7 @@ import 'package:paniyaal/screens/typeSelectorScreen/type_selector_screen.dart';
 import 'package:paniyaal/screens/userHomeScreen/user_home_screen.dart';
 import 'package:paniyaal/screens/userPhoneVerificationScreen/otp_verification_screen.dart';
 import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
+import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
 import 'package:paniyaal/screens/workerLoginScreen/worker_login_screen.dart';
 import 'package:paniyaal/screens/workerLoginScreen/worker_signup_screen.dart';
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         'workerlogin': (context)=>WorkerLoginScreen(),
         'signup':(context)=>WorkerSignupScreen(),
         'userHome':(context)=>UserHomeScreen(),
+        'workerhome':(context) => WorkerHomeScreen(),
       },
     );
   }
