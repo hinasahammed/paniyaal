@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserLoginScreen extends StatefulWidget {
-
    UserLoginScreen({super.key});
+
+   static String verify ="";
 
   @override
   State<UserLoginScreen> createState() => _UserLoginScreenState();
@@ -10,6 +12,7 @@ class UserLoginScreen extends StatefulWidget {
 
 class _UserLoginScreenState extends State<UserLoginScreen> {
   TextEditingController countryCode = TextEditingController();
+  var phone = "";
   @override
   void initState() {
     // TODO: implement initState
@@ -93,7 +96,10 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                   SizedBox(width: 10,),
                   Expanded(
                     child: TextField(
-                      keyboardType: TextInputType.number,
+                      onChanged: (value){
+                        phone = value;
+                      },
+                      keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Phone",
@@ -110,8 +116,17 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
               height: 45,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('otpVerification');
+                onPressed: () async{
+                  await FirebaseAuth.instance.verifyPhoneNumber(
+                    phoneNumber: '${countryCode.text+phone}',
+                    verificationCompleted: (PhoneAuthCredential credential) {},
+                    verificationFailed: (FirebaseAuthException e) {},
+                    codeSent: (String verificationId, int? resendToken) {
+                      UserLoginScreen.verify = verificationId;
+                      Navigator.of(context).pushNamed('otpVerification');
+                    },
+                    codeAutoRetrievalTimeout: (String verificationId) {},
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xffdb3244),

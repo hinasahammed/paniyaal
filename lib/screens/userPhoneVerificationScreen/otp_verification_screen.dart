@@ -1,15 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
 import 'package:pinput/pinput.dart';
 
-class OtpVerificationScreen extends StatelessWidget {
-  const OtpVerificationScreen({Key? key}) : super(key: key);
+class OtpVerificationScreen extends StatefulWidget {
+  OtpVerificationScreen({Key? key}) : super(key: key);
+
+  @override
+  State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
+}
+
+class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
-      textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
+      textStyle: TextStyle(
+          fontSize: 20,
+          color: Color.fromRGBO(30, 60, 87, 1),
+          fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
         border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
         borderRadius: BorderRadius.circular(20),
@@ -26,6 +38,8 @@ class OtpVerificationScreen extends StatelessWidget {
         color: Color.fromRGBO(234, 239, 243, 1),
       ),
     );
+
+    var smsCode="";
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -76,6 +90,9 @@ class OtpVerificationScreen extends StatelessWidget {
             Pinput(
               length: 6,
               showCursor: true,
+              onChanged: (value){
+                smsCode=value;
+              },
             ),
             SizedBox(
               height: 20,
@@ -84,7 +101,20 @@ class OtpVerificationScreen extends StatelessWidget {
               height: 45,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  try{
+                    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+                        verificationId: UserLoginScreen.verify, smsCode: smsCode);
+
+                    // Sign the user in (or link) with the credential
+                    await auth.signInWithCredential(credential);
+                    Navigator.pushNamedAndRemoveUntil(context, 'userHome', (route) => false);
+                  }
+                  catch(e){
+                    print("Wrong otp");
+                  }
+
+                },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xffdb3244),
                     shape: RoundedRectangleBorder(

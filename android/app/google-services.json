@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1065874559799",
+    "project_id": "paniyaal",
+    "storage_bucket": "paniyaal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065874559799:android:6cbf9c47d15a2933f340b2",
+        "android_client_info": {
+          "package_name": "com.example.paniyaal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065874559799-irr2d0aeaso8hanah1oiu4od2fl33kfi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm_sBv2Uburl7W-AuxoKOdmnawgp_FSXw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065874559799-irr2d0aeaso8hanah1oiu4od2fl33kfi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
