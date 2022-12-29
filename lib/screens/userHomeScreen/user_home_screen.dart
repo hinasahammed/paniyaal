@@ -21,27 +21,49 @@ class UserHomeScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 182,
-                height: 207,
-                child: Card(
-                  child: Column(
-                    children: [
-                      Text(
-                        'Carpenter',
-                        style: TextStyle(fontWeight: FontWeight.w400),
-                      )
-                    ],
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 155,
+                  height: 195,
+                  child: Card(
+                    elevation: 0,
+                    child: Column(
+                      children: [
+                        Image.asset('assets/Carpenter.png',fit: BoxFit.contain,),
+                        Text(
+                          'Carpenter',
+                          style: TextStyle(fontWeight: FontWeight.w400),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                Container(
+                  width: 155,
+                  height: 195,
+                  child: Card(
+                    elevation: 0,
+                    child: Column(
+                      children: [
+                        Image.asset('assets/Carpenter.png',fit: BoxFit.contain,),
+                        Text(
+                          'Painter',
+                          style: TextStyle(fontWeight: FontWeight.w400),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
