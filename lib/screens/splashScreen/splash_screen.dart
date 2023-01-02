@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../typeSelectorScreen/type_selector_screen.dart';
+import '../userHomeScreen/user_home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -29,6 +30,6 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> gotoScreen() async {
     await Future.delayed(Duration(seconds: 3));
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (ctx) => TypeSelectorScreen()));
+        MaterialPageRoute(builder: (ctx) => UserHomeScreen()));
   }
 }
