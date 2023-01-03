@@ -96,7 +96,7 @@ class UserHomeScreen extends StatelessWidget {
                               fit: BoxFit.contain,
                             ),
                             Text(
-                              'Carpenter',
+                              'Gardgening',
                               style: TextStyle(fontWeight: FontWeight.w400),
                             )
                           ],
@@ -115,7 +115,7 @@ class UserHomeScreen extends StatelessWidget {
                               fit: BoxFit.contain,
                             ),
                             Text(
-                              'Painter',
+                              'Cleaning',
                               style: TextStyle(fontWeight: FontWeight.w400),
                             )
                           ],
@@ -142,7 +142,7 @@ class UserHomeScreen extends StatelessWidget {
                               fit: BoxFit.contain,
                             ),
                             Text(
-                              'Carpenter',
+                              'Plumbing',
                               style: TextStyle(fontWeight: FontWeight.w400),
                             )
                           ],
@@ -161,7 +161,7 @@ class UserHomeScreen extends StatelessWidget {
                               fit: BoxFit.contain,
                             ),
                             Text(
-                              'Painter',
+                              'Eletrical',
                               style: TextStyle(fontWeight: FontWeight.w400),
                             )
                           ],
@@ -174,43 +174,27 @@ class UserHomeScreen extends StatelessWidget {
                   height: 20,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      width: 155,
-                      height: 195,
-                      child: Card(
-                        elevation: 0,
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/Carpenter.png',
-                              fit: BoxFit.contain,
-                            ),
-                            Text(
-                              'Carpenter',
-                              style: TextStyle(fontWeight: FontWeight.w400),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 155,
-                      height: 195,
-                      child: Card(
-                        elevation: 0,
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/painter.png',
-                              fit: BoxFit.contain,
-                            ),
-                            Text(
-                              'Painter',
-                              style: TextStyle(fontWeight: FontWeight.w400),
-                            )
-                          ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Container(
+                        width: 155,
+                        height: 195,
+                        child: Card(
+                          elevation: 0,
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/Carpenter.png',
+                                fit: BoxFit.contain,
+                              ),
+                              Text(
+                                'Other home\nservice',
+                                style: TextStyle(fontWeight: FontWeight.w400),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
