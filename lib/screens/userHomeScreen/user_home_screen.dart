@@ -92,7 +92,7 @@ class UserHomeScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/Carpenter.png',
+                              'assets/gardening.jpg',
                               fit: BoxFit.contain,
                             ),
                             Text(
@@ -111,7 +111,7 @@ class UserHomeScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/painter.png',
+                              'assets/cleaning.jpg',
                               fit: BoxFit.contain,
                             ),
                             Text(
