@@ -138,7 +138,7 @@ class UserHomeScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/Carpenter.png',
+                              'assets/plumber.jpg',
                               fit: BoxFit.contain,
                             ),
                             Text(
@@ -157,11 +157,11 @@ class UserHomeScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/painter.png',
+                              'assets/electrician.jpg',
                               fit: BoxFit.contain,
                             ),
                             Text(
-                              'Eletrical',
+                              'Electrician',
                               style: TextStyle(fontWeight: FontWeight.w400),
                             )
                           ],
@@ -185,7 +185,7 @@ class UserHomeScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               Image.asset(
-                                'assets/Carpenter.png',
+                                'assets/other service.jpg',
                                 fit: BoxFit.contain,
                               ),
                               Text(
