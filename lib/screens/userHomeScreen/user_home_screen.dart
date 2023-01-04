@@ -174,6 +174,52 @@ class UserHomeScreen extends StatelessWidget {
                   height: 20,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: 155,
+                      height: 195,
+                      child: Card(
+                        elevation: 0,
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/woodcutter.jpg',
+                              fit: BoxFit.contain,
+                            ),
+                            Text(
+                              'Wood cutter',
+                              style: TextStyle(fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 155,
+                      height: 195,
+                      child: Card(
+                        elevation: 0,
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/mechanic.jpg',
+                              fit: BoxFit.contain,
+                            ),
+                            Text(
+                              'Mechanic',
+                              style: TextStyle(fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
