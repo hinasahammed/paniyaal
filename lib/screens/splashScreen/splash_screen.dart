@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../typeSelectorScreen/type_selector_screen.dart';
-import '../userHomeScreen/user_home_screen.dart';
+import 'splash_screen_services.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,11 +10,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  SplashScreenServices splashScreen = SplashScreenServices();
   @override
   void initState() {
     // TODO: implement initState
-    gotoScreen();
     super.initState();
+    splashScreen.gotoScreen(context);
   }
 
   @override
@@ -25,11 +26,5 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Image.asset('assets/logo.png'),
       ),
     );
-  }
-
-  Future<void> gotoScreen() async {
-    await Future.delayed(Duration(seconds: 3));
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (ctx) => TypeSelectorScreen()));
   }
 }
