@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:paniyaal/screens/typeSelectorScreen/type_selector_screen.dart';
 
-import 'splash_screen_services.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,12 +11,11 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  SplashScreenServices splashScreen = SplashScreenServices();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    splashScreen.gotoScreen(context);
+    gotoScreen(context);
   }
 
   @override
@@ -27,4 +26,15 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
+}
+
+Future<void> gotoScreen(BuildContext context) async {
+  await Future.delayed(
+    Duration(seconds: 3),
+  );
+  Navigator.of(context).pushReplacement(
+    MaterialPageRoute(
+      builder: (ctx) => TypeSelectorScreen(),
+    ),
+  );
 }

@@ -1,8 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
+import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
+import 'package:paniyaal/screens/workerLoginScreen/worker_login_screen.dart';
+
+import '../userHomeScreen/user_home_screen.dart';
 
 class TypeSelectorScreen extends StatelessWidget {
-  const TypeSelectorScreen({super.key});
+  TypeSelectorScreen({super.key});
+
+  final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +45,7 @@ class TypeSelectorScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
                     child: InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed('numberVerification');
+                        Navigator.push(context, MaterialPageRoute(builder: (c)=>UserHomeScreen()));
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +77,17 @@ class TypeSelectorScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
                     child: InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed('workerlogin');
+                        if (auth.currentUser?.uid == null) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => WorkerLoginScreen()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => WorkerHomeScreen()));
+                        }
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
