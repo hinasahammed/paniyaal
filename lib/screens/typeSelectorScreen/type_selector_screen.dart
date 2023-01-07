@@ -45,7 +45,12 @@ class TypeSelectorScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (c)=>UserHomeScreen()));
+                        final User? user = FirebaseAuth.instance.currentUser;
+                        if(user == null){
+                          Navigator.push(context, MaterialPageRoute(builder: (c)=>UserLoginScreen()));
+                        }else{
+                          Navigator.push(context, MaterialPageRoute(builder: (c)=>UserHomeScreen()));
+                        }
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
