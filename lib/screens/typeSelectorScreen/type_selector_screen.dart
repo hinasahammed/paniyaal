@@ -6,6 +6,7 @@ import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
 import 'package:paniyaal/screens/workerLoginScreen/worker_login_screen.dart';
 
 import '../userHomeScreen/user_home_screen.dart';
+import '../userHomeScreen/widget/job_category_screen.dart';
 
 class TypeSelectorScreen extends StatelessWidget {
   TypeSelectorScreen({super.key});
@@ -43,13 +44,12 @@ class TypeSelectorScreen extends StatelessWidget {
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: () {
-                        final User? user = FirebaseAuth.instance.currentUser;
-                        if(user == null){
-                          Navigator.push(context, MaterialPageRoute(builder: (c)=>UserLoginScreen()));
+                        if(auth.currentUser == null){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>UserLoginScreen()));
                         }else{
-                          Navigator.push(context, MaterialPageRoute(builder: (c)=>UserHomeScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>JobCategoryScreen()));
                         }
                       },
                       child: Column(

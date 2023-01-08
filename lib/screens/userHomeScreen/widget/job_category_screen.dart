@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
 
 class JobCategoryScreen extends StatelessWidget {
   const JobCategoryScreen({Key? key}) : super(key: key);
@@ -17,12 +18,15 @@ class JobCategoryScreen extends StatelessWidget {
         ),
         backgroundColor: Color(0xffdb3244),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.favorite),
-            ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.favorite),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>UserLoginScreen()));
+            },
+            icon: Icon(Icons.logout),
           ),
         ],
       ),
