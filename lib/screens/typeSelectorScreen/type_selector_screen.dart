@@ -49,7 +49,7 @@ class TypeSelectorScreen extends StatelessWidget {
                         if(auth.currentUser == null){
                           Navigator.push(context, MaterialPageRoute(builder: (ctx)=>UserLoginScreen()));
                         }else{
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>JobCategoryScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>UserHomeScreen( )));
                         }
                       },
                       child: Column(
