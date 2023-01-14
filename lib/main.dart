@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'PANIYAAL',
       theme: ThemeData(
-        primaryColor: Color(0xffdb3244),
+        primarySwatch: Colors.pink,
       ),
       initialRoute: 'splash',
       routes: {

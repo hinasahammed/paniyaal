@@ -12,6 +12,7 @@ class WorkerLoginScreen extends StatefulWidget {
 }
 
 class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
+  bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
 
@@ -104,7 +105,7 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
                     child: TextFormField(
                       autofocus: false,
                       controller: passwordController,
-                      obscureText: true,
+                      obscureText: _obscureText,
                       validator: (value) {
                         RegExp regex = new RegExp(r'^.{6,}$');
                         if (value!.isEmpty) {
@@ -120,6 +121,12 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
                       },
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.vpn_key),
+                        suffixIcon: GestureDetector(onTap: (){
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },child: Icon(_obscureText?Icons.visibility:Icons.visibility_off),
+                        ),
                         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                         hintText: "Password",
                         border: OutlineInputBorder(
