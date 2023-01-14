@@ -44,13 +44,9 @@ class TypeSelectorScreen extends StatelessWidget {
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                    child: GestureDetector(
+                    child: InkWell(
                       onTap: () {
-                        if(auth.currentUser == null){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>UserLoginScreen()));
-                        }else{
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>UserHomeScreen( )));
-                        }
+                        isUserLogedIn(context);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -82,17 +78,7 @@ class TypeSelectorScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(8.0))),
                     child: InkWell(
                       onTap: () {
-                        if (auth.currentUser?.uid == null) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (ctx) => WorkerLoginScreen()));
-                        } else {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (ctx) => WorkerHomeScreen()));
-                        }
+                        isWorkerLogedIn(context);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -122,5 +108,24 @@ class TypeSelectorScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+void isWorkerLogedIn(BuildContext context){
+  final auth = FirebaseAuth.instance;
+  final user = auth.currentUser;
+  if(user != null){
+    Navigator.push(context, MaterialPageRoute(builder: (ctx)=>WorkerHomeScreen()));
+  }else{
+    Navigator.push(context, MaterialPageRoute(builder: (ctx)=>WorkerLoginScreen()));
+  }
+}
+void isUserLogedIn(BuildContext context){
+  final auth = FirebaseAuth.instance;
+  final user = auth.currentUser;
+  if(user != null){
+    Navigator.push(context, MaterialPageRoute(builder: (ctx)=>UserHomeScreen()));
+  }else{
+    Navigator.push(context, MaterialPageRoute(builder: (ctx)=>UserLoginScreen()));
   }
 }

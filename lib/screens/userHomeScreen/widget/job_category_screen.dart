@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
 
 class JobCategoryScreen extends StatelessWidget {
-  const JobCategoryScreen({Key? key}) : super(key: key);
+   JobCategoryScreen({Key? key}) : super(key: key);
+  final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,11 @@ class JobCategoryScreen extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>UserLoginScreen()));
+              auth.signOut().then((value) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>UserLoginScreen()));
+              }).onError((error, stackTrace) {
+                Fluttertoast.showToast(msg: error!.toString());
+              });
             },
             icon: Icon(Icons.logout),
           ),

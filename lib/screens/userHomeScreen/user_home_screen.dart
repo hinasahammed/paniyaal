@@ -6,10 +6,10 @@ import 'bottomNavigation/bottom_navigation.dart';
 
 
 class UserHomeScreen extends StatelessWidget {
-  const UserHomeScreen({Key? key}) : super(key: key);
+   UserHomeScreen({Key? key}) : super(key: key);
 
   static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(0);
-  final _pages = const [
+  final _pages =  [
     JobCategoryScreen(),
     SettingsPage(),
   ];
