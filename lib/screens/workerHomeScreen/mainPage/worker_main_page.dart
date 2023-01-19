@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../workerLoginScreen/worker_login_screen.dart';
+import '../../workerLoginScreen/worker_login_screen.dart';
 
 class WorkerMainPage extends StatelessWidget {
    WorkerMainPage({Key? key}) : super(key: key);
