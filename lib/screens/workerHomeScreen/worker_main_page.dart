@@ -15,15 +15,6 @@ class WorkerMainPage extends StatelessWidget {
         title: Text('Workers'),
         centerTitle: true,
         backgroundColor: Color(0xffdb3244),
-        actions: [
-          IconButton(onPressed: () {
-            auth.signOut().then((value) {
-              Navigator.push(context, MaterialPageRoute(builder: (ctx)=>WorkerLoginScreen()));
-            }).onError((error, stackTrace) {
-              Fluttertoast.showToast(msg: error!.toString());
-            });
-          }, icon: Icon(Icons.logout)),
-        ],
       ),
       body: Center(
         child: Text('Worker home screen '),
