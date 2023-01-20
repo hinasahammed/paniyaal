@@ -18,7 +18,7 @@ class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
 
-  File? _image;
+ static File? _image;
 
   final picker = ImagePicker();
 

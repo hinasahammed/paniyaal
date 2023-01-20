@@ -21,7 +21,32 @@ class ProfileScreen extends StatelessWidget {
         ),
         body: SafeArea(
             child: ListView(children: [
-              SizedBox(height: 30,),
+              Center(
+                child: Container(
+                  width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 4, color: Colors.white),
+                    boxShadow: [
+                      BoxShadow(
+                        spreadRadius: 3,
+                        blurRadius: 10,
+                        color: Colors.black.withOpacity(0.1),
+                      ),
+                    ],
+                    shape: BoxShape.circle,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.asset(
+                      'assets/profile.jpeg',
+                      width: 130,
+                      height: 130,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
               Card(child: ListTile(
                 title: Text('Paniyaal'),
                 leading:Icon(Icons.person),
