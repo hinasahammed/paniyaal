@@ -1,7 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class WorkerDetailScreen extends StatefulWidget {
   WorkerDetailScreen({Key? key}) : super(key: key);
@@ -12,10 +13,10 @@ class WorkerDetailScreen extends StatefulWidget {
 
 class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
   final fullNameEditingController = TextEditingController();
-
   final phoneEditingController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
 
   File? _image;
 
@@ -59,17 +60,17 @@ class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
                           borderRadius: BorderRadius.circular(100),
                           child: _image != null
                               ? Image.file(
-                            _image!.absolute,
-                            width: 130,
-                            height: 130,
-                            fit: BoxFit.cover,
-                          )
+                                  _image!.absolute,
+                                  width: 130,
+                                  height: 130,
+                                  fit: BoxFit.cover,
+                                )
                               : Image.asset(
-                            'assets/profile.jpeg',
-                            width: 130,
-                            height: 130,
-                            fit: BoxFit.cover,
-                          ),
+                                  'assets/profile.jpeg',
+                                  width: 130,
+                                  height: 130,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                       Positioned(
@@ -203,8 +204,18 @@ class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
                   height: 45,
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      final name = fullNameEditingController.text.toString();
                       _formKey.currentState?.validate();
+                      firebase_storage.Reference ref = firebase_storage
+                          .FirebaseStorage.instance
+                          .ref('/{$name}' +
+                              DateTime.now().millisecondsSinceEpoch.toString());
+                      firebase_storage.UploadTask uploadeTask =
+                          ref.putFile(_image!.absolute);
+                      await Future.value(uploadeTask);
+                      var newUrl = ref.getDownloadURL();
+                      Fluttertoast.showToast(msg: 'Uploaded');
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xffdb3244),

@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^3.0.1
   pinput: ^2.2.19
   firebase_core: ^2.4.0
+  firebase_storage: ^11.0.10
   firebase_auth: ^4.2.2
   cloud_firestore: ^4.3.0
   fluttertoast: ^8.1.2
