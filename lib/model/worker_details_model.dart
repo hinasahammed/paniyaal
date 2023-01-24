@@ -1,25 +1,25 @@
-class WorkerModel {
-  String? uid;
+class WorkerDetailsModel {
   String? email;
   String? fullName;
+  String? phoneNumber;
 
-  WorkerModel({this.uid, this.email, this.fullName,});
+  WorkerDetailsModel({this.email, this.fullName,this.phoneNumber});
 
   // receiving data from server
-  factory WorkerModel.fromMap(map) {
-    return WorkerModel(
-      uid: map['uid'],
+  factory WorkerDetailsModel.fromMap(map) {
+    return WorkerDetailsModel(
       email: map['email'],
       fullName: map['fullName'],
+      phoneNumber: map['phoneNumber'],
     );
   }
 
   // sending data to our server
   Map<String, dynamic> toMap() {
     return {
-      'uid': uid,
       'email': email,
       'fullName': fullName,
+      'phoneNumber': phoneNumber,
     };
   }
 }

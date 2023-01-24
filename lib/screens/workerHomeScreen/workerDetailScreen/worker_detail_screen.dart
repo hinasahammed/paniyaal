@@ -1,8 +1,13 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
+
+import '../../../model/worker_details_model.dart';
+import '../worker_home_screen.dart';
 
 class WorkerDetailScreen extends StatefulWidget {
   WorkerDetailScreen({Key? key}) : super(key: key);
@@ -14,11 +19,11 @@ class WorkerDetailScreen extends StatefulWidget {
 class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
   final fullNameEditingController = TextEditingController();
   final phoneEditingController = TextEditingController();
+  final emailEditingController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
+  FirebaseStorage storage = FirebaseStorage.instance;
 
- static File? _image;
+  static File? _image;
 
   final picker = ImagePicker();
 
@@ -60,17 +65,17 @@ class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
                           borderRadius: BorderRadius.circular(100),
                           child: _image != null
                               ? Image.file(
-                                  _image!.absolute,
-                                  width: 130,
-                                  height: 130,
-                                  fit: BoxFit.cover,
-                                )
+                            _image!.absolute,
+                            width: 130,
+                            height: 130,
+                            fit: BoxFit.cover,
+                          )
                               : Image.asset(
-                                  'assets/profile.jpeg',
-                                  width: 130,
-                                  height: 130,
-                                  fit: BoxFit.cover,
-                                ),
+                            'assets/profile.jpeg',
+                            width: 130,
+                            height: 130,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       Positioned(
@@ -109,13 +114,54 @@ class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
                         autofocus: false,
                         textInputAction: TextInputAction.next,
                         validator: (value) {
-                          if (value!.length < 3) {
-                            return 'Please enter your full name';
+                          RegExp regex = new RegExp(r'^.{3,}$');
+                          if (value!.isEmpty) {
+                            return ("Name cannot be Empty");
                           }
+                          if (!regex.hasMatch(value)) {
+                            return ("Enter Valid name(Min. 3 Character)");
+                          }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          fullNameEditingController.text = value!;
                         },
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                           hintText: "Full name",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: emailEditingController,
+                        autofocus: false,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return ("Please Enter Your Email");
+                          }
+                          // reg expression for email validation
+                          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                              .hasMatch(value)) {
+                            return ("Please Enter a valid email");
+                          }
+                          return null;
+                        },
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                          hintText: "Email",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -185,7 +231,7 @@ class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
                     Expanded(
                       child: TextFormField(
                         autofocus: false,
-                        textInputAction: TextInputAction.next,
+                        textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                           hintText: "Job type",
@@ -207,15 +253,26 @@ class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
                     onPressed: () async {
                       final name = fullNameEditingController.text.toString();
                       _formKey.currentState?.validate();
-                      firebase_storage.Reference ref = firebase_storage
-                          .FirebaseStorage.instance
-                          .ref('/{$name}' +
-                              DateTime.now().millisecondsSinceEpoch.toString());
-                      firebase_storage.UploadTask uploadeTask =
-                          ref.putFile(_image!.absolute);
-                      await Future.value(uploadeTask);
-                      var newUrl = ref.getDownloadURL();
-                      Fluttertoast.showToast(msg: 'Uploaded');
+
+                      Reference referenceRoot = FirebaseStorage.instance.ref();
+                      Reference referenceDirImages = referenceRoot.child(
+                          'WorkersProfile');
+                      Reference referenceImageToUpload = referenceDirImages
+                          .child('{$name}' +
+                          DateTime
+                              .now()
+                              .millisecondsSinceEpoch
+                              .toString());
+
+                      try {
+                        referenceImageToUpload.putFile(_image!.absolute);
+                        postDetailsToFirestore(context, fullNameEditingController.text,
+                            emailEditingController.text,
+                            phoneEditingController.text);
+                        Fluttertoast.showToast(msg: 'Uploaded');
+                      } catch (error) {
+                        Fluttertoast.showToast(msg: 'You have to choose an image');
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xffdb3244),
@@ -235,7 +292,7 @@ class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
 
   Future getGallaryImage() async {
     final pickedFile =
-        await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+    await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
     if (pickedFile != null) {
       _image = File(pickedFile.path);
       setState(() {
@@ -244,3 +301,33 @@ class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
     }
   }
 }
+
+postDetailsToFirestore(BuildContext context, String fullName, String email,
+    String phoneNumber) async {
+  // calling our firestore
+  // calling our user model
+  // sedning these values
+  final _auth = FirebaseAuth.instance;
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  User? worker = _auth.currentUser;
+
+  WorkerDetailsModel workerModel = WorkerDetailsModel();
+
+  // writing all the values
+  workerModel.fullName = fullName;
+  workerModel.email = email;
+  workerModel.phoneNumber = phoneNumber;
+
+  await firebaseFirestore
+      .collection("WorkerProfileDetails")
+      .doc(fullName)
+      .set(workerModel.toMap());
+  Fluttertoast.showToast(msg: "Saved your data :) ");
+
+  Navigator.pushAndRemoveUntil(
+      (context),
+      MaterialPageRoute(builder: (context) => WorkerHomeScreen()),
+          (route) => false);
+}
+
+

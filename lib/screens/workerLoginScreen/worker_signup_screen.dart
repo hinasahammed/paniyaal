@@ -1,10 +1,13 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
 
-import '../../model/worker_model.dart';
+import '../../model/worker_Logedin_model.dart';
 
 class WorkerSignupScreen extends StatefulWidget {
   const WorkerSignupScreen({Key? key}) : super(key: key);
@@ -22,8 +25,13 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
 
   final fullNameEditingController = TextEditingController();
   final emailEditingController = TextEditingController();
+  final phoneEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
+  static File? _image;
+
+  final picker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,23 +52,79 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
       body: Container(
         margin: const EdgeInsets.only(left: 25, right: 25),
         alignment: Alignment.center,
-        child: SingleChildScrollView(
-            child: Form(
+        child: ListView(
+          children: [
+            Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/login.png',
-                    width: 200,
-                    height: 200,
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
                   const Text(
                     'Create your account',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Center(
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: 130,
+                          height: 130,
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 4, color: Colors.white),
+                            boxShadow: [
+                              BoxShadow(
+                                spreadRadius: 3,
+                                blurRadius: 10,
+                                color: Colors.black.withOpacity(0.1),
+                              ),
+                            ],
+                            shape: BoxShape.circle,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: _image != null
+                                ? Image.file(
+                              _image!.absolute,
+                              width: 130,
+                              height: 130,
+                              fit: BoxFit.cover,
+                            )
+                                : Image.asset(
+                              'assets/profile.jpeg',
+                              width: 130,
+                              height: 130,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: InkWell(
+                            onTap: () {
+                              getGallaryImage();
+                            },
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                border:
+                                Border.all(width: 4, color: Colors.white),
+                                shape: BoxShape.circle,
+                                color: Colors.blue,
+                              ),
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 25,
@@ -105,6 +169,40 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                     children: [
                       Expanded(
                         child: TextFormField(
+                          controller: phoneEditingController,
+                          autofocus: false,
+                          keyboardType: TextInputType.phone,
+                          textInputAction: TextInputAction.next,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter a phone number';
+                            } else if (!RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)')
+                                .hasMatch(value)) {
+                              return "Please enter a valid phone number";
+                            }
+                          },
+                          onSaved: (value) {
+                            phoneEditingController.text = value!;
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            hintText: "Phone number",
+                            prefixIcon: Icon(Icons.contact_phone),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
                           autofocus: false,
                           controller: emailEditingController,
                           onSaved: (value) {
@@ -115,7 +213,8 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                               return ("Please Enter Your Email");
                             }
                             // reg expression for email validation
-                            if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                            if (!RegExp(
+                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
                                 .hasMatch(value)) {
                               return ("Please Enter a valid email");
                             }
@@ -211,7 +310,23 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        signUp(emailEditingController.text, passwordEditingController.text);
+                        final name = fullNameEditingController.text;
+                        Reference referenceRoot = FirebaseStorage.instance.ref();
+                        Reference referenceDirImages = referenceRoot.child(
+                            'WorkersProfile');
+                        Reference referenceImageToUpload = referenceDirImages
+                            .child('{$name}' +
+                            DateTime
+                                .now()
+                                .millisecondsSinceEpoch
+                                .toString());
+                        try{
+                          referenceImageToUpload.putFile(_image!.absolute);
+                        }catch (error) {
+                          Fluttertoast.showToast(msg: 'You have to choose an image');
+                        }
+                        signUp(emailEditingController.text,
+                            passwordEditingController.text);
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xffdb3244),
@@ -234,16 +349,22 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text('Login',style: TextStyle(color: Color(0xffdb3244)),),
+                        child: Text(
+                          'Login',
+                          style: TextStyle(color: Color(0xffdb3244)),
+                        ),
                       ),
                     ],
                   ),
                 ],
               ),
-            )),
+            )
+          ],
+        ),
       ),
     );
   }
+
 //Signup function
   void signUp(String email, String password) async {
     if (_formKey.currentState!.validate()) {
@@ -282,6 +403,18 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
       }
     }
   }
+
+  Future getGallaryImage() async {
+    final pickedFile =
+    await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+    if (pickedFile != null) {
+      _image = File(pickedFile.path);
+      setState(() {
+        _image;
+      });
+    }
+  }
+
   postDetailsToFirestore() async {
     // calling our firestore
     // calling our user model
@@ -290,15 +423,17 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? worker = _auth.currentUser;
 
-    WorkerModel workerModel = WorkerModel();
+    WorkerLogedinModel workerModel = WorkerLogedinModel();
 
     // writing all the values
     workerModel.email = worker!.email;
     workerModel.uid = worker.uid;
     workerModel.fullName = fullNameEditingController.text;
+    workerModel.password = passwordEditingController.text;
+    workerModel.phoneNumber = phoneEditingController.text;
 
     await firebaseFirestore
-        .collection("workers")
+        .collection("workersLogedIn")
         .doc(worker.uid)
         .set(workerModel.toMap());
     Fluttertoast.showToast(msg: "Account created successfully :) ");
