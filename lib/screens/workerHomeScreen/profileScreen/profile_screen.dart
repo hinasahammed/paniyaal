@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return CircularProgressIndicator();
+                  return CircularProgressIndicator(strokeWidth: 3,color: Colors.white,);
                 } else {
                   return Column(
                     children: snapshot.data!.docs.map((document) {

@@ -7,7 +7,8 @@ import 'package:paniyaal/screens/userPhoneVerificationScreen/otp_verification_sc
 import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
 import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
 import 'package:paniyaal/screens/workerLoginScreen/worker_login_screen.dart';
-import 'package:paniyaal/screens/workerLoginScreen/worker_signup_screen.dart';
+import 'package:paniyaal/screens/workerSignupScreen/worker_signup_screen.dart';
+
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

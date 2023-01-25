@@ -9,6 +9,7 @@ import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
 
 import '../../model/worker_Logedin_model.dart';
 
+
 class WorkerSignupScreen extends StatefulWidget {
   const WorkerSignupScreen({Key? key}) : super(key: key);
 
@@ -28,7 +29,8 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
   final phoneEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
-  static File? _image;
+  final jobTypeEditingController = TextEditingController();
+  File? _image;
 
   final picker = ImagePicker();
   String? downloadUrl;
@@ -94,7 +96,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                               fit: BoxFit.cover,
                             )
                                 : Image.asset(
-                              'assets/profile.jpeg',
+                              'assets/upload.png',
                               width: 130,
                               height: 130,
                               fit: BoxFit.cover,
@@ -295,6 +297,48 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                             prefixIcon: Icon(Icons.vpn_key),
                             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                             hintText: "Confirm password",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          autofocus: false,
+                          textInputAction: TextInputAction.done,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            hintText: "Job type",
+                            prefixIcon: Icon(Icons.work),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          autofocus: false,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            hintText: "Location",
+                            prefixIcon: Icon(Icons.location_on),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
