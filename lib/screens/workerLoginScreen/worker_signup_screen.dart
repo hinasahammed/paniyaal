@@ -31,6 +31,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
   static File? _image;
 
   final picker = ImagePicker();
+  String? downloadUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -309,8 +310,9 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                     height: 45,
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
                         final name = fullNameEditingController.text;
+                        FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
                         Reference referenceRoot = FirebaseStorage.instance.ref();
                         Reference referenceDirImages = referenceRoot.child(
                             'WorkersProfile');
@@ -321,7 +323,9 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                                 .millisecondsSinceEpoch
                                 .toString());
                         try{
-                          referenceImageToUpload.putFile(_image!.absolute);
+                          await referenceImageToUpload.putFile(_image!.absolute);
+                          downloadUrl = await referenceImageToUpload.getDownloadURL();
+                          print(downloadUrl);
                         }catch (error) {
                           Fluttertoast.showToast(msg: 'You have to choose an image');
                         }
@@ -431,6 +435,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     workerModel.fullName = fullNameEditingController.text;
     workerModel.password = passwordEditingController.text;
     workerModel.phoneNumber = phoneEditingController.text;
+    workerModel.imageUrl = downloadUrl;
 
     await firebaseFirestore
         .collection("workersLogedIn")

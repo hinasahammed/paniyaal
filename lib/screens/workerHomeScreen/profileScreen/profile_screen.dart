@@ -16,8 +16,6 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final auth = FirebaseAuth.instance;
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,49 +29,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: SafeArea(
             child: ListView(
           children: [
-            const SizedBox(height: 30,),
-            Center(
-              child: Container(
-                width: 130,
-                height: 130,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 4, color: Colors.white),
-                  boxShadow: [
-                    BoxShadow(
-                      spreadRadius: 3,
-                      blurRadius: 10,
-                      color: Colors.black.withOpacity(0.1),
-                    ),
-                  ],
-                  shape: BoxShape.circle,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.asset(
-                    'assets/profile.jpeg',
-                    width: 130,
-                    height: 130,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+            const SizedBox(
+              height: 25,
             ),
-            const SizedBox(height: 10,),
-            StreamBuilder(
+            StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
-                  .collection("workersLogedIn").where("uid",isEqualTo: auth.currentUser!.uid)
+                  .collection("workersLogedIn")
+                  .where("uid", isEqualTo: auth.currentUser!.uid)
                   .snapshots(),
-              builder: (context, snapshot){
-                if(!snapshot.hasData){
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
                   return CircularProgressIndicator();
-                }else{
+                } else {
                   return Column(
                     children: snapshot.data!.docs.map((document) {
                       return Column(
                         children: [
-                          Text(document["fullName"].toUpperCase(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                          Text(document["phoneNumber"],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 15),),
-                          Text(document["email"],style: TextStyle(fontWeight: FontWeight.w500,fontSize: 15),),
+                          Container(
+                            width: 130,
+                            height: 130,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 4, color: Colors.white),
+                              boxShadow: [
+                                BoxShadow(
+                                  spreadRadius: 3,
+                                  blurRadius: 10,
+                                  color: Colors.black.withOpacity(0.1),
+                                ),
+                              ],
+                              shape: BoxShape.circle,
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.network(
+                                document["imageUrl"],
+                                width: 130,
+                                height: 130,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 15,),
+                          Text(
+                            document["fullName"].toUpperCase(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400, fontSize: 15),
+                          ),
+                          Text(
+                            document["phoneNumber"],
+                            style: TextStyle(
+                                fontWeight: FontWeight.w300, fontSize: 15),
+                          ),
+                          Text(
+                            document["email"],
+                            style: TextStyle(
+                                fontWeight: FontWeight.w300, fontSize: 15),
+                          ),
                         ],
                       );
                     }).toList(),
@@ -81,7 +92,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 }
               },
             ),
-            const SizedBox(height: 25,),
+            const SizedBox(
+              height: 25,
+            ),
             Card(
               child: ListTile(
                 title: Text('Paniyaal'),

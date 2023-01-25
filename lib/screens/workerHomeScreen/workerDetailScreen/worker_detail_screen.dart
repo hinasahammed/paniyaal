@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import '../../../model/worker_details_model.dart';
+import '../../../model/worker_Logedin_model.dart';
 import '../worker_home_screen.dart';
 
 class WorkerDetailScreen extends StatefulWidget {
@@ -311,7 +311,7 @@ postDetailsToFirestore(BuildContext context, String fullName, String email,
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   User? worker = _auth.currentUser;
 
-  WorkerDetailsModel workerModel = WorkerDetailsModel();
+  WorkerLogedinModel workerModel = WorkerLogedinModel();
 
   // writing all the values
   workerModel.fullName = fullName;
