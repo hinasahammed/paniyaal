@@ -5,8 +5,18 @@ class WorkerLogedinModel {
   String? password;
   String? phoneNumber;
   String? imageUrl;
+  String? jobType;
+  String? location;
 
-  WorkerLogedinModel({this.uid, this.email, this.fullName,this.password,this.phoneNumber,this.imageUrl});
+  WorkerLogedinModel(
+      {this.uid,
+      this.email,
+      this.fullName,
+      this.password,
+      this.phoneNumber,
+      this.imageUrl,
+      this.jobType,
+      this.location});
 
   // receiving data from server
   factory WorkerLogedinModel.fromMap(map) {
@@ -17,6 +27,8 @@ class WorkerLogedinModel {
       password: map['password'],
       phoneNumber: map['phoneNumber'],
       imageUrl: map['imageUrl'],
+      jobType: map['jobType'],
+      location: map['location'],
     );
   }
 
@@ -29,6 +41,8 @@ class WorkerLogedinModel {
       'password': password,
       'phoneNumber': phoneNumber,
       'imageUrl': imageUrl,
+      'jobType': jobType,
+      'location': location,
     };
   }
 }

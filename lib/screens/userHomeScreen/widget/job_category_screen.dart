@@ -1,10 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:paniyaal/screens/jobTypeScreen/other_screen.dart';
 import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
+import '../../jobTypeScreen/carpenter_screen.dart';
+import '../../jobTypeScreen/cleaning_screen.dart';
+import '../../jobTypeScreen/electrician_screen.dart';
+import '../../jobTypeScreen/gardening_screen.dart';
+import '../../jobTypeScreen/mechanic_screen.dart';
+import '../../jobTypeScreen/painter_screen.dart';
+import '../../jobTypeScreen/pestcontrol_screen.dart';
+import '../../jobTypeScreen/plumber_screen.dart';
+import '../../jobTypeScreen/technicrepair_screen.dart';
+import '../../jobTypeScreen/woodcutter_screen.dart';
 
-class JobCategoryScreen extends StatelessWidget {
+class JobCategoryScreen extends StatefulWidget {
    JobCategoryScreen({Key? key}) : super(key: key);
+
+  @override
+  State<JobCategoryScreen> createState() => _JobCategoryScreenState();
+}
+
+class _JobCategoryScreenState extends State<JobCategoryScreen> {
   final auth = FirebaseAuth.instance;
 
   @override
@@ -14,7 +31,7 @@ class JobCategoryScreen extends StatelessWidget {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
+          child: const Text(
             'Paniyaal',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
@@ -44,293 +61,348 @@ class JobCategoryScreen extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  SizedBox(
+                 const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        width: 155,
-                        height: 195,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                               Image.asset(
-                                'assets/Carpenter.png',
-                                fit: BoxFit.contain,
-                              ),
-                              Text(
-                                'Carpenter',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              )
-                            ],
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>CarpenterScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                 Image.asset(
+                                  'assets/Carpenter.png',
+                                  fit: BoxFit.contain,
+                                ),
+                                Text(
+                                  'Carpenter',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 155,
-                        height: 195,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/painter.png',
-                                fit: BoxFit.contain,
-                              ),
-                              Text(
-                                'Painter',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              )
-                            ],
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>PainterScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/painter.png',
+                                  fit: BoxFit.contain,
+                                ),
+                                Text(
+                                  'Painter',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                 const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        width: 155,
-                        height: 195,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/gardening.jpg',
-                                fit: BoxFit.contain,
-                              ),
-                              Text(
-                                'Gardening',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              )
-                            ],
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>GardeningScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/gardening.jpg',
+                                  fit: BoxFit.contain,
+                                ),
+                                Text(
+                                  'Gardening',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 155,
-                        height: 195,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/cleaning.jpg',
-                                fit: BoxFit.contain,
-                              ),
-                              Text(
-                                'Cleaning',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              )
-                            ],
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>CleaningScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/cleaning.jpg',
+                                  fit: BoxFit.contain,
+                                ),
+                                Text(
+                                  'Cleaning',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                 const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        width: 155,
-                        height: 195,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/plumber.jpg',
-                                fit: BoxFit.contain,
-                              ),
-                              Text(
-                                'Plumber',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              )
-                            ],
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>PlumberScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/plumber.jpg',
+                                  fit: BoxFit.contain,
+                                ),
+                                Text(
+                                  'Plumber',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 155,
-                        height: 195,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/electrician.jpg',
-                                fit: BoxFit.contain,
-                              ),
-                              Text(
-                                'Electrician',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              )
-                            ],
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>ElectricianScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/electrician.jpg',
+                                  fit: BoxFit.contain,
+                                ),
+                                Text(
+                                  'Electrician',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        width: 155,
-                        height: 195,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/woodcutter.jpg',
-                                fit: BoxFit.contain,
-                              ),
-                              Text(
-                                'Wood cutter',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              )
-                            ],
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>WoodcutterScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/woodcutter.jpg',
+                                  fit: BoxFit.contain,
+                                ),
+                                Text(
+                                  'Wood cutter',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 155,
-                        height: 195,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/mechanic.jpg',
-                                fit: BoxFit.contain,
-                              ),
-                              Text(
-                                'Mechanic',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              )
-                            ],
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>MechanicScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/mechanic.jpg',
+                                  fit: BoxFit.contain,
+                                ),
+                                Text(
+                                  'Mechanic',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        width: 155,
-                        height: 195,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/pest.jpg',
-                                fit: BoxFit.contain,
-                              ),
-                              Text(
-                                'Pest control\nservice',
-                                style: TextStyle(fontWeight: FontWeight.w500),textAlign: TextAlign.center,
-                              )
-                            ],
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>PestcontrolScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/pest.jpg',
+                                  fit: BoxFit.contain,
+                                ),
+                                Text(
+                                  'Pest control\nservice',
+                                  style: TextStyle(fontWeight: FontWeight.w500),textAlign: TextAlign.center,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 155,
-                        height: 195,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/technic.jpg',
-                                fit: BoxFit.contain,
-                              ),
-                              SizedBox(height: 5,),
-                              Text(
-                                'Technic repair',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              )
-                            ],
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>TechnicRepairScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/technic.jpg',
+                                  fit: BoxFit.contain,
+                                ),
+                                const SizedBox(height: 5,),
+                                Text(
+                                  'Technic repair',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
                     children: [
-                      Container(
-                        width: 155,
-                        height: 195,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'assets/other service.jpg',
-                                fit: BoxFit.contain,
-                                height: 140,
-                              ),
-                              Text(
-                                'Other\nservices',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
-                              )
-                            ],
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>OtherScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/other service.jpg',
+                                  fit: BoxFit.contain,
+                                  height: 140,
+                                ),
+                                Text(
+                                  'Other\nservices',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

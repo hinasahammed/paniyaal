@@ -9,7 +9,6 @@ import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
 
 import '../../model/worker_Logedin_model.dart';
 
-
 class WorkerSignupScreen extends StatefulWidget {
   const WorkerSignupScreen({Key? key}) : super(key: key);
 
@@ -18,6 +17,10 @@ class WorkerSignupScreen extends StatefulWidget {
 }
 
 class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
+  _MyFormState() {
+    _selectedVal = _jobTypeList[0];
+  }
+
   final _auth = FirebaseAuth.instance;
 
   // string for displaying the error Message
@@ -29,11 +32,25 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
   final phoneEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
-  final jobTypeEditingController = TextEditingController();
+  final locationEditingController = TextEditingController();
   File? _image;
 
   final picker = ImagePicker();
   String? downloadUrl;
+  final _jobTypeList = [
+    "Carpenter",
+    "Painter",
+    "Gardening",
+    "Cleaning",
+    "Plumber",
+    "Electrician",
+    "Woodcutter",
+    "Mechanic",
+    "PestController",
+    "Technic repair",
+    "Other",
+  ];
+  String? _selectedVal = "Carpenter";
 
   @override
   Widget build(BuildContext context) {
@@ -90,17 +107,17 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                             borderRadius: BorderRadius.circular(100),
                             child: _image != null
                                 ? Image.file(
-                              _image!.absolute,
-                              width: 130,
-                              height: 130,
-                              fit: BoxFit.cover,
-                            )
+                                    _image!.absolute,
+                                    width: 130,
+                                    height: 130,
+                                    fit: BoxFit.cover,
+                                  )
                                 : Image.asset(
-                              'assets/upload.png',
-                              width: 130,
-                              height: 130,
-                              fit: BoxFit.cover,
-                            ),
+                                    'assets/upload.png',
+                                    width: 130,
+                                    height: 130,
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                         Positioned(
@@ -115,7 +132,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                               width: 40,
                               decoration: BoxDecoration(
                                 border:
-                                Border.all(width: 4, color: Colors.white),
+                                    Border.all(width: 4, color: Colors.white),
                                 shape: BoxShape.circle,
                                 color: Colors.blue,
                               ),
@@ -217,7 +234,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                             }
                             // reg expression for email validation
                             if (!RegExp(
-                                "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                    "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
                                 .hasMatch(value)) {
                               return ("Please Enter a valid email");
                             }
@@ -292,7 +309,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                           onSaved: (value) {
                             confirmPasswordEditingController.text = value!;
                           },
-                          textInputAction: TextInputAction.done,
+                          textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.vpn_key),
                             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -308,33 +325,38 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                   SizedBox(
                     height: 20,
                   ),
+                  DropdownButtonFormField(
+                      icon: const Icon(
+                        Icons.arrow_drop_down_circle,
+                        color: Color(0xffdb3244),
+                      ),
+                      decoration: InputDecoration(
+                        labelText: "Job type",
+                        prefixIcon: Icon(Icons.work),
+                        border: OutlineInputBorder(),
+                      ),
+                      value: _selectedVal,
+                      items: _jobTypeList.map((e) {
+                        return DropdownMenuItem(
+                          child: Text(e),
+                          value: e,
+                        );
+                      }).toList(),
+                      onChanged: (val) {
+                        setState(() {
+                          _selectedVal = val;
+                        });
+                      }),
+            SizedBox(
+              height: 20,
+            ),
                   Row(
                     children: [
                       Expanded(
                         child: TextFormField(
+                          controller: locationEditingController,
                           autofocus: false,
                           textInputAction: TextInputAction.done,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                            hintText: "Job type",
-                            prefixIcon: Icon(Icons.work),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          autofocus: false,
-                          textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                             hintText: "Location",
@@ -354,24 +376,27 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                     height: 45,
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         final name = fullNameEditingController.text;
-                        FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-                        Reference referenceRoot = FirebaseStorage.instance.ref();
-                        Reference referenceDirImages = referenceRoot.child(
-                            'WorkersProfile');
-                        Reference referenceImageToUpload = referenceDirImages
-                            .child('{$name}' +
-                            DateTime
-                                .now()
-                                .millisecondsSinceEpoch
-                                .toString());
-                        try{
-                          await referenceImageToUpload.putFile(_image!.absolute);
-                          downloadUrl = await referenceImageToUpload.getDownloadURL();
-                          print(downloadUrl);
-                        }catch (error) {
-                          Fluttertoast.showToast(msg: 'You have to choose an image');
+                        FirebaseFirestore firebaseFirestore =
+                            FirebaseFirestore.instance;
+                        Reference referenceRoot =
+                            FirebaseStorage.instance.ref();
+                        Reference referenceDirImages =
+                            referenceRoot.child('WorkersProfile');
+                        Reference referenceImageToUpload =
+                            referenceDirImages.child('{$name}' +
+                                DateTime.now()
+                                    .millisecondsSinceEpoch
+                                    .toString());
+                        try {
+                          await referenceImageToUpload
+                              .putFile(_image!.absolute);
+                          downloadUrl =
+                              await referenceImageToUpload.getDownloadURL();
+                        } catch (error) {
+                          Fluttertoast.showToast(
+                              msg: 'You have to choose an image');
                         }
                         signUp(emailEditingController.text,
                             passwordEditingController.text);
@@ -454,7 +479,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
 
   Future getGallaryImage() async {
     final pickedFile =
-    await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
     if (pickedFile != null) {
       _image = File(pickedFile.path);
       setState(() {
@@ -480,6 +505,8 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     workerModel.password = passwordEditingController.text;
     workerModel.phoneNumber = phoneEditingController.text;
     workerModel.imageUrl = downloadUrl;
+    workerModel.jobType = _selectedVal;
+    workerModel.location = locationEditingController.text;
 
     await firebaseFirestore
         .collection("workersLogedIn")
@@ -490,6 +517,6 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     Navigator.pushAndRemoveUntil(
         (context),
         MaterialPageRoute(builder: (context) => WorkerHomeScreen()),
-            (route) => false);
+        (route) => false);
   }
 }
