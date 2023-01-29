@@ -36,9 +36,10 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
             return Column(
               children: snapshot.data!.docs.map((document) {
                 return Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0,),
                   child: Column(
                     children: [
+                      SizedBox(height: 10,),
                       Container(
                         width: double.infinity,
                         child: Card(
@@ -49,28 +50,32 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                             children: [
                               IntrinsicHeight(
                                 child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Column(
                                       children: [
-                                        SizedBox(height: 5,),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
                                         Container(
                                           width: 100,
                                           height: 100,
                                           decoration: BoxDecoration(
-                                            border: Border.all(width: 4, color: Colors.white),
+                                            border: Border.all(
+                                                width: 4, color: Colors.white),
                                             boxShadow: [
                                               BoxShadow(
                                                 spreadRadius: 3,
                                                 blurRadius: 10,
-                                                color: Colors.black.withOpacity(0.1),
+                                                color: Colors.black
+                                                    .withOpacity(0.1),
                                               ),
                                             ],
                                             shape: BoxShape.circle,
                                           ),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(100),
+                                            borderRadius:
+                                                BorderRadius.circular(100),
                                             child: Image.network(
                                               document["imageUrl"],
                                               width: 130,
@@ -87,14 +92,17 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                       endIndent: 5,
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                      Text("Name: "+document["fullName"]),
-                                      Text("Ph: "+document["phoneNumber"]),
-                                      Text(document["jobType"]),
+                                        Text("Name: " + document["fullName"]),
+                                        Text("Ph: " + document["phoneNumber"]),
+                                        Text(document["jobType"]),
                                         Text(document["location"]),
-                                    ],),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -106,8 +114,18 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    TextButton.icon(onPressed: (){}, icon: Icon(Icons.phone), label: Text('Call me')),
-                                    TextButton.icon(onPressed: (){}, icon: Icon(Icons.book), label: Text('Book me')),
+                                    TextButton.icon(
+                                        onPressed: () {},
+                                        icon: Icon(Icons.phone),
+                                        label: Text('Call me')),
+                                    TextButton.icon(
+                                        onPressed: () {},
+                                        icon: Icon(Icons.book),
+                                        label: Text('Book me')),
+                                    TextButton.icon(
+                                        onPressed: () {},
+                                        icon: Icon(Icons.favorite_border),
+                                        label: Text('Save')),
                                   ],
                                 ),
                               ),

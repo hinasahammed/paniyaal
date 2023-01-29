@@ -18,7 +18,7 @@ class SettingsPage extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         backgroundColor: Color(0xffdb3244),
-        title: Text('Settings'),
+        title: Text('Profile'),
       ),
       body: Column(children: [
         const SizedBox(
