@@ -25,7 +25,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
         body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection("workersLogedIn")
-              .where("JobType", isEqualTo: _screenName)
+              .where("jobType", isEqualTo: _screenName)
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -33,10 +33,46 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
             } else {
               return Column(
                 children: snapshot.data!.docs.map((document) {
-                  return Column(
-                    children: [
-
-                    ],
+                  return Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                      Container(
+                      width: double.infinity,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.network(
+                                  document["imageUrl"],
+                                  fit: BoxFit.contain,
+                                  height: 140,
+                                ),
+                                Text(
+                                    document["fullName"]
+                                )
+                              ],
+                            ),
+                            Divider(thickness: 2,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                              IconButton(onPressed: (){}, icon: Icon(Icons.phone),),
+                              VerticalDivider(color: Colors.black,
+                                thickness: 2,),
+                              IconButton(onPressed: (){}, icon: Icon(Icons.book_online),),
+                            ],),
+                          ],
+                        ),
+                      ),
+                    ),
+                      ],
+                    ),
                   );
                 }).toList(),
               );
