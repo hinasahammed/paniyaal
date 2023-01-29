@@ -46,7 +46,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     "Electrician",
     "Woodcutter",
     "Mechanic",
-    "PestController",
+    "Pest Controller",
     "Technic repair",
     "Other",
   ];

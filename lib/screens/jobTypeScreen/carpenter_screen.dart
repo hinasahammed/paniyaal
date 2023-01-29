@@ -49,22 +49,45 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                             children: [
                               IntrinsicHeight(
                                 child: Row(
+
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Image.network(
-                                      document["imageUrl"],
-                                      fit: BoxFit.contain,
-                                      height: 140,
+                                    Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(width: 4, color: Colors.white),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            spreadRadius: 3,
+                                            blurRadius: 10,
+                                            color: Colors.black.withOpacity(0.1),
+                                          ),
+                                        ],
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(100),
+                                        child: Image.network(
+                                          document["imageUrl"],
+                                          width: 130,
+                                          height: 130,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
                                     VerticalDivider(
-                                      color: Colors.black,
                                       thickness: 0.3,
+                                      indent: 5,
                                       endIndent: 5,
                                     ),
                                     Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                      Text(document["fullName"]),
-                                      Text(document["phoneNumber"]),
+                                      Text("Name: "+document["fullName"]),
+                                      Text("Ph: "+document["phoneNumber"]),
                                       Text(document["jobType"]),
                                         Text(document["location"]),
                                     ],),
@@ -72,7 +95,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                 ),
                               ),
                               Divider(
-                                thickness: 2,
+                                thickness: 0.3,
                               ),
                               IntrinsicHeight(
                                 child: Row(
@@ -82,11 +105,6 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                     IconButton(
                                       onPressed: () {},
                                       icon: Icon(Icons.phone),
-                                    ),
-                                    VerticalDivider(
-                                      color: Colors.black,
-                                      thickness: 0.3,
-                                      endIndent: 5,
                                     ),
                                     IconButton(
                                       onPressed: () {},
