@@ -36,7 +36,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
             return Column(
               children: snapshot.data!.docs.map((document) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0,),
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0,),
                   child: Column(
                     children: [
                       SizedBox(height: 10,),
@@ -116,14 +116,25 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                   children: [
                                     TextButton.icon(
                                         onPressed: () {},
+                                        style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
                                         icon: Icon(Icons.phone),
                                         label: Text('Call me')),
+                                    VerticalDivider(
+                                      thickness: 0.3,
+                                      endIndent: 6,
+                                    ),
                                     TextButton.icon(
                                         onPressed: () {},
+                                        style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
                                         icon: Icon(Icons.book),
                                         label: Text('Book me')),
+                                    VerticalDivider(
+                                      thickness: 0.3,
+                                      endIndent: 6,
+                                    ),
                                     TextButton.icon(
                                         onPressed: () {},
+                                        style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
                                         icon: Icon(Icons.favorite_border),
                                         label: Text('Save')),
                                   ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../user_home_screen.dart';
-import '../widget/settings_page.dart';
+import '../widget/user_profile_screen.dart';
 
 class BottomNavigation extends StatelessWidget {
   BottomNavigation({Key? key}) : super(key: key);

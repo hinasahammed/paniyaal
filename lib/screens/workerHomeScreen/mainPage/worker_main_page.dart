@@ -13,9 +13,7 @@ class WorkerMainPage extends StatelessWidget {
           title: Text('Workers'),
           centerTitle: true,
           backgroundColor: Color(0xffdb3244),
-          leading: IconButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (ctx)=>UserHomeScreen()));
-          }, icon: Icon(Icons.arrow_back_ios)),
+          automaticallyImplyLeading: false,
         ),
         body: ListView.separated(itemBuilder: (ctx, index){
           return Card(

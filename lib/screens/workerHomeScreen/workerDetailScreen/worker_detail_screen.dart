@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import '../../../model/worker_Logedin_model.dart';
+import '../../../model/worker_logedin_model.dart';
 import '../worker_home_screen.dart';
 
 class WorkerDetailScreen extends StatefulWidget {

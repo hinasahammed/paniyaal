@@ -29,28 +29,19 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: const Text(
-            'Paniyaal',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'Paniyaal',
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: Color(0xffdb3244),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.favorite),
-          ),
-          IconButton(
-            onPressed: () {
-              auth.signOut().then((value) {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>UserLoginScreen()));
-              }).onError((error, stackTrace) {
-                Fluttertoast.showToast(msg: error!.toString());
-              });
-            },
-            icon: Icon(Icons.logout),
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.favorite,size: 30,),
+            ),
           ),
         ],
       ),

@@ -7,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
 
-import '../../model/worker_Logedin_model.dart';
+import '../../model/worker_logedin_model.dart';
 
 class WorkerSignupScreen extends StatefulWidget {
   const WorkerSignupScreen({Key? key}) : super(key: key);

@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:paniyaal/screens/userDetailScreen/user_detail_screen.dart';
+import 'package:paniyaal/screens/userHomeScreen/user_home_screen.dart';
 import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
 import 'package:pinput/pinput.dart';
+
 
 class OtpVerificationScreen extends StatefulWidget {
   OtpVerificationScreen({Key? key}) : super(key: key);
@@ -39,7 +43,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       ),
     );
 
-    var smsCode="";
+    var smsCode = "";
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -90,8 +94,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             Pinput(
               length: 6,
               showCursor: true,
-              onChanged: (value){
-                smsCode=value;
+              onChanged: (value) {
+                smsCode = value;
               },
             ),
             SizedBox(
@@ -102,18 +106,20 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () async {
-                  try{
-                    PhoneAuthCredential credential = PhoneAuthProvider.credential(
-                        verificationId: UserLoginScreen.verify, smsCode: smsCode);
+                  try {
+                    PhoneAuthCredential credential =
+                        PhoneAuthProvider.credential(
+                            verificationId: UserLoginScreen.verify,
+                            smsCode: smsCode);
 
                     // Sign the user in (or link) with the credential
                     await auth.signInWithCredential(credential);
-                    Navigator.pushNamedAndRemoveUntil(context, 'userHome', (route) => false);
-                  }
-                  catch(e){
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (ctx) => UserDetailScreen()));
+                  } catch (e) {
                     print("Wrong otp");
                   }
-
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xffdb3244),

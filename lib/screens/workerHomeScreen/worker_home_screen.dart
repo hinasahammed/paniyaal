@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:paniyaal/screens/workerHomeScreen/profileScreen/profile_screen.dart';
+import 'package:paniyaal/screens/workerHomeScreen/profileScreen/worker_profile_screen.dart';
 import 'package:paniyaal/screens/workerHomeScreen/mainPage/worker_main_page.dart';
 import 'bottomNavigation/bottom_navigation_worker.dart';
 

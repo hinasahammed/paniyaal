@@ -6,7 +6,7 @@ import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
 import 'package:paniyaal/screens/workerLoginScreen/worker_login_screen.dart';
 
 import '../userHomeScreen/user_home_screen.dart';
-import '../userHomeScreen/widget/job_category_screen.dart';
+
 
 class TypeSelectorScreen extends StatelessWidget {
   TypeSelectorScreen({super.key});
