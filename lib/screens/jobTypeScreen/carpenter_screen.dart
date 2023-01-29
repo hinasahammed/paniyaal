@@ -49,37 +49,41 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                             children: [
                               IntrinsicHeight(
                                 child: Row(
-
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.start,
                                   children: [
-                                    Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 4, color: Colors.white),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            spreadRadius: 3,
-                                            blurRadius: 10,
-                                            color: Colors.black.withOpacity(0.1),
+                                    Column(
+                                      children: [
+                                        SizedBox(height: 5,),
+                                        Container(
+                                          width: 100,
+                                          height: 100,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(width: 4, color: Colors.white),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                spreadRadius: 3,
+                                                blurRadius: 10,
+                                                color: Colors.black.withOpacity(0.1),
+                                              ),
+                                            ],
+                                            shape: BoxShape.circle,
                                           ),
-                                        ],
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(100),
-                                        child: Image.network(
-                                          document["imageUrl"],
-                                          width: 130,
-                                          height: 130,
-                                          fit: BoxFit.cover,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(100),
+                                            child: Image.network(
+                                              document["imageUrl"],
+                                              width: 130,
+                                              height: 130,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                     VerticalDivider(
                                       thickness: 0.3,
-                                      indent: 5,
+                                      indent: 8,
                                       endIndent: 5,
                                     ),
                                     Column(
@@ -102,14 +106,8 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.phone),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.book_online),
-                                    ),
+                                    TextButton.icon(onPressed: (){}, icon: Icon(Icons.phone), label: Text('Call me')),
+                                    TextButton.icon(onPressed: (){}, icon: Icon(Icons.book), label: Text('Book me')),
                                   ],
                                 ),
                               ),
