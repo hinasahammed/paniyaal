@@ -49,7 +49,6 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                             children: [
                               IntrinsicHeight(
                                 child: Row(
-
                                   children: [
                                     Image.network(
                                       document["imageUrl"],
@@ -61,7 +60,14 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                       thickness: 0.3,
                                       endIndent: 5,
                                     ),
-                                    Text(document["fullName"])
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                      Text(document["fullName"]),
+                                      Text(document["phoneNumber"]),
+                                      Text(document["jobType"]),
+                                        Text(document["location"]),
+                                    ],),
                                   ],
                                 ),
                               ),
