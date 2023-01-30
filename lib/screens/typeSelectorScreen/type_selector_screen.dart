@@ -129,3 +129,4 @@ void isUserLogedIn(BuildContext context){
     Navigator.push(context, MaterialPageRoute(builder: (ctx)=>UserLoginScreen()));
   }
 }
+

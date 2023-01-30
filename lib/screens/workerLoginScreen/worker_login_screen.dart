@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../typeSelectorScreen/type_selector_screen.dart';
 import '../workerHomeScreen/worker_home_screen.dart';
 
 class WorkerLoginScreen extends StatefulWidget {
@@ -30,7 +31,7 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>TypeSelectorScreen()));
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,

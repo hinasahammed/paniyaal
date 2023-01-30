@@ -142,7 +142,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
         .collection("UsersLogedin")
         .doc(user.uid)
         .set(userModel.toMap());
-    Fluttertoast.showToast(msg: "Saved");
+    Fluttertoast.showToast(msg: "Account Created :)");
   }
 
 }

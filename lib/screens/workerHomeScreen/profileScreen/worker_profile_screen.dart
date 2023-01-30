@@ -139,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: ListTile(
                   onTap: () {
                     auth.signOut().then((value) {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (ctx) => WorkerLoginScreen()));

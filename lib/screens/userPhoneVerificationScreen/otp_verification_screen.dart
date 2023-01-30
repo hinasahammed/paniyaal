@@ -6,7 +6,6 @@ import 'package:paniyaal/screens/userHomeScreen/user_home_screen.dart';
 import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
 import 'package:pinput/pinput.dart';
 
-
 class OtpVerificationScreen extends StatefulWidget {
   OtpVerificationScreen({Key? key}) : super(key: key);
 
@@ -114,9 +113,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
                     // Sign the user in (or link) with the credential
                     await auth.signInWithCredential(credential);
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (ctx) => UserDetailScreen()));
+                    isDocumentExist(context);
                   } catch (e) {
                     print("Wrong otp");
                   }
@@ -146,5 +143,21 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         )),
       ),
     );
+  }
+}
+
+Future isDocumentExist(BuildContext context) async {
+  final auth = FirebaseAuth.instance;
+  DocumentSnapshot<Map<String, dynamic>> document = await FirebaseFirestore
+      .instance
+      .collection("UsersLogedin")
+      .doc(auth.currentUser!.uid)
+      .get();
+  if (document.exists) {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (ctx) => UserHomeScreen()));
+  } else {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (ctx) => UserDetailScreen()));
   }
 }

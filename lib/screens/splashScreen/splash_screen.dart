@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:paniyaal/screens/typeSelectorScreen/type_selector_screen.dart';
 import 'package:paniyaal/screens/userHomeScreen/user_home_screen.dart';
 import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
+import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -40,4 +42,3 @@ Future<void> gotoScreen(BuildContext context) async {
     ),
   );
 }
-
