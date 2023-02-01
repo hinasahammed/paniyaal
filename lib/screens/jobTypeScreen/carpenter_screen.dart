@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CarpenterScreen extends StatefulWidget {
   const CarpenterScreen({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class CarpenterScreen extends StatefulWidget {
 class _CarpenterScreenState extends State<CarpenterScreen> {
   final auth = FirebaseAuth.instance;
   final _screenName = "Carpenter";
+
 
   @override
   Widget build(BuildContext context) {
@@ -115,10 +117,15 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     TextButton.icon(
-                                        onPressed: () {},
+                                        onPressed: () async{
+                                          final Uri _phoneNumber = Uri.parse('tel:${document["phoneNumber"]}');
+                                          if(await canLaunchUrl(_phoneNumber)){
+                                            launchUrl(_phoneNumber);
+                                          }
+                                        },
                                         style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
                                         icon: Icon(Icons.phone),
-                                        label: Text('Call me')),
+                                        label: Text('Call')),
                                     VerticalDivider(
                                       thickness: 0.3,
                                       endIndent: 6,
@@ -127,7 +134,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                         onPressed: () {},
                                         style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
                                         icon: Icon(Icons.book),
-                                        label: Text('Book me')),
+                                        label: Text('Book now')),
                                     VerticalDivider(
                                       thickness: 0.3,
                                       endIndent: 6,

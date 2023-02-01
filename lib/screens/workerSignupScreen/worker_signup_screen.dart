@@ -51,6 +51,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     "Other",
   ];
   String? _selectedVal = "Carpenter";
+  final countryCode = "+91";
 
   @override
   Widget build(BuildContext context) {
@@ -503,7 +504,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     workerModel.uid = worker.uid;
     workerModel.fullName = fullNameEditingController.text;
     workerModel.password = passwordEditingController.text;
-    workerModel.phoneNumber = phoneEditingController.text;
+    workerModel.phoneNumber = countryCode+phoneEditingController.text;
     workerModel.imageUrl = downloadUrl;
     workerModel.jobType = _selectedVal;
     workerModel.location = locationEditingController.text;
