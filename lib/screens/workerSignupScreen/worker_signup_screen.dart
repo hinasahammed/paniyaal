@@ -17,9 +17,6 @@ class WorkerSignupScreen extends StatefulWidget {
 }
 
 class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
-  _MyFormState() {
-    _selectedVal = _jobTypeList[0];
-  }
 
   final _auth = FirebaseAuth.instance;
 

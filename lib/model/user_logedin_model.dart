@@ -2,11 +2,13 @@ class UserLogedinModel {
   String? uid;
   String? fullName;
   String? phoneNumber;
+  String? imageUrl;
 
   UserLogedinModel({
     this.uid,
     this.fullName,
     this.phoneNumber,
+    this.imageUrl,
   });
 
   // receiving data from server
@@ -15,6 +17,7 @@ class UserLogedinModel {
       uid: map['uid'],
       fullName: map['fullName'],
       phoneNumber: map['phoneNumber'],
+      imageUrl: map['imageUrl'],
     );
   }
 
@@ -24,6 +27,7 @@ class UserLogedinModel {
       'uid': uid,
       'fullName': fullName,
       'phoneNumber': phoneNumber,
+      'imageUrl': imageUrl,
     };
   }
 }

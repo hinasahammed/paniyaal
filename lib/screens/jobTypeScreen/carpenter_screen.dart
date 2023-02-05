@@ -134,6 +134,7 @@ String uid = "";
                                     ),
                                     TextButton.icon(
                                         onPressed: () {
+                                          print(document['uid']);
                                           uid = document['uid'];
                                           bookWorker(uid);
                                         },
