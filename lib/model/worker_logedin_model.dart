@@ -8,15 +8,16 @@ class WorkerLogedinModel {
   String? jobType;
   String? location;
 
-  WorkerLogedinModel(
-      {this.uid,
-      this.email,
-      this.fullName,
-      this.password,
-      this.phoneNumber,
-      this.imageUrl,
-      this.jobType,
-      this.location});
+  WorkerLogedinModel({
+    this.uid,
+    this.email,
+    this.fullName,
+    this.password,
+    this.phoneNumber,
+    this.imageUrl,
+    this.jobType,
+    this.location,
+  });
 
   // receiving data from server
   factory WorkerLogedinModel.fromMap(map) {

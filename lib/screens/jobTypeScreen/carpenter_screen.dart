@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../model/worker_logedin_model.dart';
+
 class CarpenterScreen extends StatefulWidget {
   const CarpenterScreen({Key? key}) : super(key: key);
 
@@ -13,7 +15,7 @@ class CarpenterScreen extends StatefulWidget {
 class _CarpenterScreenState extends State<CarpenterScreen> {
   final auth = FirebaseAuth.instance;
   final _screenName = "Carpenter";
-
+String uid = "";
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +133,10 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                       endIndent: 6,
                                     ),
                                     TextButton.icon(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          uid = document['uid'];
+                                          bookWorker(uid);
+                                        },
                                         style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
                                         icon: Icon(Icons.book),
                                         label: Text('Book now')),
@@ -161,4 +166,10 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
       ),
     );
   }
+  void bookWorker(String uid) async {
+    await FirebaseFirestore.instance.collection('workersLogedIn').doc(uid).update({
+      'status': 'booked',
+    });
+  }
+
 }
