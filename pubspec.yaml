@@ -45,8 +45,8 @@ dependencies:
   fluttertoast: ^8.1.2
   image_picker: ^0.8.6
   url_launcher: ^6.1.8
-  provider: ^6.0.5
-
+  firebase_messaging: ^14.2.1
+  flutter_local_notifications: ^13.0.0
 
 dev_dependencies:
   flutter_test:

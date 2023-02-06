@@ -39,7 +39,8 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+              },
               icon: Icon(Icons.favorite,size: 30,),
             ),
           ),

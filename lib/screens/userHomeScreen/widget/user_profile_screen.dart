@@ -40,7 +40,9 @@ class SettingsPage extends StatelessWidget {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
                             color: Color(0xffdb3244),
                           ),
                           child: Padding(
@@ -97,7 +99,8 @@ class SettingsPage extends StatelessWidget {
                                       width: 15,
                                     ),
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
@@ -122,7 +125,6 @@ class SettingsPage extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-
                                   ],
                                 ),
                               ],
@@ -131,7 +133,8 @@ class SettingsPage extends StatelessWidget {
                         ),
                         Container(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
                             child: Column(
                               children: [
                                 const SizedBox(
@@ -165,9 +168,11 @@ class SettingsPage extends StatelessWidget {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (ctx) => TypeSelectorScreen()));
+                                                builder: (ctx) =>
+                                                    TypeSelectorScreen()));
                                       }).onError((error, stackTrace) {
-                                        Fluttertoast.showToast(msg: error!.toString());
+                                        Fluttertoast.showToast(
+                                            msg: error!.toString());
                                       });
                                     },
                                     title: Text('Login as worker'),
@@ -195,9 +200,11 @@ class SettingsPage extends StatelessWidget {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (ctx) => UserLoginScreen()));
+                                                builder: (ctx) =>
+                                                    UserLoginScreen()));
                                       }).onError((error, stackTrace) {
-                                        Fluttertoast.showToast(msg: error!.toString());
+                                        Fluttertoast.showToast(
+                                            msg: error!.toString());
                                       });
                                     },
                                     title: Text('Logout'),
