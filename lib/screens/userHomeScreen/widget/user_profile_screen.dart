@@ -40,6 +40,7 @@ class SettingsPage extends StatelessWidget {
                       children: [
                         Container(
                           decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
                             color: Color(0xffdb3244),
                           ),
                           child: Padding(
@@ -129,10 +130,6 @@ class SettingsPage extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
-                            color: Colors.white,
-                          ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10.0),
                             child: Column(
