@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:paniyaal/screens/jobTypeScreen/favourite_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/worker_logedin_model.dart';
 
 class CarpenterScreen extends StatefulWidget {
-  const CarpenterScreen({Key? key}) : super(key: key);
+  CarpenterScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CarpenterScreen> createState() => _CarpenterScreenState();
@@ -16,8 +18,8 @@ class CarpenterScreen extends StatefulWidget {
 class _CarpenterScreenState extends State<CarpenterScreen> {
   final auth = FirebaseAuth.instance;
   final _screenName = "Carpenter";
-  String uid = "";
-  bool? isFavourite;
+  String workerUid = "";
+  bool? isFavourite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -143,9 +145,9 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                     ),
                                     TextButton.icon(
                                         onPressed: () {
-                                          uid = document['uid'];
-                                          bookWorker(uid);
-                                          bookStatus(uid);
+                                          workerUid = document['uid'];
+                                          bookWorker(workerUid);
+                                          bookStatus(workerUid);
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
@@ -155,20 +157,18 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                       thickness: 0.3,
                                       endIndent: 6,
                                     ),
-                                     FavoriteButton(
-                                      isFavorite: isFavourite,
-                                      valueChanged: (_isFavourite) {
-                                        setState(() {
-                                          isFavourite = _isFavourite;
-                                        });
-                                      },
-                                    ),
-                                    // TextButton.icon(
-                                    //     onPressed: () {},
-                                    //     style: TextButton.styleFrom(
-                                    //         foregroundColor: Color(0xffdb3244)),
-                                    // icon: Icon(Icons.favorite_border),
-                                    // label: Text('Save')),
+                                    TextButton.icon(
+                                        onPressed: () async {
+                                          workerUid = document['uid'];
+                                          _toggleFavorite();
+                                          isFavourite == true?isFavourited(workerUid):isNotFavourited(workerUid);
+                                        },
+                                        style: TextButton.styleFrom(
+                                            foregroundColor: Color(0xffdb3244)),
+                                        icon: (isFavourite == true
+                                            ? Icon(Icons.favorite)
+                                            : Icon(Icons.favorite_border)),
+                                        label: Text('Save')),
                                   ],
                                 ),
                               ),
@@ -202,6 +202,32 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
         .doc(auth.currentUser!.uid)
         .update({
       uid: "booked",
+    });
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      isFavourite = !isFavourite!;
+    });
+  }
+
+  void isFavourited(String uid) async {
+    String userUid = auth.currentUser!.uid;
+    await FirebaseFirestore.instance
+        .collection('workersLogedIn')
+        .doc(uid)
+        .update({
+      userUid: 'favourited',
+    });
+  }
+
+  void isNotFavourited(String uid) async {
+    String userUid = auth.currentUser!.uid;
+    await FirebaseFirestore.instance
+        .collection('workersLogedIn')
+        .doc(uid)
+        .update({
+      userUid: FieldValue.delete(),
     });
   }
 }
