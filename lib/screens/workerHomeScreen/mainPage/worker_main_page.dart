@@ -30,7 +30,7 @@ class WorkerMainPage extends StatelessWidget {
                 children: snapshot.data!.docs.map((document) {
                   return StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
-                        .collection("UsersLogedin")
+                        .collection("UsersLogedin").where(auth.currentUser!.uid, isEqualTo: "booked")
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {

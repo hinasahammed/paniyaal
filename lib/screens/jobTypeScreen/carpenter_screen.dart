@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,7 +16,8 @@ class CarpenterScreen extends StatefulWidget {
 class _CarpenterScreenState extends State<CarpenterScreen> {
   final auth = FirebaseAuth.instance;
   final _screenName = "Carpenter";
-String uid = "";
+  String uid = "";
+  bool? isFavourite;
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +42,14 @@ String uid = "";
             return Column(
               children: snapshot.data!.docs.map((document) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0,),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                  ),
                   child: Column(
                     children: [
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Container(
                         width: double.infinity,
                         child: Card(
@@ -119,13 +125,16 @@ String uid = "";
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     TextButton.icon(
-                                        onPressed: () async{
-                                          final Uri _phoneNumber = Uri.parse('tel:${document["phoneNumber"]}');
-                                          if(await canLaunchUrl(_phoneNumber)){
+                                        onPressed: () async {
+                                          final Uri _phoneNumber = Uri.parse(
+                                              'tel:${document["phoneNumber"]}');
+                                          if (await canLaunchUrl(
+                                              _phoneNumber)) {
                                             launchUrl(_phoneNumber);
                                           }
                                         },
-                                        style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
+                                        style: TextButton.styleFrom(
+                                            foregroundColor: Color(0xffdb3244)),
                                         icon: Icon(Icons.phone),
                                         label: Text('Call')),
                                     VerticalDivider(
@@ -134,22 +143,32 @@ String uid = "";
                                     ),
                                     TextButton.icon(
                                         onPressed: () {
-                                          print(document['uid']);
                                           uid = document['uid'];
                                           bookWorker(uid);
+                                          bookStatus(uid);
                                         },
-                                        style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
+                                        style: TextButton.styleFrom(
+                                            foregroundColor: Color(0xffdb3244)),
                                         icon: Icon(Icons.book),
                                         label: Text('Book now')),
                                     VerticalDivider(
                                       thickness: 0.3,
                                       endIndent: 6,
                                     ),
-                                    TextButton.icon(
-                                        onPressed: () {},
-                                        style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
-                                        icon: Icon(Icons.favorite_border),
-                                        label: Text('Save')),
+                                     FavoriteButton(
+                                      isFavorite: isFavourite,
+                                      valueChanged: (_isFavourite) {
+                                        setState(() {
+                                          isFavourite = _isFavourite;
+                                        });
+                                      },
+                                    ),
+                                    // TextButton.icon(
+                                    //     onPressed: () {},
+                                    //     style: TextButton.styleFrom(
+                                    //         foregroundColor: Color(0xffdb3244)),
+                                    // icon: Icon(Icons.favorite_border),
+                                    // label: Text('Save')),
                                   ],
                                 ),
                               ),
@@ -167,10 +186,22 @@ String uid = "";
       ),
     );
   }
+
   void bookWorker(String uid) async {
-    await FirebaseFirestore.instance.collection('workersLogedIn').doc(uid).update({
+    await FirebaseFirestore.instance
+        .collection('workersLogedIn')
+        .doc(uid)
+        .update({
       'status': 'booked',
     });
   }
 
+  void bookStatus(String uid) async {
+    await FirebaseFirestore.instance
+        .collection('UsersLogedin')
+        .doc(auth.currentUser!.uid)
+        .update({
+      uid: "booked",
+    });
+  }
 }
