@@ -20,21 +20,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[100],
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text('Profile'),
-          backgroundColor: Color(0xffdb3244),
-          centerTitle: true,
-        ),
+        backgroundColor: Colors.white,
+        // appBar: AppBar(
+        //   automaticallyImplyLeading: false,
+        //   title: Text('Profile'),
+        //   backgroundColor: Color(0xffdb3244),
+        //   centerTitle: true,
+        // ),
         body: SafeArea(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10.0),
               child: ListView(
           children: [
-              const SizedBox(
-                height: 25,
-              ),
               StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection("workersLogedIn")
@@ -45,50 +40,119 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     return CircularProgressIndicator(strokeWidth: 3,color: Colors.white,);
                   } else {
                     return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: snapshot.data!.docs.map((document) {
-                        return Column(
-                          children: [
-                            Container(
-                              width: 130,
-                              height: 130,
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 4, color: Colors.white),
-                                boxShadow: [
-                                  BoxShadow(
-                                    spreadRadius: 3,
-                                    blurRadius: 10,
-                                    color: Colors.black.withOpacity(0.1),
-                                  ),
-                                ],
-                                shape: BoxShape.circle,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: Image.network(
-                                  document["imageUrl"],
-                                  width: 130,
-                                  height: 130,
-                                  fit: BoxFit.cover,
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            color: Color(0xffdb3244),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 15.0,
+                              right: 15.0,
+                              top: 10.0,
+                              bottom: 25.0,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Profile',
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
                                 ),
-                              ),
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        SizedBox(height: 20,),
+                                        Container(
+                                          width: 60,
+                                          height: 60,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 1, color: Colors.black),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                spreadRadius: 3,
+                                                blurRadius: 10,
+                                                color:
+                                                Colors.black.withOpacity(0.1),
+                                              ),
+                                            ],
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(100),
+                                            child: Image.network(
+                                              document["imageUrl"],
+                                              width: 60,
+                                              height: 60,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Hello',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          document['fullName'],
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Text(
+                                          document['email'],
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        Text(
+                                          document['phoneNumber'],
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 15,),
-                            Text(
-                              document["fullName"].toUpperCase(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 15),
-                            ),
-                            Text(
-                              document["phoneNumber"],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w300, fontSize: 15),
-                            ),
-                            Text(
-                              document["email"],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w300, fontSize: 15),
-                            ),
-                          ],
+                          ),
                         );
                       }).toList(),
                     );
@@ -99,6 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 25,
               ),
               Card(
+                elevation: 0,
                 child: ListTile(
                   onTap: (){
                     auth.signOut().then((value) {
@@ -116,6 +181,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               Card(
+                elevation: 0,
                 child: ListTile(
                   onTap: () {
                     Navigator.push(
@@ -129,6 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               Card(
+                elevation: 0,
                 child: ListTile(
                   title: Text('Contact us'),
                   leading: Icon(Icons.contact_mail),
@@ -136,6 +203,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               Card(
+                elevation: 0,
                 child: ListTile(
                   onTap: () {
                     auth.signOut().then((value) {
@@ -147,14 +215,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Fluttertoast.showToast(msg: error!.toString());
                     });
                   },
-                  title: Text('Logout'),
-                  leading: Icon(Icons.logout),
-                  trailing: Icon(Icons.chevron_right),
+                  title: Text('Logout',style: TextStyle(color: Colors.red,),),
+                  leading: Icon(Icons.logout,color: Colors.red,),
+                  trailing: Icon(Icons.chevron_right,color: Colors.red,),
                 ),
               ),
           ],
         ),
-            )));
+            ));
   }
 }
 

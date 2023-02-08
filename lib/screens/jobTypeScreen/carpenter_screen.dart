@@ -19,13 +19,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
   final auth = FirebaseAuth.instance;
   final _screenName = "Carpenter";
   String workerUid = "";
-  String isFavouritedFirebase = "";
   bool? isFavourite = false;
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

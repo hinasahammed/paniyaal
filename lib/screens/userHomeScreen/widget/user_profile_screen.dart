@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:paniyaal/screens/typeSelectorScreen/type_selector_screen.dart';
 
+import '../../favouriteScreen/favourite_screen.dart';
 import '../../userPhoneVerificationScreen/user_phone_verification_screen.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -14,12 +15,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   elevation: 0,
-      //   backgroundColor: Color(0xffdb3244),
-      // ),
-      //   title: Text('Profile'),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           StreamBuilder<QuerySnapshot>(
@@ -56,7 +52,7 @@ class SettingsPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Setting',
+                                  'Profile',
                                   style: TextStyle(
                                       fontSize: 22,
                                       color: Colors.white,
@@ -141,6 +137,7 @@ class SettingsPage extends StatelessWidget {
                                   height: 25,
                                 ),
                                 Card(
+                                  elevation: 0,
                                   child: ListTile(
                                     onTap: () {},
                                     title: Text('Edit your details'),
@@ -152,7 +149,15 @@ class SettingsPage extends StatelessWidget {
                                   height: 5,
                                 ),
                                 Card(
+                                  elevation: 0,
                                   child: ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (ctx) =>
+                                                  FavouriteScreen()));
+                                    },
                                     title: Text('Favourites'),
                                     leading: Icon(Icons.favorite),
                                     trailing: Icon(Icons.chevron_right),
@@ -162,6 +167,7 @@ class SettingsPage extends StatelessWidget {
                                   height: 5,
                                 ),
                                 Card(
+                                  elevation: 0,
                                   child: ListTile(
                                     onTap: () {
                                       auth.signOut().then((value) {
@@ -184,6 +190,7 @@ class SettingsPage extends StatelessWidget {
                                   height: 5,
                                 ),
                                 Card(
+                                  elevation: 0,
                                   child: ListTile(
                                     title: Text('Contact us'),
                                     leading: Icon(Icons.contact_mail),
@@ -194,6 +201,7 @@ class SettingsPage extends StatelessWidget {
                                   height: 5,
                                 ),
                                 Card(
+                                  elevation: 0,
                                   child: ListTile(
                                     onTap: () {
                                       auth.signOut().then((value) {
@@ -207,9 +215,17 @@ class SettingsPage extends StatelessWidget {
                                             msg: error!.toString());
                                       });
                                     },
-                                    title: Text('Logout'),
-                                    leading: Icon(Icons.logout),
-                                    trailing: Icon(Icons.chevron_right),
+                                    title: Text(
+                                      'Logout',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    leading: Icon(
+                                      Icons.logout,
+                                      color: Colors.red,
+                                    ),
+                                    trailing: Icon(Icons.chevron_right,color: Colors.red,),
                                   ),
                                 ),
                                 const SizedBox(

@@ -20,7 +20,7 @@ class BottomNavigation extends StatelessWidget {
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings), label: 'Profile'),
+                  icon: Icon(Icons.account_circle), label: 'Profile'),
             ],
           );
         });
