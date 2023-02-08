@@ -46,7 +46,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return Center(
-                        child: Text('No text is here'),
+                        child: Text('No Favourite item is here'),
                       );
                     } else {
                       return Column(

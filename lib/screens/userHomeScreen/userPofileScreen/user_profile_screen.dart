@@ -6,9 +6,10 @@ import 'package:paniyaal/screens/typeSelectorScreen/type_selector_screen.dart';
 
 import '../../favouriteScreen/favourite_screen.dart';
 import '../../userPhoneVerificationScreen/user_phone_verification_screen.dart';
+import '../editYourDetailsScreen/user_detail_editing_screen.dart';
 
-class SettingsPage extends StatelessWidget {
-  SettingsPage({Key? key}) : super(key: key);
+class UserProfileScreen extends StatelessWidget {
+  UserProfileScreen({Key? key}) : super(key: key);
 
   final auth = FirebaseAuth.instance;
 
@@ -37,8 +38,8 @@ class SettingsPage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
+                                bottomLeft: Radius.circular(50),
+                                bottomRight: Radius.circular(50)),
                             color: Color(0xffdb3244),
                           ),
                           child: Padding(
@@ -139,7 +140,13 @@ class SettingsPage extends StatelessWidget {
                                 Card(
                                   elevation: 0,
                                   child: ListTile(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (ctx) =>
+                                                  UserDetailEditingScreen()));
+                                    },
                                     title: Text('Edit your details'),
                                     leading: Icon(Icons.edit),
                                     trailing: Icon(Icons.chevron_right),
@@ -225,7 +232,10 @@ class SettingsPage extends StatelessWidget {
                                       Icons.logout,
                                       color: Colors.red,
                                     ),
-                                    trailing: Icon(Icons.chevron_right,color: Colors.red,),
+                                    trailing: Icon(
+                                      Icons.chevron_right,
+                                      color: Colors.red,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(

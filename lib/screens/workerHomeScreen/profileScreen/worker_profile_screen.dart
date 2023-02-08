@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:paniyaal/screens/workerHomeScreen/workerDetailScreen/worker_detail_screen.dart';
 
 import '../../typeSelectorScreen/type_selector_screen.dart';
 import '../../workerLoginScreen/worker_login_screen.dart';
+import '../editYourDetailsScreen/worker_detail_editing_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -45,8 +45,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
+                                bottomLeft: Radius.circular(50),
+                                bottomRight: Radius.circular(50)),
                             color: Color(0xffdb3244),
                           ),
                           child: Padding(
