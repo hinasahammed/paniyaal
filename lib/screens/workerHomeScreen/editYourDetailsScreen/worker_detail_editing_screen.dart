@@ -59,7 +59,7 @@ final auth = FirebaseAuth.instance;
               },
               child: Column(
                 children: [
-                  Image.asset("assets/edit_your_detail.png",fit: BoxFit.contain,width: 100,height: 100,),
+                  Image.asset("assets/edit_your_detail.png",fit: BoxFit.contain,width: 250,height: 250,),
                   Row(
                     children: [
                       Expanded(
