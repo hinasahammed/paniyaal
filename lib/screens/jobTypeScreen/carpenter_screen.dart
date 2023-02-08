@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:paniyaal/screens/jobTypeScreen/favourite_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/worker_logedin_model.dart';
@@ -19,7 +19,12 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
   final auth = FirebaseAuth.instance;
   final _screenName = "Carpenter";
   String workerUid = "";
+  String isFavouritedFirebase = "";
   bool? isFavourite = false;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,11 +166,13 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                         onPressed: () async {
                                           workerUid = document['uid'];
                                           _toggleFavorite();
-                                          isFavourite == true?isFavourited(workerUid):isNotFavourited(workerUid);
+                                          isFavourite!
+                                              ? isFavourited(workerUid)
+                                              : isNotFavourited(workerUid);
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
-                                        icon: (isFavourite == true
+                                        icon: (isFavourite! && workerUid == document['uid']
                                             ? Icon(Icons.favorite)
                                             : Icon(Icons.favorite_border)),
                                         label: Text('Save')),
@@ -194,6 +201,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
         .update({
       'status': 'booked',
     });
+    Fluttertoast.showToast(msg: "Booked :)");
   }
 
   void bookStatus(String uid) async {

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:paniyaal/screens/favouriteScreen/favourite_screen.dart';
 import 'package:paniyaal/screens/jobTypeScreen/other_screen.dart';
 import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
 import '../../jobTypeScreen/carpenter_screen.dart';
@@ -40,6 +41,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
             padding: const EdgeInsets.only(right: 10.0),
             child: IconButton(
               onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (ctx)=>FavouriteScreen()));
               },
               icon: Icon(Icons.favorite,size: 30,),
             ),
