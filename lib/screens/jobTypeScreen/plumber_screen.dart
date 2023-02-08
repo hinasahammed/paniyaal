@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PlumberScreen extends StatefulWidget {
   const PlumberScreen({Key? key}) : super(key: key);
@@ -12,7 +14,8 @@ class PlumberScreen extends StatefulWidget {
 class _PlumberScreenState extends State<PlumberScreen> {
   final auth = FirebaseAuth.instance;
   final _screenName = "Plumber";
-
+  String workerUid = "";
+  bool? isFavourite = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +39,14 @@ class _PlumberScreenState extends State<PlumberScreen> {
             return Column(
               children: snapshot.data!.docs.map((document) {
                 return Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                  ),
                   child: Column(
                     children: [
+                      SizedBox(
+                        height: 10,
+                      ),
                       Container(
                         width: double.infinity,
                         child: Card(
@@ -49,47 +57,59 @@ class _PlumberScreenState extends State<PlumberScreen> {
                             children: [
                               IntrinsicHeight(
                                 child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(width: 4, color: Colors.white),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            spreadRadius: 3,
-                                            blurRadius: 10,
-                                            color: Colors.black.withOpacity(0.1),
-                                          ),
-                                        ],
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(100),
-                                        child: Image.network(
-                                          document["imageUrl"],
-                                          width: 130,
-                                          height: 130,
-                                          fit: BoxFit.cover,
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 5,
                                         ),
-                                      ),
+                                        Container(
+                                          width: 100,
+                                          height: 100,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 4, color: Colors.white),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                spreadRadius: 3,
+                                                blurRadius: 10,
+                                                color: Colors.black
+                                                    .withOpacity(0.1),
+                                              ),
+                                            ],
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(100),
+                                            child: Image.network(
+                                              document["imageUrl"],
+                                              width: 130,
+                                              height: 130,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     VerticalDivider(
                                       thickness: 0.3,
-                                      indent: 5,
+                                      indent: 8,
                                       endIndent: 5,
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
                                       children: [
-                                        Text("Name: "+document["fullName"]),
-                                        Text("Ph: "+document["phoneNumber"]),
+                                        Text("Name: " + document["fullName"]),
+                                        Text("Ph: " + document["phoneNumber"]),
                                         Text(document["jobType"]),
                                         Text(document["location"]),
-                                      ],),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -101,14 +121,51 @@ class _PlumberScreenState extends State<PlumberScreen> {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.phone),
+                                    TextButton.icon(
+                                        onPressed: () async {
+                                          final Uri _phoneNumber = Uri.parse(
+                                              'tel:${document["phoneNumber"]}');
+                                          if (await canLaunchUrl(
+                                              _phoneNumber)) {
+                                            launchUrl(_phoneNumber);
+                                          }
+                                        },
+                                        style: TextButton.styleFrom(
+                                            foregroundColor: Color(0xffdb3244)),
+                                        icon: Icon(Icons.phone),
+                                        label: Text('Call')),
+                                    VerticalDivider(
+                                      thickness: 0.3,
+                                      endIndent: 6,
                                     ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.book_online),
+                                    TextButton.icon(
+                                        onPressed: () {
+                                          workerUid = document['uid'];
+                                          bookWorker(workerUid);
+                                          bookStatus(workerUid);
+                                        },
+                                        style: TextButton.styleFrom(
+                                            foregroundColor: Color(0xffdb3244)),
+                                        icon: Icon(Icons.book),
+                                        label: Text('Book now')),
+                                    VerticalDivider(
+                                      thickness: 0.3,
+                                      endIndent: 6,
                                     ),
+                                    TextButton.icon(
+                                        onPressed: () async {
+                                          workerUid = document['uid'];
+                                          _toggleFavorite();
+                                          isFavourite!
+                                              ? isFavourited(workerUid)
+                                              : isNotFavourited(workerUid);
+                                        },
+                                        style: TextButton.styleFrom(
+                                            foregroundColor: Color(0xffdb3244)),
+                                        icon: (isFavourite! && workerUid == document['uid']
+                                            ? Icon(Icons.favorite)
+                                            : Icon(Icons.favorite_border)),
+                                        label: Text('Save')),
                                   ],
                                 ),
                               ),
@@ -125,5 +182,50 @@ class _PlumberScreenState extends State<PlumberScreen> {
         },
       ),
     );
+  }
+
+  void bookWorker(String uid) async {
+    await FirebaseFirestore.instance
+        .collection('workersLogedIn')
+        .doc(uid)
+        .update({
+      'status': 'booked',
+    });
+    Fluttertoast.showToast(msg: "Booked :)");
+  }
+
+  void bookStatus(String uid) async {
+    await FirebaseFirestore.instance
+        .collection('UsersLogedin')
+        .doc(auth.currentUser!.uid)
+        .update({
+      uid: "booked",
+    });
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      isFavourite = !isFavourite!;
+    });
+  }
+
+  void isFavourited(String uid) async {
+    String userUid = auth.currentUser!.uid;
+    await FirebaseFirestore.instance
+        .collection('workersLogedIn')
+        .doc(uid)
+        .update({
+      userUid: 'favourited',
+    });
+  }
+
+  void isNotFavourited(String uid) async {
+    String userUid = auth.currentUser!.uid;
+    await FirebaseFirestore.instance
+        .collection('workersLogedIn')
+        .doc(uid)
+        .update({
+      userUid: FieldValue.delete(),
+    });
   }
 }
