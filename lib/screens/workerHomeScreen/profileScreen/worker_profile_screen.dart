@@ -21,12 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        // appBar: AppBar(
-        //   automaticallyImplyLeading: false,
-        //   title: Text('Profile'),
-        //   backgroundColor: Color(0xffdb3244),
-        //   centerTitle: true,
-        // ),
+
         body: SafeArea(
           child: ListView(
             children: [

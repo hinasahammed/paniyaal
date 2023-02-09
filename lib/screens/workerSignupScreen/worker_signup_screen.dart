@@ -17,7 +17,6 @@ class WorkerSignupScreen extends StatefulWidget {
 }
 
 class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
-
   final _auth = FirebaseAuth.instance;
 
   // string for displaying the error Message
@@ -29,6 +28,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
   final phoneEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
+  final otherJobTypeEditingController = TextEditingController();
   final locationEditingController = TextEditingController();
   File? _image;
 
@@ -345,9 +345,37 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                           _selectedVal = val;
                         });
                       }),
-            SizedBox(
-              height: 20,
-            ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  if (_selectedVal == "Other")
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: otherJobTypeEditingController,
+                                autofocus: false,
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                  hintText: "Other job type",
+                                  prefixIcon: Icon(Icons.work),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        )
+                      ],
+                    ),
                   Row(
                     children: [
                       Expanded(
@@ -501,9 +529,11 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     workerModel.uid = worker.uid;
     workerModel.fullName = fullNameEditingController.text;
     workerModel.password = passwordEditingController.text;
-    workerModel.phoneNumber = countryCode+phoneEditingController.text;
+    workerModel.phoneNumber = countryCode + phoneEditingController.text;
     workerModel.imageUrl = downloadUrl;
-    workerModel.jobType = _selectedVal;
+    workerModel.jobType = _selectedVal == "Other"
+        ? otherJobTypeEditingController.text
+        : _selectedVal;
     workerModel.location = locationEditingController.text;
 
     await firebaseFirestore

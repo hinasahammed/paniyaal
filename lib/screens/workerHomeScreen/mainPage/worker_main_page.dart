@@ -10,7 +10,7 @@ class WorkerMainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Paniyaal'),
+          title: Text('Workers'),
           backgroundColor: Color(0xffdb3244),
           automaticallyImplyLeading: false,
         ),
