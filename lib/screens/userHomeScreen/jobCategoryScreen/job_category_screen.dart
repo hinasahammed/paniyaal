@@ -165,7 +165,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Image.asset(
-                                  'assets/cleaning.jpg',
+                                  'assets/cleaning.png',
                                   fit: BoxFit.contain,
                                 ),
                                 Text(

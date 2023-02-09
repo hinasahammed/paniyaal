@@ -205,7 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               elevation: 0,
                               child: ListTile(
                                 onTap: () async {
-                                  launchWhatsapp();
+                                  // launchWhatsapp();
                                   // final Uri _whatsapp = Uri.parse("https://wa.me/+918137021939");
                                   // print(canLaunchUrl(_whatsapp));
                                   // if (await canLaunchUrl(
@@ -261,8 +261,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ));
   }
 
-  void launchWhatsapp() async {
-    var url = "https://wa.me/+917293222211?text=Help?";
-    await launch(url);
-  }
+  // void launchWhatsapp() async {
+  //   var url = "https://wa.me/+917293222211?text=Help?";
+  //   await launch(url);
+  // }
 }

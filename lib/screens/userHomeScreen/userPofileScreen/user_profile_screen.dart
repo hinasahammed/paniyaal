@@ -201,7 +201,7 @@ class UserProfileScreen extends StatelessWidget {
                     elevation: 0,
                     child: ListTile(
                     onTap:(){
-                    launchWhatsapp();
+                    // launchWhatsapp();
                     },
                     title: Text('Contact us'),
                     leading: Icon(Icons.contact_mail),
@@ -261,8 +261,8 @@ class UserProfileScreen extends StatelessWidget {
     );
   }
 
-  void launchWhatsapp() async {
-    var url = "https://wa.me/+917293222211?text=Help?";
-    await launch(url);
-  }
+  // void launchWhatsapp() async {
+  //   var url = "https://wa.me/+917293222211?text=Help?";
+  //   await launch(url);
+  // }
 }
