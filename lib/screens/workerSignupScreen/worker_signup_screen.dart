@@ -361,7 +361,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                                 decoration: InputDecoration(
                                   contentPadding:
                                       EdgeInsets.fromLTRB(20, 15, 20, 15),
-                                  hintText: "Other job type",
+                                  hintText: "Job name",
                                   prefixIcon: Icon(Icons.work),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
