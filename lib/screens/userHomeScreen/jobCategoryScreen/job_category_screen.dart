@@ -138,7 +138,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Image.asset(
-                                  'assets/gardening.jpg',
+                                  'assets/gardening.png',
                                   fit: BoxFit.contain,
                                 ),
                                 Text(
@@ -200,7 +200,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Image.asset(
-                                  'assets/plumber.jpg',
+                                  'assets/plumber.png',
                                   fit: BoxFit.contain,
                                 ),
                                 Text(
@@ -227,7 +227,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Image.asset(
-                                  'assets/electrician.jpg',
+                                  'assets/electrician.png',
                                   fit: BoxFit.contain,
                                 ),
                                 Text(
@@ -262,7 +262,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Image.asset(
-                                  'assets/woodcutter.jpg',
+                                  'assets/woodcutter.png',
                                   fit: BoxFit.contain,
                                 ),
                                 Text(
@@ -289,7 +289,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Image.asset(
-                                  'assets/mechanic.jpg',
+                                  'assets/mechanic.png',
                                   fit: BoxFit.contain,
                                 ),
                                 Text(
@@ -324,7 +324,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Image.asset(
-                                  'assets/pest.jpg',
+                                  'assets/pest.png',
                                   fit: BoxFit.contain,
                                 ),
                                 Text(
@@ -386,7 +386,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Image.asset(
-                                  'assets/other service.jpg',
+                                  'assets/other service.png',
                                   fit: BoxFit.contain,
                                   height: 140,
                                 ),
