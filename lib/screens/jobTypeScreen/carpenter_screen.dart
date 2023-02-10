@@ -20,6 +20,12 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
   final _screenName = "Carpenter";
   String workerUid = "";
   bool? isFavourite = false;
+  String fav = "";
+
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,8 +151,8 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                     TextButton.icon(
                                         onPressed: () {
                                           workerUid = document['uid'];
-                                          bookWorker(workerUid);
-                                          bookStatus(workerUid);
+                                          updateBookedWorkerFirebase(workerUid);
+                                          updateBookStatusFirebase(workerUid);
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
@@ -161,8 +167,8 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                           workerUid = document['uid'];
                                           _toggleFavorite();
                                           isFavourite!
-                                              ? isFavourited(workerUid)
-                                              : isNotFavourited(workerUid);
+                                              ? updateIsFavouritedFirebase(workerUid)
+                                              : deleteIsNotFavouritedFirebase(workerUid);
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
@@ -188,7 +194,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
     );
   }
 
-  void bookWorker(String uid) async {
+  void updateBookedWorkerFirebase(String uid) async {
     await FirebaseFirestore.instance
         .collection('workersLogedIn')
         .doc(uid)
@@ -198,7 +204,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
     Fluttertoast.showToast(msg: "Booked :)");
   }
 
-  void bookStatus(String uid) async {
+  void updateBookStatusFirebase(String uid) async {
     await FirebaseFirestore.instance
         .collection('UsersLogedin')
         .doc(auth.currentUser!.uid)
@@ -213,7 +219,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
     });
   }
 
-  void isFavourited(String uid) async {
+  void updateIsFavouritedFirebase(String uid) async {
     String userUid = auth.currentUser!.uid;
     await FirebaseFirestore.instance
         .collection('workersLogedIn')
@@ -223,7 +229,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
     });
   }
 
-  void isNotFavourited(String uid) async {
+  void deleteIsNotFavouritedFirebase(String uid) async {
     String userUid = auth.currentUser!.uid;
     await FirebaseFirestore.instance
         .collection('workersLogedIn')
@@ -231,5 +237,19 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
         .update({
       userUid: FieldValue.delete(),
     });
+  }
+
+  isAlreadyFavouritedInFirebase(String favourited){
+    if(favourited!=null){
+      print("have");
+      setState(() {
+        isFavourite == true;
+      });
+    }else{
+      print("null");
+      setState(() {
+        isFavourite=false;
+      });
+    }
   }
 }
