@@ -43,6 +43,7 @@ checkIUserOrWorker() async{
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>WorkerHomeScreen()));
       print('worker');
     }else{
+      print("user");
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>UserHomeScreen()));
     }
   });
