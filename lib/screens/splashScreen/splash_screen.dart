@@ -31,21 +31,26 @@ Future<void> loginOrNot() async {
     Duration(seconds: 2),
   );
   if(auth.currentUser !=null){
-    checkIUserOrWorker();
+    checkIfUserOrWorker();
   }else{
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>TypeSelectorScreen()));
   }
 }
-checkIUserOrWorker() async{
+checkIfUserOrWorker() async{
   auth.authStateChanges().listen((User? user) {
-    var email = user!.email;
-    if(email!.isNotEmpty  && mounted){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>WorkerHomeScreen()));
-      print('worker');
+    String? email = user!.email;
+    if(email!=null){
+      if(email.isNotEmpty  && mounted){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>WorkerHomeScreen()));
+        print('worker');
+      }else{
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>UserHomeScreen()));
+      }
     }else{
       print("user");
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>UserHomeScreen()));
     }
+
   });
 }
 }

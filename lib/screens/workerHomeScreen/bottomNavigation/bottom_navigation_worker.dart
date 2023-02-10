@@ -18,9 +18,9 @@ class BottomNavigationWorker extends StatelessWidget {
             selectedItemColor: Color(0xffdb3244),
             unselectedItemColor: Colors.grey,
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle), label: 'Profile'),
+                  icon: Icon(Icons.account_circle_outlined), label: 'Profile'),
             ],
           );
         });

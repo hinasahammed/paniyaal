@@ -498,7 +498,6 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
             errorMessage = "An undefined Error happened.";
         }
         Fluttertoast.showToast(msg: errorMessage!);
-        print(error.code);
       }
     }
   }
@@ -532,6 +531,9 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     workerModel.phoneNumber = countryCode + phoneEditingController.text;
     workerModel.imageUrl = downloadUrl;
     workerModel.jobType = _selectedVal == "Other"
+        ? otherJobTypeEditingController.text
+        : _selectedVal;
+    workerModel.jobTypeOther =  _selectedVal == "Other"
         ? otherJobTypeEditingController.text
         : _selectedVal;
     workerModel.location = locationEditingController.text;

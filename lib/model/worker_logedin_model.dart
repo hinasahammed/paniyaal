@@ -6,6 +6,7 @@ class WorkerLogedinModel {
   String? phoneNumber;
   String? imageUrl;
   String? jobType;
+  String? jobTypeOther;
   String? location;
 
   WorkerLogedinModel({
@@ -16,6 +17,7 @@ class WorkerLogedinModel {
     this.phoneNumber,
     this.imageUrl,
     this.jobType,
+    this.jobTypeOther,
     this.location,
   });
 
@@ -29,6 +31,7 @@ class WorkerLogedinModel {
       phoneNumber: map['phoneNumber'],
       imageUrl: map['imageUrl'],
       jobType: map['jobType'],
+      jobTypeOther: map['jobTypeOther'],
       location: map['location'],
     );
   }
@@ -43,6 +46,7 @@ class WorkerLogedinModel {
       'phoneNumber': phoneNumber,
       'imageUrl': imageUrl,
       'jobType': jobType,
+      'jobTypeOther': jobTypeOther,
       'location': location,
     };
   }

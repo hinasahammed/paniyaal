@@ -12,10 +12,12 @@ class OtherScreen extends StatefulWidget {
 }
 
 class _OtherScreenState extends State<OtherScreen> {
+
   final auth = FirebaseAuth.instance;
-  final _screenName = "Other";
+  final _screenName = "Carpenter";
   String workerUid = "";
   bool? isFavourite = false;
+  String fav = "";
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,7 @@ class _OtherScreenState extends State<OtherScreen> {
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("workersLogedIn")
-            .where("jobType", isEqualTo: _screenName)
-            .where("jobTypeOther", isGreaterThan: 3)
+            .where("jobTypeOther", isGreaterThan: "")
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -38,7 +39,7 @@ class _OtherScreenState extends State<OtherScreen> {
               color: Colors.white,
             );
           } else {
-            return Column(
+            return ListView(
               children: snapshot.data!.docs.map((document) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
@@ -143,8 +144,8 @@ class _OtherScreenState extends State<OtherScreen> {
                                     TextButton.icon(
                                         onPressed: () {
                                           workerUid = document['uid'];
-                                          bookWorker(workerUid);
-                                          bookStatus(workerUid);
+                                          updateBookedWorkerFirebase(workerUid);
+                                          updateBookStatusFirebase(workerUid);
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
@@ -159,13 +160,12 @@ class _OtherScreenState extends State<OtherScreen> {
                                           workerUid = document['uid'];
                                           _toggleFavorite();
                                           isFavourite!
-                                              ? isFavourited(workerUid)
-                                              : isNotFavourited(workerUid);
+                                              ? updateIsFavouritedFirebase(workerUid)
+                                              : deleteIsNotFavouritedFirebase(workerUid);
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
-                                        icon: (isFavourite! &&
-                                            workerUid == document['uid']
+                                        icon: (isFavourite! && workerUid == document['uid']
                                             ? Icon(Icons.favorite)
                                             : Icon(Icons.favorite_border)),
                                         label: Text('Save')),
@@ -187,7 +187,7 @@ class _OtherScreenState extends State<OtherScreen> {
     );
   }
 
-  void bookWorker(String uid) async {
+  void updateBookedWorkerFirebase(String uid) async {
     await FirebaseFirestore.instance
         .collection('workersLogedIn')
         .doc(uid)
@@ -197,7 +197,7 @@ class _OtherScreenState extends State<OtherScreen> {
     Fluttertoast.showToast(msg: "Booked :)");
   }
 
-  void bookStatus(String uid) async {
+  void updateBookStatusFirebase(String uid) async {
     await FirebaseFirestore.instance
         .collection('UsersLogedin')
         .doc(auth.currentUser!.uid)
@@ -212,7 +212,7 @@ class _OtherScreenState extends State<OtherScreen> {
     });
   }
 
-  void isFavourited(String uid) async {
+  void updateIsFavouritedFirebase(String uid) async {
     String userUid = auth.currentUser!.uid;
     await FirebaseFirestore.instance
         .collection('workersLogedIn')
@@ -222,7 +222,7 @@ class _OtherScreenState extends State<OtherScreen> {
     });
   }
 
-  void isNotFavourited(String uid) async {
+  void deleteIsNotFavouritedFirebase(String uid) async {
     String userUid = auth.currentUser!.uid;
     await FirebaseFirestore.instance
         .collection('workersLogedIn')
@@ -230,5 +230,19 @@ class _OtherScreenState extends State<OtherScreen> {
         .update({
       userUid: FieldValue.delete(),
     });
+  }
+
+  isAlreadyFavouritedInFirebase(String favourited){
+    if(favourited!=null){
+      print("have");
+      setState(() {
+        isFavourite == true;
+      });
+    }else{
+      print("null");
+      setState(() {
+        isFavourite=false;
+      });
+    }
   }
 }

@@ -122,7 +122,7 @@ class WorkerMainPage extends StatelessWidget {
                                                     onPressed: () {
                                                     },
                                                     style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
-                                                    icon: Icon(Icons.phone),
+                                                    icon: Icon(Icons.phone_outlined),
                                                     label: Text('Call')),
                                                 VerticalDivider(
                                                   thickness: 0.3,
@@ -132,17 +132,8 @@ class WorkerMainPage extends StatelessWidget {
                                                     onPressed: () {
                                                     },
                                                     style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
-                                                    icon: Icon(Icons.book),
-                                                    label: Text('Book now')),
-                                                VerticalDivider(
-                                                  thickness: 0.3,
-                                                  endIndent: 6,
-                                                ),
-                                                TextButton.icon(
-                                                    onPressed: () {},
-                                                    style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
-                                                    icon: Icon(Icons.favorite_border),
-                                                    label: Text('Save')),
+                                                    icon: Icon(Icons.message_outlined),
+                                                    label: Text('Message')),
                                               ],
                                             ),
                                           ),

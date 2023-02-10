@@ -23,10 +23,6 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
   String fav = "";
 
   @override
-  void initState() {
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

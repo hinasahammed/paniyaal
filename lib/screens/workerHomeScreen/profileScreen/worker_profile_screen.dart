@@ -177,7 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   });
                                 },
                                 title: Text('Login as User'),
-                                leading: Icon(Icons.login),
+                                leading: Icon(Icons.login_outlined),
                                 trailing: Icon(Icons.chevron_right),
                               ),
                             ),
@@ -192,7 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               WorkerDetailScreen()));
                                 },
                                 title: Text('Edit your details'),
-                                leading: Icon(Icons.edit),
+                                leading: Icon(Icons.edit_outlined),
                                 trailing: Icon(Icons.chevron_right),
                               ),
                             ),
@@ -204,7 +204,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                                 },
                                 title: Text('Contact us'),
-                                leading: Icon(Icons.contact_mail),
+                                leading: Icon(Icons.contact_mail_outlined),
                                 trailing: Icon(Icons.chevron_right),
                               ),
                             ),

@@ -19,11 +19,12 @@ class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
   final phoneEditingController = TextEditingController();
   final emailEditingController = TextEditingController();
   final locationEditingController = TextEditingController();
+  final otherJobTypeEditingController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   FirebaseStorage storage = FirebaseStorage.instance;
 
   static File? _image;
-final auth = FirebaseAuth.instance;
+  final auth = FirebaseAuth.instance;
   final picker = ImagePicker();
   final _jobTypeList = [
     "Carpenter",
@@ -59,7 +60,12 @@ final auth = FirebaseAuth.instance;
               },
               child: Column(
                 children: [
-                  Image.asset("assets/edit_your_detail.png",fit: BoxFit.contain,width: 250,height: 250,),
+                  Image.asset(
+                    "assets/edit_your_detail.png",
+                    fit: BoxFit.contain,
+                    width: 250,
+                    height: 250,
+                  ),
                   Row(
                     children: [
                       Expanded(
@@ -105,7 +111,8 @@ final auth = FirebaseAuth.instance;
                               return ("Please Enter Your Email");
                             }
                             // reg expression for email validation
-                            if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                            if (!RegExp(
+                                    "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
                                 .hasMatch(value)) {
                               return ("Please Enter a valid email");
                             }
@@ -206,6 +213,34 @@ final auth = FirebaseAuth.instance;
                   SizedBox(
                     height: 20,
                   ),
+                  if (_selectedVal == "Other")
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: otherJobTypeEditingController,
+                                autofocus: false,
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                  hintText: "Job name",
+                                  prefixIcon: Icon(Icons.work),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        )
+                      ],
+                    ),
                   SizedBox(
                     height: 45,
                     width: double.infinity,
@@ -254,11 +289,16 @@ final auth = FirebaseAuth.instance;
         .update({
       "fullName": fullNameEditingController.text,
       "email": emailEditingController.text,
-      "phoneNumber": countryCode+phoneEditingController.text,
+      "phoneNumber": countryCode + phoneEditingController.text,
       "location": locationEditingController.text,
-      "jobType": _selectedVal.toString(),
+      "jobType": _selectedVal == "Other"
+          ? otherJobTypeEditingController.text
+          : _selectedVal,
+      "jobTypeOther":_selectedVal == "Other"
+          ? otherJobTypeEditingController.text
+          : _selectedVal,
     });
-    Fluttertoast.showToast(msg: "Saved your data :) ");
+    Fluttertoast.showToast(msg: "Saved your data :)");
 
     Navigator.pushAndRemoveUntil(
         (context),
