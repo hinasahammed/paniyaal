@@ -224,7 +224,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
   }
   Future getGallaryImage() async {
     final pickedFile =
-    await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
+    await picker.pickImage(source: ImageSource.gallery, imageQuality: 5);
     if (pickedFile != null) {
       _image = File(pickedFile.path);
       setState(() {
