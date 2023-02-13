@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WorkerMainPage extends StatelessWidget {
   WorkerMainPage({Key? key}) : super(key: key);
@@ -119,7 +120,13 @@ class WorkerMainPage extends StatelessWidget {
                                               MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 TextButton.icon(
-                                                    onPressed: () {
+                                                    onPressed: () async{
+                                                      final Uri _phoneNumber = Uri.parse(
+                                                          'tel:${userDocument["phoneNumber"]}');
+                                                      if (await canLaunchUrl(
+                                                      _phoneNumber)) {
+                                                      launchUrl(_phoneNumber);
+                                                      }
                                                     },
                                                     style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
                                                     icon: Icon(Icons.phone_outlined),
@@ -129,7 +136,9 @@ class WorkerMainPage extends StatelessWidget {
                                                   endIndent: 6,
                                                 ),
                                                 TextButton.icon(
-                                                    onPressed: () {
+                                                    onPressed: () async{
+                                                      var url = "https://wa.me/${userDocument["phoneNumber"]}?text=Help?";
+                                                      await launch(url);
                                                     },
                                                     style: TextButton.styleFrom(foregroundColor: Color(0xffdb3244)),
                                                     icon: Icon(Icons.message_outlined),
