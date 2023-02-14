@@ -43,7 +43,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (ctx)=>FavouriteScreen()));
               },
-              icon: Icon(Icons.favorite,size: 30,),
+              icon: Icon(Icons.favorite_border_outlined,size: 25),
             ),
           ),
         ],
