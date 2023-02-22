@@ -203,8 +203,8 @@ class UserProfileScreen extends StatelessWidget {
                     onTap:(){
                       launchWhatsapp();
                                     },
-                    title: Text('Contact us'),
-                    leading: Icon(Icons.contact_mail),
+                    title: Text('Need Help?'),
+                    leading: Icon(Icons.help_outline_outlined),
                     trailing: Icon(Icons.chevron_right),
                     ),
                     ),

@@ -203,8 +203,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   launchWhatsapp();
 
                                 },
-                                title: Text('Contact us'),
-                                leading: Icon(Icons.contact_mail_outlined),
+                                title: Text('Need Help?'),
+                                leading: Icon(Icons.help_outline_outlined),
                                 trailing: Icon(Icons.chevron_right),
                               ),
                             ),
