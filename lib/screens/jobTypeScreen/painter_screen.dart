@@ -17,6 +17,7 @@ class _PainterScreenState extends State<PainterScreen> {
   final _screenName = "Painter";
   String workerUid = "";
   bool? isFavourite = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,11 +84,15 @@ class _PainterScreenState extends State<PainterScreen> {
                                           ),
                                           child: ClipRRect(
                                             borderRadius:
-                                            BorderRadius.circular(100),
-                                            child:CachedNetworkImage(imageUrl:  document["imageUrl"],width: 130,
-                                              height: 130,)
-
+                                                BorderRadius.circular(100),
+                                            child: CachedNetworkImage(
+                                              imageUrl: document["imageUrl"],
+                                              width: 130,
+                                              height: 130,
                                               fit: BoxFit.cover,
+                                              placeholder: (context, url) => CircularProgressIndicator(),
+                                              errorWidget: (context, url, error) => Icon(Icons.error),
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -99,9 +104,9 @@ class _PainterScreenState extends State<PainterScreen> {
                                     ),
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text("Name: " + document["fullName"]),
                                         Text("Ph: " + document["phoneNumber"]),
@@ -118,7 +123,7 @@ class _PainterScreenState extends State<PainterScreen> {
                               IntrinsicHeight(
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     TextButton.icon(
                                         onPressed: () async {
@@ -161,7 +166,8 @@ class _PainterScreenState extends State<PainterScreen> {
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
-                                        icon: (isFavourite! && workerUid == document['uid']
+                                        icon: (isFavourite! &&
+                                                workerUid == document['uid']
                                             ? Icon(Icons.favorite)
                                             : Icon(Icons.favorite_border)),
                                         label: Text('Save')),
