@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -97,12 +98,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ),
                                               child: ClipRRect(
                                                 borderRadius:
-                                                    BorderRadius.circular(100),
-                                                child: Image.network(
-                                                  document["imageUrl"],
+                                                BorderRadius.circular(100),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: document["imageUrl"],
                                                   width: 60,
                                                   height: 60,
                                                   fit: BoxFit.cover,
+                                                  placeholder: (context, url) => CircularProgressIndicator(color: Colors.black,),
+                                                  errorWidget: (context, url, error) => Icon(Icons.error),
                                                 ),
                                               ),
                                             ),
