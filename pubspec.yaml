@@ -47,6 +47,7 @@ dependencies:
   url_launcher: ^6.1.8
   flutter_slidable: ^2.0.0
   firebase_messaging: ^14.2.5
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
