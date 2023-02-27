@@ -7,18 +7,18 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/worker_logedin_model.dart';
 
-class CarpenterScreen extends StatefulWidget {
-  CarpenterScreen({
+class DriversScreen extends StatefulWidget {
+  DriversScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<CarpenterScreen> createState() => _CarpenterScreenState();
+  State<DriversScreen> createState() => _DriversScreenState();
 }
 
-class _CarpenterScreenState extends State<CarpenterScreen> {
+class _DriversScreenState extends State<DriversScreen> {
   final auth = FirebaseAuth.instance;
-  final _screenName = "Carpenter";
+  final _screenName = "Driver";
   String workerUid = "";
   bool? isFavourite = false;
   String fav = "";
@@ -29,7 +29,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xffdb3244),
         elevation: 0,
-        title: Text('Carpenters'),
+        title: Text('Drivers'),
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -88,18 +88,18 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                             ],
                                             shape: BoxShape.circle,
                                           ),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                              BorderRadius.circular(100),
-                                              child: CachedNetworkImage(
-                                                imageUrl: document["imageUrl"],
-                                                width: 130,
-                                                height: 130,
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) => CircularProgressIndicator(),
-                                                errorWidget: (context, url, error) => Icon(Icons.error),
-                                              ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(100),
+                                            child: CachedNetworkImage(
+                                              imageUrl: document["imageUrl"],
+                                              width: 130,
+                                              height: 130,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) => CircularProgressIndicator(),
+                                              errorWidget: (context, url, error) => Icon(Icons.error),
                                             ),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -110,9 +110,9 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                     ),
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         Text("Name: " + document["fullName"]),
                                         Text("Ph: " + document["phoneNumber"]),
@@ -129,7 +129,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                               IntrinsicHeight(
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: [
                                     TextButton.icon(
                                         onPressed: () async {

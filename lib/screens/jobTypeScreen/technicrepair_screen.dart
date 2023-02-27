@@ -23,6 +23,7 @@ class _TechnicRepairScreenState extends State<TechnicRepairScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xffdb3244),
         title: Text('Technic repairs'),
+        elevation: 0,
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(

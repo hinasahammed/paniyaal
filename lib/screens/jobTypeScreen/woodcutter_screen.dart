@@ -23,6 +23,7 @@ class _WoodcutterScreenState extends State<WoodcutterScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xffdb3244),
         title: Text('Woodcutters'),
+        elevation: 0,
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(

@@ -6,6 +6,7 @@ import 'package:paniyaal/screens/jobTypeScreen/other_screen.dart';
 import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
 import '../../jobTypeScreen/carpenter_screen.dart';
 import '../../jobTypeScreen/cleaning_screen.dart';
+import '../../jobTypeScreen/drivers_screen.dart';
 import '../../jobTypeScreen/electrician_screen.dart';
 import '../../jobTypeScreen/gardening_screen.dart';
 import '../../jobTypeScreen/mechanic_screen.dart';
@@ -31,6 +32,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        elevation: 0,
         title: const Text(
           'Paniyaal',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -370,10 +372,11 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                     height: 15,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>TechnicRepairScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>DriversScreen()));
                         },
                         child: Container(
                           width: 155,
@@ -386,12 +389,12 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Image.asset(
-                                  'assets/technic.jpg',
+                                  'assets/drivers.png',
                                   fit: BoxFit.contain,
                                 ),
                                 const SizedBox(height: 5,),
                                 Text(
-                                  'Technic repair',
+                                  'Drivers',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 )
                               ],

@@ -26,6 +26,7 @@ class _OtherScreenState extends State<OtherScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xffdb3244),
         title: Text('Other jobs'),
+        elevation: 0,
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(

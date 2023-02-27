@@ -23,6 +23,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Favourites'),
+        elevation: 0,
         backgroundColor: Color(0xffdb3244),
       ),
       body: StreamBuilder<QuerySnapshot>(

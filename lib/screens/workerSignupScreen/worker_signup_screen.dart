@@ -45,6 +45,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     "Mechanic",
     "Pest Controller",
     "Technic repair",
+    "Driver"
     "Other",
   ];
   String? _selectedVal = "Carpenter";

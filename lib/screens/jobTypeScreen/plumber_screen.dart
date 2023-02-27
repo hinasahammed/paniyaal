@@ -23,6 +23,7 @@ class _PlumberScreenState extends State<PlumberScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xffdb3244),
         title: Text('Plumbers'),
+        elevation: 0,
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(

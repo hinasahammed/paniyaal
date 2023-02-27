@@ -23,6 +23,7 @@ class _MechanicScreenState extends State<MechanicScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xffdb3244),
         title: Text('Mechanics'),
+        elevation: 0,
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(

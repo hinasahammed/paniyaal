@@ -24,6 +24,7 @@ class _PestcontrolScreenState extends State<PestcontrolScreen> {
         backgroundColor: Color(0xffdb3244),
         title: Text('Pest Controllers'),
         centerTitle: true,
+        elevation: 0,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance

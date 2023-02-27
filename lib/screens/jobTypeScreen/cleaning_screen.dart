@@ -22,6 +22,7 @@ class _CleaningScreenState extends State<CleaningScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffdb3244),
+        elevation: 0,
         title: Text('Cleaners'),
         centerTitle: true,
       ),

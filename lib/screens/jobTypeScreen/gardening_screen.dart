@@ -23,6 +23,7 @@ class _GardeningScreenState extends State<GardeningScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xffdb3244),
         title: Text('Gardeners'),
+        elevation: 0,
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(

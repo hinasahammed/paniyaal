@@ -23,6 +23,7 @@ class _ElectricianScreenState extends State<ElectricianScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xffdb3244),
         title: Text('Electricians'),
+        elevation: 0,
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(
