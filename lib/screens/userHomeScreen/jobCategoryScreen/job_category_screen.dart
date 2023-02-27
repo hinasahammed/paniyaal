@@ -373,6 +373,34 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                     children: [
                       InkWell(
                         onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>TechnicRepairScreen()));
+                        },
+                        child: Container(
+                          width: 155,
+                          height: 195,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.asset(
+                                  'assets/technic.jpg',
+                                  fit: BoxFit.contain,
+                                ),
+                                const SizedBox(height: 5,),
+                                Text(
+                                  'Technic repair',
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (ctx)=>OtherScreen()));
                         },
                         child: Container(
