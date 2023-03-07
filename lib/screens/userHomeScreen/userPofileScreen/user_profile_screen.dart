@@ -18,7 +18,7 @@ class UserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[100],
       body: Column(
         children: [
           StreamBuilder<QuerySnapshot>(
@@ -33,225 +33,228 @@ class UserProfileScreen extends StatelessWidget {
                 return Column(
                   children: snapshot.data!.docs.map((document) {
                     return Column(
-                        children: [
-                    Container(
-                    decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50)),
-                    color: Color(0xffdb3244),
-                    ),
-                    child: Padding(
-                    padding: const EdgeInsets.only(
-                    left: 15.0,
-                    right: 15.0,
-                    top: 10.0,
-                    bottom: 25.0,
-                    ),
-                    child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    Text(
-                    'Profile',
-                    style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500),
-                    ),
-                    const SizedBox(
-                    height: 25,
-                    ),
-                    Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                    border: Border.all(
-                    width: 1, color: Colors.black),
-                    boxShadow: [
-                    BoxShadow(
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    color:
-                    Colors.black.withOpacity(0.1),
-                    ),
-                    ],
-                    shape: BoxShape.circle,
-                    ),
-                        child: ClipRRect(
-                          borderRadius:
-                          BorderRadius.circular(100),
-                          child: CachedNetworkImage(
-                            imageUrl: document["imageUrl"],
-                            width: 60,
-                            height: 60,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => CircularProgressIndicator(color: Colors.black),
-                            errorWidget: (context, url, error) => Icon(Icons.error),
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(50),
+                                bottomRight: Radius.circular(50)),
+                            color: Color(0xffdb3244),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 15.0,
+                              right: 15.0,
+                              top: 10.0,
+                              bottom: 25.0,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Profile',
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 60,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 1, color: Colors.black),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            spreadRadius: 3,
+                                            blurRadius: 10,
+                                            color:
+                                                Colors.black.withOpacity(0.1),
+                                          ),
+                                        ],
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        child: CachedNetworkImage(
+                                          imageUrl: document["imageUrl"],
+                                          width: 60,
+                                          height: 60,
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, url) =>
+                                              CircularProgressIndicator(
+                                                  color: Colors.black),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Hello',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          document['fullName'],
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                    ),
-                    const SizedBox(
-                    width: 15,
-                    ),
-                    Column(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
-                    children: [
-                    const SizedBox(
-                    height: 5,
-                    ),
-                    Text(
-                    'Hello',
-                    style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w300),
-                    ),
-                    const SizedBox(
-                    height: 5,
-                    ),
-                    Text(
-                    document['fullName'],
-                    style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500),
-                    ),
-                    ],
-                    ),
-                    ],
-                    ),
-                    ],
-                    ),
-                    ),
-                    ),
-                    Container(
-                    child: Padding(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Column(
-                    children: [
-                    const SizedBox(
-                    height: 25,
-                    ),
-                    Card(
-                    elevation: 0,
-                    child: ListTile(
-                    onTap: () {
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                    builder: (ctx) =>
-                    UserDetailEditingScreen()));
-                    },
-                    title: Text('Edit your details'),
-                    leading: Icon(Icons.edit),
-                    trailing: Icon(Icons.chevron_right),
-                    ),
-                    ),
-                    const SizedBox(
-                    height: 5,
-                    ),
-                    Card(
-                    elevation: 0,
-                    child: ListTile(
-                    onTap: () {
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                    builder: (ctx) =>
-                    FavouriteScreen()));
-                    },
-                    title: Text('Favourites'),
-                    leading: Icon(Icons.favorite),
-                    trailing: Icon(Icons.chevron_right),
-                    ),
-                    ),
-                    const SizedBox(
-                    height: 5,
-                    ),
-                    Card(
-                    elevation: 0,
-                    child: ListTile(
-                    onTap: () {
-                    auth.signOut().then((value) {
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                    builder: (ctx) =>
-                    TypeSelectorScreen()));
-                    }).onError((error, stackTrace) {
-                    Fluttertoast.showToast(
-                    msg: error!.toString());
-                    });
-                    },
-                    title: Text('Login as worker'),
-                    leading: Icon(Icons.login),
-                    trailing: Icon(Icons.chevron_right),
-                    ),
-                    ),
-                    const SizedBox(
-                    height: 5,
-                    ),
-                    Card(
-                    elevation: 0,
-                    child: ListTile(
-                    onTap:(){
-                      launchWhatsapp();
+                        Container(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                                Card(
+                                  elevation: 0,
+                                  child: ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (ctx) =>
+                                                  UserDetailEditingScreen()));
                                     },
-                    title: Text('Need Help?'),
-                    leading: Icon(Icons.help_outline_outlined),
-                    trailing: Icon(Icons.chevron_right),
-                    ),
-                    ),
-                    const SizedBox(
-                    height: 5,
-                    ),
-                    Card(
-                    elevation: 0,
-                    child: ListTile(
-                    onTap: () {
-                    auth.signOut().then((value) {
-                    Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                    builder: (ctx) =>
-                    UserLoginScreen()));
-                    }).onError((error, stackTrace) {
-                    Fluttertoast.showToast(
-                    msg: error!.toString());
-                    });
-                    },
-                    title: Text(
-                    'Logout',
-                    style: TextStyle(
-                    color: Colors.red,
-                    ),
-                    ),
-                    leading: Icon(
-                    Icons.logout,
-                    color: Colors.red,
-                    ),
-                    trailing: Icon(
-                    Icons.chevron_right,
-                    color: Colors.red,
-                    ),
-                    ),
-                    ),
-                    const SizedBox(
-                    height: 5,
-                    ),
-                    ],
-                    ),
-                    ),
-                    )
-                    ],
+                                    title: Text('Edit your details'),
+                                    leading: Icon(Icons.edit),
+                                    trailing: Icon(Icons.chevron_right),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Card(
+                                  elevation: 0,
+                                  child: ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (ctx) =>
+                                                  FavouriteScreen()));
+                                    },
+                                    title: Text('Favourites'),
+                                    leading: Icon(Icons.favorite),
+                                    trailing: Icon(Icons.chevron_right),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Card(
+                                  elevation: 0,
+                                  child: ListTile(
+                                    onTap: () {
+                                      auth.signOut().then((value) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (ctx) =>
+                                                    TypeSelectorScreen()));
+                                      }).onError((error, stackTrace) {
+                                        Fluttertoast.showToast(
+                                            msg: error!.toString());
+                                      });
+                                    },
+                                    title: Text('Login as worker'),
+                                    leading: Icon(Icons.login),
+                                    trailing: Icon(Icons.chevron_right),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Card(
+                                  elevation: 0,
+                                  child: ListTile(
+                                    onTap: () {
+                                      launchWhatsapp();
+                                    },
+                                    title: Text('Need Help?'),
+                                    leading: Icon(Icons.help_outline_outlined),
+                                    trailing: Icon(Icons.chevron_right),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Card(
+                                  elevation: 0,
+                                  child: ListTile(
+                                    onTap: () {
+                                      auth.signOut().then((value) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (ctx) =>
+                                                    UserLoginScreen()));
+                                      }).onError((error, stackTrace) {
+                                        Fluttertoast.showToast(
+                                            msg: error!.toString());
+                                      });
+                                    },
+                                    title: Text(
+                                      'Logout',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    leading: Icon(
+                                      Icons.logout,
+                                      color: Colors.red,
+                                    ),
+                                    trailing: Icon(
+                                      Icons.chevron_right,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
                     );
-                    }).toList(),
+                  }).toList(),
                 );
               }
             },

@@ -25,6 +25,7 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -35,7 +36,7 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
-            color: Colors.black,
+            color: const Color(0xffdb3244),size: 30,
           ),
         ),
       ),

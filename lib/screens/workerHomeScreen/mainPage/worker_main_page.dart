@@ -13,6 +13,7 @@ class WorkerMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
         appBar: AppBar(
           title: Text('Workers'),
           backgroundColor: Color(0xffdb3244),
@@ -190,7 +191,6 @@ class WorkerMainPage extends StatelessWidget {
 
   }
   void completed(String uid) async {
-    String userUid = auth.currentUser!.uid;
     await FirebaseFirestore.instance
         .collection('UsersLogedin')
         .doc(uid)

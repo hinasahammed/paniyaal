@@ -54,6 +54,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -64,7 +65,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
-            color: Colors.black,
+            color: const Color(0xffdb3244),size: 30,
           ),
         ),
       ),
@@ -133,7 +134,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                                 border:
                                     Border.all(width: 4, color: Colors.white),
                                 shape: BoxShape.circle,
-                                color: Colors.blue,
+                                color: const Color(0xffdb3244),
                               ),
                               child: Icon(
                                 Icons.add,
@@ -405,8 +406,6 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                     child: ElevatedButton(
                       onPressed: () async {
                         final name = fullNameEditingController.text;
-                        FirebaseFirestore firebaseFirestore =
-                            FirebaseFirestore.instance;
                         Reference referenceRoot =
                             FirebaseStorage.instance.ref();
                         Reference referenceDirImages =
@@ -456,6 +455,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 10,),
                 ],
               ),
             )

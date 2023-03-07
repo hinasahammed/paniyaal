@@ -45,6 +45,7 @@ class _WorkerDetailScreenState extends State<WorkerDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: Text('Edit profile'),
         backgroundColor: Color(0xffdb3244),
