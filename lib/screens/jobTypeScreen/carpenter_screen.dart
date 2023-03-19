@@ -1,9 +1,16 @@
+import 'dart:convert';
+
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:paniyaal/service/localpush_notification.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
 
 import '../../model/worker_logedin_model.dart';
 
@@ -17,8 +24,21 @@ class CarpenterScreen extends StatefulWidget {
 }
 
 class _CarpenterScreenState extends State<CarpenterScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseMessaging.instance.getInitialMessage();
+    FirebaseMessaging.onMessage.listen((event) {
+      LocalNotificationService.display(event);
+    });
+    storeNotificationToken();
+  }
+
   final auth = FirebaseAuth.instance;
   final _screenName = "Carpenter";
+  String? token;
   String workerUid = "";
   bool? isFavourite = false;
   String fav = "";
@@ -88,18 +108,20 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                             ],
                                             shape: BoxShape.circle,
                                           ),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                              BorderRadius.circular(100),
-                                              child: CachedNetworkImage(
-                                                imageUrl: document["imageUrl"],
-                                                width: 130,
-                                                height: 130,
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) => CircularProgressIndicator(),
-                                                errorWidget: (context, url, error) => Icon(Icons.error),
-                                              ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(100),
+                                            child: CachedNetworkImage(
+                                              imageUrl: document["imageUrl"],
+                                              width: 130,
+                                              height: 130,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) =>
+                                                  CircularProgressIndicator(),
+                                              errorWidget: (context, url,
+                                                  error) => Icon(Icons.error),
                                             ),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -110,9 +132,9 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                     ),
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         Text("Name: " + document["fullName"]),
                                         Text("Ph: " + document["phoneNumber"]),
@@ -129,7 +151,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                               IntrinsicHeight(
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: [
                                     TextButton.icon(
                                         onPressed: () async {
@@ -151,8 +173,11 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                     TextButton.icon(
                                         onPressed: () {
                                           workerUid = document['uid'];
+                                          token = document['token'];
                                           updateBookedWorkerFirebase(workerUid);
                                           updateBookStatusFirebase(workerUid);
+                                          sendNotification('follow', token!);
+                                          print(token);
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
@@ -167,12 +192,15 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                           workerUid = document['uid'];
                                           _toggleFavorite();
                                           isFavourite!
-                                              ? updateIsFavouritedFirebase(workerUid)
-                                              : deleteIsNotFavouritedFirebase(workerUid);
+                                              ? updateIsFavouritedFirebase(
+                                              workerUid)
+                                              : deleteIsNotFavouritedFirebase(
+                                              workerUid);
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
-                                        icon: (isFavourite! && workerUid == document['uid']
+                                        icon: (isFavourite! &&
+                                            workerUid == document['uid']
                                             ? Icon(Icons.favorite)
                                             : Icon(Icons.favorite_border)),
                                         label: Text('Save')),
@@ -239,17 +267,58 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
     });
   }
 
-  isAlreadyFavouritedInFirebase(String favourited){
-    if(favourited!=null){
+  isAlreadyFavouritedInFirebase(String favourited) {
+    if (favourited != null) {
       print("have");
       setState(() {
         isFavourite == true;
       });
-    }else{
+    } else {
       print("null");
       setState(() {
-        isFavourite=false;
+        isFavourite = false;
       });
     }
+  }
+
+  storeNotificationToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+
+    FirebaseFirestore.instance.collection("UsersLogedin").doc(
+        auth.currentUser!.uid).set(
+        {
+          'token': token
+        }, SetOptions(merge: true));
+  }
+
+  sendNotification(String title, String token) async{
+    final data = {
+      'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+      'id': '1',
+      'status': 'done',
+      'message': title,
+    };
+
+    try {
+      http.Response response = await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+            'Authorization': 'key=AAAA-CsTEzc:APA91bFICujld27e_WSaDDdwCW3TG9DkcwuGsiBORTJQZFvK4o_Jxd_C1IZw4161l_Cqb1_QNX3WULHdxCnKP-QzXCIvEYxJ9LLaBz3zNhaVkcsAhTtxUkjL3PaRaPIs31qws3jq7V4X'
+          },
+      body: jsonEncode(<String,dynamic>{
+      'notification': <String,dynamic> {'title': title,'body': 'You are followed by someone'},
+      'priority': 'high',
+      'data': data,
+      'to': '$token'
+      })
+      );
+
+      if(response.statusCode == 200){
+        print("Yeh notificatin is sended");
+      }else{
+        print("Error");
+      }
+
+    } catch (e) {}
   }
 }

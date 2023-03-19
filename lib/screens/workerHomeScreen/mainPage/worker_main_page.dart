@@ -1,14 +1,37 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class WorkerMainPage extends StatelessWidget {
+class WorkerMainPage extends StatefulWidget {
   WorkerMainPage({Key? key}) : super(key: key);
+
+  @override
+  State<WorkerMainPage> createState() => _WorkerMainPageState();
+}
+
+class _WorkerMainPageState extends State<WorkerMainPage> {
   final auth = FirebaseAuth.instance;
+
   String userUid= "";
+  storeNotificationToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+
+    FirebaseFirestore.instance.collection("workersLogedIn").doc(
+        auth.currentUser!.uid).set(
+        {
+          'token': token
+        }, SetOptions(merge: true));
+  }
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    storeNotificationToken();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -190,6 +213,7 @@ class WorkerMainPage extends StatelessWidget {
     );
 
   }
+
   void completed(String uid) async {
     await FirebaseFirestore.instance
         .collection('UsersLogedin')
