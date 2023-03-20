@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
+
+import '../../service/localpush_notification.dart';
 
 class PainterScreen extends StatefulWidget {
   const PainterScreen({Key? key}) : super(key: key);
@@ -13,18 +19,31 @@ class PainterScreen extends StatefulWidget {
 }
 
 class _PainterScreenState extends State<PainterScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseMessaging.instance.getInitialMessage();
+    FirebaseMessaging.onMessage.listen((event) {
+      LocalNotificationService.display(event);
+    });
+  }
+
   final auth = FirebaseAuth.instance;
   final _screenName = "Painter";
+  String? token;
   String workerUid = "";
   bool? isFavourite = false;
+  String fav = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffdb3244),
-        title: Text('Painters'),
         elevation: 0,
+        title: Text('Carpenters'),
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -85,14 +104,16 @@ class _PainterScreenState extends State<PainterScreen> {
                                           ),
                                           child: ClipRRect(
                                             borderRadius:
-                                                BorderRadius.circular(100),
+                                            BorderRadius.circular(100),
                                             child: CachedNetworkImage(
                                               imageUrl: document["imageUrl"],
                                               width: 130,
                                               height: 130,
                                               fit: BoxFit.cover,
-                                              placeholder: (context, url) => CircularProgressIndicator(),
-                                              errorWidget: (context, url, error) => Icon(Icons.error),
+                                              placeholder: (context, url) =>
+                                                  CircularProgressIndicator(),
+                                              errorWidget: (context, url,
+                                                  error) => Icon(Icons.error),
                                             ),
                                           ),
                                         ),
@@ -105,9 +126,9 @@ class _PainterScreenState extends State<PainterScreen> {
                                     ),
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         Text("Name: " + document["fullName"]),
                                         Text("Ph: " + document["phoneNumber"]),
@@ -124,7 +145,7 @@ class _PainterScreenState extends State<PainterScreen> {
                               IntrinsicHeight(
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: [
                                     TextButton.icon(
                                         onPressed: () async {
@@ -146,8 +167,10 @@ class _PainterScreenState extends State<PainterScreen> {
                                     TextButton.icon(
                                         onPressed: () {
                                           workerUid = document['uid'];
-                                          bookWorker(workerUid);
-                                          bookStatus(workerUid);
+                                          token = document['token'];
+                                          updateBookedWorkerFirebase(workerUid);
+                                          updateBookStatusFirebase(workerUid);
+                                          sendNotification('New Booking', token!);
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
@@ -162,13 +185,15 @@ class _PainterScreenState extends State<PainterScreen> {
                                           workerUid = document['uid'];
                                           _toggleFavorite();
                                           isFavourite!
-                                              ? isFavourited(workerUid)
-                                              : isNotFavourited(workerUid);
+                                              ? updateIsFavouritedFirebase(
+                                              workerUid)
+                                              : deleteIsNotFavouritedFirebase(
+                                              workerUid);
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
                                         icon: (isFavourite! &&
-                                                workerUid == document['uid']
+                                            workerUid == document['uid']
                                             ? Icon(Icons.favorite)
                                             : Icon(Icons.favorite_border)),
                                         label: Text('Save')),
@@ -190,7 +215,7 @@ class _PainterScreenState extends State<PainterScreen> {
     );
   }
 
-  void bookWorker(String uid) async {
+  void updateBookedWorkerFirebase(String uid) async {
     await FirebaseFirestore.instance
         .collection('workersLogedIn')
         .doc(uid)
@@ -200,7 +225,7 @@ class _PainterScreenState extends State<PainterScreen> {
     Fluttertoast.showToast(msg: "Booked :)");
   }
 
-  void bookStatus(String uid) async {
+  void updateBookStatusFirebase(String uid) async {
     await FirebaseFirestore.instance
         .collection('UsersLogedin')
         .doc(auth.currentUser!.uid)
@@ -215,7 +240,7 @@ class _PainterScreenState extends State<PainterScreen> {
     });
   }
 
-  void isFavourited(String uid) async {
+  void updateIsFavouritedFirebase(String uid) async {
     String userUid = auth.currentUser!.uid;
     await FirebaseFirestore.instance
         .collection('workersLogedIn')
@@ -225,7 +250,7 @@ class _PainterScreenState extends State<PainterScreen> {
     });
   }
 
-  void isNotFavourited(String uid) async {
+  void deleteIsNotFavouritedFirebase(String uid) async {
     String userUid = auth.currentUser!.uid;
     await FirebaseFirestore.instance
         .collection('workersLogedIn')
@@ -233,5 +258,51 @@ class _PainterScreenState extends State<PainterScreen> {
         .update({
       userUid: FieldValue.delete(),
     });
+  }
+
+  isAlreadyFavouritedInFirebase(String favourited) {
+    if (favourited != null) {
+      print("have");
+      setState(() {
+        isFavourite == true;
+      });
+    } else {
+      print("null");
+      setState(() {
+        isFavourite = false;
+      });
+    }
+  }
+
+
+  sendNotification(String title, String token) async{
+    final data = {
+      'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+      'id': '1',
+      'status': 'done',
+      'message': title,
+    };
+
+    try {
+      http.Response response = await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+            'Authorization': 'key=AAAA-CsTEzc:APA91bFICujld27e_WSaDDdwCW3TG9DkcwuGsiBORTJQZFvK4o_Jxd_C1IZw4161l_Cqb1_QNX3WULHdxCnKP-QzXCIvEYxJ9LLaBz3zNhaVkcsAhTtxUkjL3PaRaPIs31qws3jq7V4X'
+          },
+          body: jsonEncode(<String,dynamic>{
+            'notification': <String,dynamic> {'title': title,'body': 'You have a new booking!'},
+            'priority': 'high',
+            'data': data,
+            'to': '$token'
+          })
+      );
+
+      if(response.statusCode == 200){
+        print("Yeh notificatin is sended");
+      }else{
+        print("Error");
+      }
+
+    } catch (e) {}
   }
 }

@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:paniyaal/screens/favouriteScreen/favourite_screen.dart';
@@ -25,6 +27,23 @@ class JobCategoryScreen extends StatefulWidget {
 
 class _JobCategoryScreenState extends State<JobCategoryScreen> {
   final auth = FirebaseAuth.instance;
+  @override
+
+  storeNotificationToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+
+    FirebaseFirestore.instance.collection("UsersLogedin").doc(
+        auth.currentUser!.uid).set(
+        {
+          'token': token
+        }, SetOptions(merge: true));
+  }
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    storeNotificationToken();
+  }
 
   @override
   Widget build(BuildContext context) {

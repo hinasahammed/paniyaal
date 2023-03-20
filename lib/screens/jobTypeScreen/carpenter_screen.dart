@@ -33,7 +33,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
     FirebaseMessaging.onMessage.listen((event) {
       LocalNotificationService.display(event);
     });
-    storeNotificationToken();
+    // storeNotificationToken();
   }
 
   final auth = FirebaseAuth.instance;
@@ -280,15 +280,15 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
     }
   }
 
-  storeNotificationToken() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-
-    FirebaseFirestore.instance.collection("UsersLogedin").doc(
-        auth.currentUser!.uid).set(
-        {
-          'token': token
-        }, SetOptions(merge: true));
-  }
+  // storeNotificationToken() async {
+  //   String? token = await FirebaseMessaging.instance.getToken();
+  //
+  //   FirebaseFirestore.instance.collection("UsersLogedin").doc(
+  //       auth.currentUser!.uid).set(
+  //       {
+  //         'token': token
+  //       }, SetOptions(merge: true));
+  // }
 
   sendNotification(String title, String token) async{
     final data = {
