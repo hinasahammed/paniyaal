@@ -176,8 +176,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
                                           token = document['token'];
                                           updateBookedWorkerFirebase(workerUid);
                                           updateBookStatusFirebase(workerUid);
-                                          sendNotification('follow', token!);
-                                          print(token);
+                                          sendNotification('New Booking', token!);
                                         },
                                         style: TextButton.styleFrom(
                                             foregroundColor: Color(0xffdb3244)),
@@ -306,7 +305,7 @@ class _CarpenterScreenState extends State<CarpenterScreen> {
             'Authorization': 'key=AAAA-CsTEzc:APA91bFICujld27e_WSaDDdwCW3TG9DkcwuGsiBORTJQZFvK4o_Jxd_C1IZw4161l_Cqb1_QNX3WULHdxCnKP-QzXCIvEYxJ9LLaBz3zNhaVkcsAhTtxUkjL3PaRaPIs31qws3jq7V4X'
           },
       body: jsonEncode(<String,dynamic>{
-      'notification': <String,dynamic> {'title': title,'body': 'You are followed by someone'},
+      'notification': <String,dynamic> {'title': title,'body': 'You have a new booking!'},
       'priority': 'high',
       'data': data,
       'to': '$token'
