@@ -222,6 +222,7 @@ class _WoodcutterScreenState extends State<WoodcutterScreen> {
         .doc(uid)
         .update({
       'status': 'booked',
+      auth.currentUser!.uid: 'booked',
     });
     Fluttertoast.showToast(msg: "Booked :)");
   }

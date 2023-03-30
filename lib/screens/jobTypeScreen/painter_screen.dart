@@ -221,6 +221,7 @@ class _PainterScreenState extends State<PainterScreen> {
         .doc(uid)
         .update({
       'status': 'booked',
+      auth.currentUser!.uid: 'booked',
     });
     Fluttertoast.showToast(msg: "Booked :)");
   }

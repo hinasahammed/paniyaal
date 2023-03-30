@@ -222,6 +222,7 @@ class _ElectricianScreenState extends State<ElectricianScreen> {
         .doc(uid)
         .update({
       'status': 'booked',
+      auth.currentUser!.uid: 'booked',
     });
     Fluttertoast.showToast(msg: "Booked :)");
   }

@@ -221,6 +221,7 @@ class _PlumberScreenState extends State<PlumberScreen> {
         .doc(uid)
         .update({
       'status': 'booked',
+      auth.currentUser!.uid: 'booked',
     });
     Fluttertoast.showToast(msg: "Booked :)");
   }
