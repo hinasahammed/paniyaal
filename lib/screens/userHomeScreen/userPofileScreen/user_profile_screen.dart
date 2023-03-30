@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:paniyaal/screens/typeSelectorScreen/type_selector_screen.dart';
+import 'package:paniyaal/screens/userHomeScreen/bookedWorkersScreen/booked_workers_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../favouriteScreen/favourite_screen.dart';
@@ -153,6 +154,20 @@ class UserProfileScreen extends StatelessWidget {
                                     },
                                     title: Text('Edit your details'),
                                     leading: Icon(Icons.edit),
+                                    trailing: Icon(Icons.chevron_right),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Card(
+                                  elevation: 0,
+                                  child: ListTile(
+                                    onTap: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (ctx)=>BookedWorkersScreen()));
+                                    },
+                                    title: Text('Your workers'),
+                                    leading: Icon(Icons.group),
                                     trailing: Icon(Icons.chevron_right),
                                   ),
                                 ),

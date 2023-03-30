@@ -214,6 +214,7 @@ class _OtherScreenState extends State<OtherScreen> {
         .doc(uid)
         .update({
       'status': 'booked',
+      auth.currentUser!.uid: 'booked',
     });
     Fluttertoast.showToast(msg: "Booked :)");
   }

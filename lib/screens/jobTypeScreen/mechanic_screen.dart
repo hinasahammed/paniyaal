@@ -222,6 +222,7 @@ class _MechanicScreenState extends State<MechanicScreen> {
         .doc(uid)
         .update({
       'status': 'booked',
+      auth.currentUser!.uid: 'booked',
     });
     Fluttertoast.showToast(msg: "Booked :)");
   }

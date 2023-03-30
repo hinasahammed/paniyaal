@@ -223,6 +223,7 @@ class _GardeningScreenState extends State<GardeningScreen> {
         .doc(uid)
         .update({
       'status': 'booked',
+      auth.currentUser!.uid: 'booked',
     });
     Fluttertoast.showToast(msg: "Booked :)");
   }
