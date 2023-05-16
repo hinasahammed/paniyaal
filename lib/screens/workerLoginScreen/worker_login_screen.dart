@@ -32,16 +32,18 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>TypeSelectorScreen()));
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (ctx) => TypeSelectorScreen()));
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
-            color: const Color(0xffdb3244),size: 30,
+            color: const Color(0xffdb3244),
+            size: 30,
           ),
         ),
       ),
       body: Container(
-        margin: const EdgeInsets.only(left: 25, right: 25),
+        margin: const EdgeInsets.symmetric(horizontal: 25),
         alignment: Alignment.center,
         child: SingleChildScrollView(
             child: Form(
@@ -92,9 +94,9 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
                         hintText: "Email",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
-                  ),
                   ),
                 ],
               ),
@@ -123,11 +125,15 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
                       },
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.vpn_key),
-                        suffixIcon: GestureDetector(onTap: (){
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        },child: Icon(_obscureText?Icons.visibility:Icons.visibility_off),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                          child: Icon(_obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off),
                         ),
                         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                         hintText: "Password",
@@ -191,10 +197,10 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
-          Fluttertoast.showToast(msg: "Login Successful"),
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => WorkerHomeScreen())),
-        });
+                  Fluttertoast.showToast(msg: "Login Successful"),
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => WorkerHomeScreen())),
+                });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":
@@ -224,5 +230,4 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
       }
     }
   }
-
 }
