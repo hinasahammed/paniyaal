@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:paniyaal/consts/const.dart';
 import 'package:paniyaal/screens/typeSelectorScreen/selecter_container.dart';
 import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
 import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
@@ -23,7 +24,7 @@ class TypeSelectorScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Choose your account type',
+              accountType,
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                   textStyle: TextStyle(
@@ -40,7 +41,7 @@ class TypeSelectorScreen extends StatelessWidget {
               children: [
                 SelecterContainer(
                   imageName: 'assets/user.png',
-                  textName: 'User',
+                  textName: userText,
                   isUserLogedIn: () {
                     isUserLogedIn(context);
                   },
@@ -50,7 +51,7 @@ class TypeSelectorScreen extends StatelessWidget {
                       isWorkerLogedIn(context);
                     },
                     imageName: 'assets/customer.png',
-                    textName: 'Worker')
+                    textName: workerText)
               ],
             ),
           ],

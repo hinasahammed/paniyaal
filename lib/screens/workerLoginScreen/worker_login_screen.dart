@@ -66,39 +66,33 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
               const SizedBox(
                 height: 30,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      autofocus: false,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter your Email";
-                        }
-                        // reg expression for email validation
-                        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                            .hasMatch(value)) {
-                          return ("Please Enter a valid email");
-                        }
-                        return null;
-                      },
-                      controller: emailController,
-                      onSaved: (value) {
-                        emailController.text = value!;
-                      },
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.mail),
-                        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                        hintText: "Email",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+              TextFormField(
+                autofocus: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your Email";
+                  }
+                  // reg expression for email validation
+                  if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                      .hasMatch(value)) {
+                    return ("Please Enter a valid email");
+                  }
+                  return null;
+                },
+                controller: emailController,
+                onSaved: (value) {
+                  emailController.text = value!;
+                },
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.mail),
+                  contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                  hintText: "Email",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                ],
+                ),
               ),
               SizedBox(
                 height: 20,
