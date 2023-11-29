@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:paniyaal/screens/favouriteScreen/favourite_screen.dart';
 import 'package:paniyaal/screens/jobTypeScreen/other_screen.dart';
-import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
 import '../../jobTypeScreen/carpenter_screen.dart';
 import '../../jobTypeScreen/cleaning_screen.dart';
 import '../../jobTypeScreen/drivers_screen.dart';
@@ -19,7 +17,7 @@ import '../../jobTypeScreen/technicrepair_screen.dart';
 import '../../jobTypeScreen/woodcutter_screen.dart';
 
 class JobCategoryScreen extends StatefulWidget {
-   JobCategoryScreen({Key? key}) : super(key: key);
+  const JobCategoryScreen({super.key});
 
   @override
   State<JobCategoryScreen> createState() => _JobCategoryScreenState();
@@ -27,20 +25,18 @@ class JobCategoryScreen extends StatefulWidget {
 
 class _JobCategoryScreenState extends State<JobCategoryScreen> {
   final auth = FirebaseAuth.instance;
-  @override
 
   storeNotificationToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
 
-    FirebaseFirestore.instance.collection("UsersLogedin").doc(
-        auth.currentUser!.uid).set(
-        {
-          'token': token
-        }, SetOptions(merge: true));
+    FirebaseFirestore.instance
+        .collection("UsersLogedin")
+        .doc(auth.currentUser!.uid)
+        .set({'token': token}, SetOptions(merge: true));
   }
 
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     storeNotificationToken();
   }
@@ -56,15 +52,18 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
           'Paniyaal',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xffdb3244),
+        backgroundColor: const Color(0xffdb3244),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: IconButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (ctx)=>FavouriteScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (ctx) => const FavouriteScreen()));
               },
-              icon: Icon(Icons.favorite_border_outlined,size: 25),
+              icon: const Icon(Icons.favorite_border_outlined, size: 25),
             ),
           ),
         ],
@@ -76,17 +75,20 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
             children: [
               Column(
                 children: [
-                 const SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>CarpenterScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const CarpenterScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -96,11 +98,11 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                 Image.asset(
+                                Image.asset(
                                   'assets/Carpenter.png',
                                   fit: BoxFit.contain,
                                 ),
-                                Text(
+                                const Text(
                                   'Carpenter',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 )
@@ -110,10 +112,13 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                         ),
                       ),
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>PainterScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const PainterScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -127,7 +132,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                                   'assets/painter.png',
                                   fit: BoxFit.contain,
                                 ),
-                                Text(
+                                const Text(
                                   'Painter',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 )
@@ -138,17 +143,20 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                       ),
                     ],
                   ),
-                 const SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>GardeningScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const GardeningScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -162,7 +170,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                                   'assets/gardening.png',
                                   fit: BoxFit.contain,
                                 ),
-                                Text(
+                                const Text(
                                   'Gardening',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 )
@@ -172,10 +180,13 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                         ),
                       ),
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>CleaningScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const CleaningScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -189,7 +200,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                                   'assets/cleaning.png',
                                   fit: BoxFit.contain,
                                 ),
-                                Text(
+                                const Text(
                                   'Cleaning',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 )
@@ -200,17 +211,20 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                       ),
                     ],
                   ),
-                 const SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>PlumberScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const PlumberScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -224,7 +238,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                                   'assets/plumber.png',
                                   fit: BoxFit.contain,
                                 ),
-                                Text(
+                                const Text(
                                   'Plumber',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 )
@@ -234,10 +248,13 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                         ),
                       ),
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>ElectricianScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const ElectricianScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -251,7 +268,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                                   'assets/electrician.png',
                                   fit: BoxFit.contain,
                                 ),
-                                Text(
+                                const Text(
                                   'Electrician',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 )
@@ -269,10 +286,13 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>WoodcutterScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const WoodcutterScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -286,7 +306,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                                   'assets/woodcutter.png',
                                   fit: BoxFit.contain,
                                 ),
-                                Text(
+                                const Text(
                                   'Wood cutter',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 )
@@ -296,10 +316,13 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                         ),
                       ),
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>MechanicScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const MechanicScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -313,7 +336,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                                   'assets/mechanic.png',
                                   fit: BoxFit.contain,
                                 ),
-                                Text(
+                                const Text(
                                   'Mechanic',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 )
@@ -331,10 +354,13 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>PestcontrolScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const PestcontrolScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -348,9 +374,10 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                                   'assets/pest.png',
                                   fit: BoxFit.contain,
                                 ),
-                                Text(
+                                const Text(
                                   'Pest control\nservice',
-                                  style: TextStyle(fontWeight: FontWeight.w500),textAlign: TextAlign.center,
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                  textAlign: TextAlign.center,
                                 )
                               ],
                             ),
@@ -358,10 +385,14 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                         ),
                       ),
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>TechnicRepairScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) =>
+                                      const TechnicRepairScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -375,8 +406,10 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                                   'assets/technic.jpg',
                                   fit: BoxFit.contain,
                                 ),
-                                const SizedBox(height: 5,),
-                                Text(
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
                                   'Technic repair',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 )
@@ -394,10 +427,13 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>DriversScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const DriversScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -411,8 +447,10 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                                   'assets/drivers.png',
                                   fit: BoxFit.contain,
                                 ),
-                                const SizedBox(height: 5,),
-                                Text(
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                const Text(
                                   'Drivers',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                 )
@@ -422,10 +460,13 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                         ),
                       ),
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>OtherScreen()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const OtherScreen()));
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: 155,
                           height: 195,
                           child: Card(
@@ -440,7 +481,7 @@ class _JobCategoryScreenState extends State<JobCategoryScreen> {
                                   fit: BoxFit.contain,
                                   height: 140,
                                 ),
-                                Text(
+                                const Text(
                                   'Other\nservices',
                                   style: TextStyle(fontWeight: FontWeight.w500),
                                   textAlign: TextAlign.center,

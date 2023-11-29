@@ -11,11 +11,10 @@ import 'package:paniyaal/screens/workerLoginScreen/worker_login_screen.dart';
 import 'package:paniyaal/screens/workerSignupScreen/worker_signup_screen.dart';
 import 'package:paniyaal/service/localpush_notification.dart';
 
-
-Future<void> _backgroundHandler(RemoteMessage message) async{
+Future<void> _backgroundHandler(RemoteMessage message) async {
   ///Onclick
 }
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   LocalNotificationService.initialize();
@@ -34,19 +33,19 @@ class MyApp extends StatelessWidget {
       title: 'PANIYAAL',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const  Color(0xffdb3244),
+          primary: const Color(0xffdb3244),
         ),
       ),
       initialRoute: 'splash',
       routes: {
-        'numberVerification': (context) => UserLoginScreen(),
-        'otpVerification': (context) => OtpVerificationScreen(),
+        'numberVerification': (context) => const UserLoginScreen(),
+        'otpVerification': (context) => const OtpVerificationScreen(),
         'typeSelector': (context) => TypeSelectorScreen(),
-        'splash':(context)=>SplashScreen(),
-        'workerlogin': (context)=>WorkerLoginScreen(),
-        'signup':(context)=>WorkerSignupScreen(),
-        'userHome':(context)=>UserHomeScreen(),
-        'workerhome':(context) => WorkerHomeScreen(),
+        'splash': (context) => const SplashScreen(),
+        'workerlogin': (context) => const WorkerLoginScreen(),
+        'signup': (context) => const WorkerSignupScreen(),
+        'userHome': (context) => const UserHomeScreen(),
+        'workerhome': (context) => const WorkerHomeScreen(),
       },
     );
   }

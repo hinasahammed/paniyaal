@@ -10,7 +10,7 @@ import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
 import '../../model/worker_logedin_model.dart';
 
 class WorkerSignupScreen extends StatefulWidget {
-  const WorkerSignupScreen({Key? key}) : super(key: key);
+  const WorkerSignupScreen({super.key});
 
   @override
   State<WorkerSignupScreen> createState() => _WorkerSignupScreenState();
@@ -46,7 +46,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     "Pest Controller",
     "Technic repair",
     "Driver"
-    "Other",
+        "Other",
   ];
   String? _selectedVal = "Carpenter";
   final countryCode = "+91";
@@ -65,7 +65,8 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
-            color: const Color(0xffdb3244),size: 30,
+            color: Color(0xffdb3244),
+            size: 30,
           ),
         ),
       ),
@@ -136,7 +137,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                                 shape: BoxShape.circle,
                                 color: const Color(0xffdb3244),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.add,
                                 color: Colors.white,
                               ),
@@ -160,7 +161,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                             fullNameEditingController.text = value!;
                           },
                           validator: (value) {
-                            RegExp regex = new RegExp(r'^.{3,}$');
+                            RegExp regex = RegExp(r'^.{3,}$');
                             if (value!.isEmpty) {
                               return ("Name cannot be Empty");
                             }
@@ -171,8 +172,9 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                           },
                           textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.account_circle),
-                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            prefixIcon: const Icon(Icons.account_circle),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(20, 15, 20, 15),
                             hintText: "Full name",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -182,7 +184,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -200,14 +202,16 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                                 .hasMatch(value)) {
                               return "Please enter a valid phone number";
                             }
+                            return null;
                           },
                           onSaved: (value) {
                             phoneEditingController.text = value!;
                           },
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(20, 15, 20, 15),
                             hintText: "Phone number",
-                            prefixIcon: Icon(Icons.contact_phone),
+                            prefixIcon: const Icon(Icons.contact_phone),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -243,8 +247,9 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.mail),
-                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            prefixIcon: const Icon(Icons.mail),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(20, 15, 20, 15),
                             hintText: "Email",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -254,7 +259,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -265,21 +270,23 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                           controller: passwordEditingController,
                           obscureText: true,
                           validator: (value) {
-                            RegExp regex = new RegExp(r'^.{6,}$');
+                            RegExp regex = RegExp(r'^.{6,}$');
                             if (value!.isEmpty) {
                               return ("Password is required for login");
                             }
                             if (!regex.hasMatch(value)) {
                               return ("Enter Valid Password(Min. 6 Character)");
                             }
+                            return null;
                           },
                           onSaved: (value) {
                             passwordEditingController.text = value!;
                           },
                           textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.vpn_key),
-                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            prefixIcon: const Icon(Icons.vpn_key),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(20, 15, 20, 15),
                             hintText: "Password",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -289,7 +296,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -311,8 +318,9 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                           },
                           textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.vpn_key),
-                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            prefixIcon: const Icon(Icons.vpn_key),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(20, 15, 20, 15),
                             hintText: "Confirm password",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -322,7 +330,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   DropdownButtonFormField(
@@ -330,7 +338,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                         Icons.arrow_drop_down_circle,
                         color: Color(0xffdb3244),
                       ),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: "Job type",
                         prefixIcon: Icon(Icons.work),
                         border: OutlineInputBorder(),
@@ -338,8 +346,8 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                       value: _selectedVal,
                       items: _jobTypeList.map((e) {
                         return DropdownMenuItem(
-                          child: Text(e),
                           value: e,
+                          child: Text(e),
                         );
                       }).toList(),
                       onChanged: (val) {
@@ -347,7 +355,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                           _selectedVal = val;
                         });
                       }),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   if (_selectedVal == "Other")
@@ -362,9 +370,9 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
                                   contentPadding:
-                                      EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                      const EdgeInsets.fromLTRB(20, 15, 20, 15),
                                   hintText: "Job name",
-                                  prefixIcon: Icon(Icons.work),
+                                  prefixIcon: const Icon(Icons.work),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -373,7 +381,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         )
                       ],
@@ -386,9 +394,10 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                           autofocus: false,
                           textInputAction: TextInputAction.done,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(20, 15, 20, 15),
                             hintText: "Location",
-                            prefixIcon: Icon(Icons.location_on),
+                            prefixIcon: const Icon(Icons.location_on),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -397,7 +406,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   SizedBox(
@@ -411,10 +420,8 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                         Reference referenceDirImages =
                             referenceRoot.child('WorkersProfile');
                         Reference referenceImageToUpload =
-                            referenceDirImages.child('{$name}' +
-                                DateTime.now()
-                                    .millisecondsSinceEpoch
-                                    .toString());
+                            referenceDirImages.child(
+                                '{$name}${DateTime.now().millisecondsSinceEpoch}');
                         try {
                           await referenceImageToUpload
                               .putFile(_image!.absolute);
@@ -435,12 +442,12 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                       child: const Text('Sign Up'),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         "Already have an account ?",
                         style: TextStyle(color: Colors.black),
                       ),
@@ -448,14 +455,16 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text(
+                        child: const Text(
                           'Login',
                           style: TextStyle(color: Color(0xffdb3244)),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
             )
@@ -471,10 +480,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
       try {
         await _auth
             .createUserWithEmailAndPassword(email: email, password: password)
-            .then((value) => {postDetailsToFirestore()})
-            .catchError((e) {
-          Fluttertoast.showToast(msg: e!.message);
-        });
+            .then((value) => {postDetailsToFirestore()});
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":
@@ -534,7 +540,7 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
     workerModel.jobType = _selectedVal == "Other"
         ? otherJobTypeEditingController.text
         : _selectedVal;
-    workerModel.jobTypeOther =  _selectedVal == "Other"
+    workerModel.jobTypeOther = _selectedVal == "Other"
         ? otherJobTypeEditingController.text
         : _selectedVal;
     workerModel.location = locationEditingController.text;
@@ -545,9 +551,11 @@ class _WorkerSignupScreenState extends State<WorkerSignupScreen> {
         .set(workerModel.toMap());
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
-    Navigator.pushAndRemoveUntil(
-        (context),
-        MaterialPageRoute(builder: (context) => WorkerHomeScreen()),
-        (route) => false);
+    if (context.mounted) {
+      Navigator.pushAndRemoveUntil(
+          (context),
+          MaterialPageRoute(builder: (context) => const WorkerHomeScreen()),
+          (route) => false);
+    }
   }
 }

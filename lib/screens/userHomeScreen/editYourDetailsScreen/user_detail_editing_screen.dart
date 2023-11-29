@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:paniyaal/screens/userHomeScreen/user_home_screen.dart';
 
 class UserDetailEditingScreen extends StatefulWidget {
-  UserDetailEditingScreen({Key? key}) : super(key: key);
+  const UserDetailEditingScreen({super.key});
 
   @override
   State<UserDetailEditingScreen> createState() =>
@@ -24,12 +24,12 @@ class _UserDetailEditingScreenState extends State<UserDetailEditingScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: Text('Edit profile'),
-        backgroundColor: Color(0xffdb3244),
+        title: const Text('Edit profile'),
+        backgroundColor: const Color(0xffdb3244),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(left: 15, top: 20, right: 15),
+          padding: const EdgeInsets.only(left: 15, top: 20, right: 15),
           child: Form(
             key: _formKey,
             child: GestureDetector(
@@ -53,7 +53,7 @@ class _UserDetailEditingScreenState extends State<UserDetailEditingScreen> {
                           autofocus: false,
                           textInputAction: TextInputAction.next,
                           validator: (value) {
-                            RegExp regex = new RegExp(r'^.{3,}$');
+                            RegExp regex = RegExp(r'^.{3,}$');
                             if (value!.isEmpty) {
                               return ("Name cannot be Empty");
                             }
@@ -66,7 +66,8 @@ class _UserDetailEditingScreenState extends State<UserDetailEditingScreen> {
                             fullNameEditingController.text = value!;
                           },
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(20, 15, 20, 15),
                             hintText: "Full name",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -76,7 +77,7 @@ class _UserDetailEditingScreenState extends State<UserDetailEditingScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -94,12 +95,14 @@ class _UserDetailEditingScreenState extends State<UserDetailEditingScreen> {
                                 .hasMatch(value)) {
                               return "Please enter a valid phone number";
                             }
+                            return null;
                           },
                           onSaved: (value) {
                             phoneEditingController.text = value!;
                           },
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(20, 15, 20, 15),
                             hintText: "Phone number",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -109,7 +112,7 @@ class _UserDetailEditingScreenState extends State<UserDetailEditingScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   SizedBox(
@@ -151,9 +154,11 @@ class _UserDetailEditingScreenState extends State<UserDetailEditingScreen> {
     });
     Fluttertoast.showToast(msg: "Saved your data :) ");
 
-    Navigator.pushAndRemoveUntil(
-        (context),
-        MaterialPageRoute(builder: (context) => UserHomeScreen()),
-        (route) => false);
+    if (context.mounted) {
+      Navigator.pushAndRemoveUntil(
+          (context),
+          MaterialPageRoute(builder: (context) => const UserHomeScreen()),
+          (route) => false);
+    }
   }
 }

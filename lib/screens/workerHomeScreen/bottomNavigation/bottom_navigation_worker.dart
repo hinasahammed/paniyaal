@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:paniyaal/screens/workerHomeScreen/worker_home_screen.dart';
 
-
 class BottomNavigationWorker extends StatelessWidget {
-  BottomNavigationWorker({Key? key}) : super(key: key);
+  const BottomNavigationWorker({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +14,11 @@ class BottomNavigationWorker extends StatelessWidget {
             onTap: (newIndex) {
               WorkerHomeScreen.selectedIndexNotifierWorker.value = newIndex;
             },
-            selectedItemColor: Color(0xffdb3244),
+            selectedItemColor: const Color(0xffdb3244),
             unselectedItemColor: Colors.grey,
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined), label: 'Home'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.account_circle_outlined), label: 'Profile'),
             ],

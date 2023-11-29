@@ -3,10 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BookedWorkersScreen extends StatefulWidget {
-  const BookedWorkersScreen({Key? key}) : super(key: key);
+  const BookedWorkersScreen({super.key});
 
   @override
   State<BookedWorkersScreen> createState() => _BookedWorkersScreenState();
@@ -22,8 +21,8 @@ class _BookedWorkersScreenState extends State<BookedWorkersScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: Text('Workers'),
-        backgroundColor: Color(0xffdb3244),
+        title: const Text('Workers'),
+        backgroundColor: const Color(0xffdb3244),
         automaticallyImplyLeading: false,
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -34,7 +33,7 @@ class _BookedWorkersScreenState extends State<BookedWorkersScreen> {
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return CircularProgressIndicator(
+            return const CircularProgressIndicator(
               strokeWidth: 3,
               color: Colors.white,
             );
@@ -47,7 +46,7 @@ class _BookedWorkersScreenState extends State<BookedWorkersScreen> {
                   ),
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Slidable(
@@ -65,7 +64,7 @@ class _BookedWorkersScreenState extends State<BookedWorkersScreen> {
                             )
                           ],
                         ),
-                        child: Container(
+                        child: SizedBox(
                           width: double.infinity,
                           child: Card(
                             shape: RoundedRectangleBorder(
@@ -79,7 +78,7 @@ class _BookedWorkersScreenState extends State<BookedWorkersScreen> {
                                     children: [
                                       Column(
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 5,
                                           ),
                                           Container(
@@ -103,22 +102,21 @@ class _BookedWorkersScreenState extends State<BookedWorkersScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(100),
                                               child: CachedNetworkImage(
-                                                imageUrl:
-                                                    document["imageUrl"],
+                                                imageUrl: document["imageUrl"],
                                                 width: 130,
                                                 height: 130,
                                                 fit: BoxFit.cover,
                                                 placeholder: (context, url) =>
-                                                    CircularProgressIndicator(),
+                                                    const CircularProgressIndicator(),
                                                 errorWidget:
                                                     (context, url, error) =>
-                                                        Icon(Icons.error),
+                                                        const Icon(Icons.error),
                                               ),
                                             ),
                                           ),
                                         ],
                                       ),
-                                      VerticalDivider(
+                                      const VerticalDivider(
                                         thickness: 0.3,
                                         indent: 8,
                                         endIndent: 5,
@@ -129,10 +127,9 @@ class _BookedWorkersScreenState extends State<BookedWorkersScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text("Name: " +
-                                              document["fullName"]),
-                                          Text("Ph: " +
-                                              document["phoneNumber"]),
+                                          Text("Name: ${document["fullName"]}"),
+                                          Text(
+                                              "Ph: ${document["phoneNumber"]}"),
                                         ],
                                       ),
                                     ],

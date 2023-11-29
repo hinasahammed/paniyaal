@@ -9,7 +9,7 @@ import '../../workerLoginScreen/worker_login_screen.dart';
 import '../editYourDetailsScreen/worker_detail_editing_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -22,7 +22,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[100],
-
         body: SafeArea(
           child: ListView(
             children: [
@@ -33,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return CircularProgressIndicator(
+                    return const CircularProgressIndicator(
                       strokeWidth: 3,
                       color: Colors.white,
                     );
@@ -44,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         return Column(
                           children: [
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(50),
                                     bottomRight: Radius.circular(50)),
@@ -60,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Profile',
                                       style: TextStyle(
                                           fontSize: 22,
@@ -76,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       children: [
                                         Column(
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 20,
                                             ),
                                             Container(
@@ -98,14 +97,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ),
                                               child: ClipRRect(
                                                 borderRadius:
-                                                BorderRadius.circular(100),
+                                                    BorderRadius.circular(100),
                                                 child: CachedNetworkImage(
-                                                  imageUrl: document["imageUrl"],
+                                                  imageUrl:
+                                                      document["imageUrl"],
                                                   width: 60,
                                                   height: 60,
                                                   fit: BoxFit.cover,
-                                                  placeholder: (context, url) => CircularProgressIndicator(color: Colors.black,),
-                                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                                  placeholder: (context, url) =>
+                                                      const CircularProgressIndicator(
+                                                    color: Colors.black,
+                                                  ),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
                                                 ),
                                               ),
                                             ),
@@ -123,7 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             const SizedBox(
                                               height: 5,
                                             ),
-                                            Text(
+                                            const Text(
                                               'Hello',
                                               style: TextStyle(
                                                   color: Colors.white,
@@ -134,21 +139,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             ),
                                             Text(
                                               document['fullName'],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 22,
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w500),
                                             ),
                                             Text(
                                               document['email'],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w400),
                                             ),
                                             Text(
                                               document['phoneNumber'],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 14,
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w400),
@@ -179,9 +184,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         msg: error!.toString());
                                   });
                                 },
-                                title: Text('Login as User'),
-                                leading: Icon(Icons.login_outlined),
-                                trailing: Icon(Icons.chevron_right),
+                                title: const Text('Login as User'),
+                                leading: const Icon(Icons.login_outlined),
+                                trailing: const Icon(Icons.chevron_right),
                               ),
                             ),
                             Card(
@@ -192,11 +197,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (ctx) =>
-                                              WorkerDetailScreen()));
+                                              const WorkerDetailScreen()));
                                 },
-                                title: Text('Edit your details'),
-                                leading: Icon(Icons.edit_outlined),
-                                trailing: Icon(Icons.chevron_right),
+                                title: const Text('Edit your details'),
+                                leading: const Icon(Icons.edit_outlined),
+                                trailing: const Icon(Icons.chevron_right),
                               ),
                             ),
                             Card(
@@ -204,11 +209,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: ListTile(
                                 onTap: () async {
                                   launchWhatsapp();
-
                                 },
-                                title: Text('Need Help?'),
-                                leading: Icon(Icons.help_outline_outlined),
-                                trailing: Icon(Icons.chevron_right),
+                                title: const Text('Need Help?'),
+                                leading:
+                                    const Icon(Icons.help_outline_outlined),
+                                trailing: const Icon(Icons.chevron_right),
                               ),
                             ),
                             Card(
@@ -220,23 +225,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (ctx) =>
-                                                WorkerLoginScreen()));
+                                                const WorkerLoginScreen()));
                                   }).onError((error, stackTrace) {
                                     Fluttertoast.showToast(
                                         msg: error!.toString());
                                   });
                                 },
-                                title: Text(
+                                title: const Text(
                                   'Logout',
                                   style: TextStyle(
                                     color: Colors.red,
                                   ),
                                 ),
-                                leading: Icon(
+                                leading: const Icon(
                                   Icons.logout,
                                   color: Colors.red,
                                 ),
-                                trailing: Icon(
+                                trailing: const Icon(
                                   Icons.chevron_right,
                                   color: Colors.red,
                                 ),
@@ -256,6 +261,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void launchWhatsapp() async {
     var url = "https://wa.me/+917293222211?text=Help?";
-    await launch(url);
+    await canLaunchUrl(Uri.parse(url));
   }
 }

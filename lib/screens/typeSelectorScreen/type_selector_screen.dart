@@ -18,7 +18,7 @@ class TypeSelectorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color(0xffdb3244),
+        color: const Color(0xffdb3244),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -27,13 +27,13 @@ class TypeSelectorScreen extends StatelessWidget {
               accountType,
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w500,
                       height: 1.5,
                       color: Color(0xffffffff))),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -66,10 +66,10 @@ void isWorkerLogedIn(BuildContext context) {
   final user = auth.currentUser;
   if (user != null) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (ctx) => WorkerHomeScreen()));
+        context, MaterialPageRoute(builder: (ctx) => const WorkerHomeScreen()));
   } else {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (ctx) => WorkerLoginScreen()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (ctx) => const WorkerLoginScreen()));
   }
 }
 
@@ -78,9 +78,9 @@ void isUserLogedIn(BuildContext context) {
   final user = auth.currentUser;
   if (user != null) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (ctx) => UserHomeScreen()));
+        context, MaterialPageRoute(builder: (ctx) => const UserHomeScreen()));
   } else {
     Navigator.push(
-        context, MaterialPageRoute(builder: (ctx) => UserLoginScreen()));
+        context, MaterialPageRoute(builder: (ctx) => const UserLoginScreen()));
   }
 }

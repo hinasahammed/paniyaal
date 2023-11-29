@@ -13,11 +13,11 @@ class SelecterContainer extends StatelessWidget {
   final String textName;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 175,
       height: 211,
       child: Card(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8.0))),
         child: InkWell(
           onTap: () {
@@ -35,7 +35,7 @@ class SelecterContainer extends StatelessWidget {
               Text(
                 textName,
                 style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Color(0xff000000))),

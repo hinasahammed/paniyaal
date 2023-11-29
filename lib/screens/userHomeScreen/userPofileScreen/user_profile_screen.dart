@@ -12,7 +12,7 @@ import '../../userPhoneVerificationScreen/user_phone_verification_screen.dart';
 import '../editYourDetailsScreen/user_detail_editing_screen.dart';
 
 class UserProfileScreen extends StatelessWidget {
-  UserProfileScreen({Key? key}) : super(key: key);
+  UserProfileScreen({super.key});
 
   final auth = FirebaseAuth.instance;
 
@@ -36,7 +36,7 @@ class UserProfileScreen extends StatelessWidget {
                     return Column(
                       children: [
                         Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(50),
                                 bottomRight: Radius.circular(50)),
@@ -52,7 +52,7 @@ class UserProfileScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   'Profile',
                                   style: TextStyle(
                                       fontSize: 22,
@@ -90,10 +90,10 @@ class UserProfileScreen extends StatelessWidget {
                                           height: 60,
                                           fit: BoxFit.cover,
                                           placeholder: (context, url) =>
-                                              CircularProgressIndicator(
+                                              const CircularProgressIndicator(
                                                   color: Colors.black),
                                           errorWidget: (context, url, error) =>
-                                              Icon(Icons.error),
+                                              const Icon(Icons.error),
                                         ),
                                       ),
                                     ),
@@ -109,7 +109,7 @@ class UserProfileScreen extends StatelessWidget {
                                         const SizedBox(
                                           height: 5,
                                         ),
-                                        Text(
+                                        const Text(
                                           'Hello',
                                           style: TextStyle(
                                               color: Colors.white,
@@ -120,7 +120,7 @@ class UserProfileScreen extends StatelessWidget {
                                         ),
                                         Text(
                                           document['fullName'],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 22,
                                               color: Colors.white,
                                               fontWeight: FontWeight.w500),
@@ -134,137 +134,139 @@ class UserProfileScreen extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 25,
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              Card(
+                                elevation: 0,
+                                child: ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (ctx) =>
+                                                const UserDetailEditingScreen()));
+                                  },
+                                  title: const Text('Edit your details'),
+                                  leading: const Icon(Icons.edit),
+                                  trailing: const Icon(Icons.chevron_right),
                                 ),
-                                Card(
-                                  elevation: 0,
-                                  child: ListTile(
-                                    onTap: () {
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Card(
+                                elevation: 0,
+                                child: ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (ctx) =>
+                                                const BookedWorkersScreen()));
+                                  },
+                                  title: const Text('Your workers'),
+                                  leading: const Icon(Icons.group),
+                                  trailing: const Icon(Icons.chevron_right),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Card(
+                                elevation: 0,
+                                child: ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (ctx) =>
+                                                const FavouriteScreen()));
+                                  },
+                                  title: const Text('Favourites'),
+                                  leading: const Icon(Icons.favorite),
+                                  trailing: const Icon(Icons.chevron_right),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Card(
+                                elevation: 0,
+                                child: ListTile(
+                                  onTap: () {
+                                    auth.signOut().then((value) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (ctx) =>
-                                                  UserDetailEditingScreen()));
-                                    },
-                                    title: Text('Edit your details'),
-                                    leading: Icon(Icons.edit),
-                                    trailing: Icon(Icons.chevron_right),
-                                  ),
+                                                  TypeSelectorScreen()));
+                                    }).onError((error, stackTrace) {
+                                      Fluttertoast.showToast(
+                                          msg: error!.toString());
+                                    });
+                                  },
+                                  title: const Text('Login as worker'),
+                                  leading: const Icon(Icons.login),
+                                  trailing: const Icon(Icons.chevron_right),
                                 ),
-                                const SizedBox(
-                                  height: 5,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Card(
+                                elevation: 0,
+                                child: ListTile(
+                                  onTap: () {
+                                    launchWhatsapp();
+                                  },
+                                  title: const Text('Need Help?'),
+                                  leading:
+                                      const Icon(Icons.help_outline_outlined),
+                                  trailing: const Icon(Icons.chevron_right),
                                 ),
-                                Card(
-                                  elevation: 0,
-                                  child: ListTile(
-                                    onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (ctx)=>BookedWorkersScreen()));
-                                    },
-                                    title: Text('Your workers'),
-                                    leading: Icon(Icons.group),
-                                    trailing: Icon(Icons.chevron_right),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Card(
-                                  elevation: 0,
-                                  child: ListTile(
-                                    onTap: () {
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Card(
+                                elevation: 0,
+                                child: ListTile(
+                                  onTap: () {
+                                    auth.signOut().then((value) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (ctx) =>
-                                                  FavouriteScreen()));
-                                    },
-                                    title: Text('Favourites'),
-                                    leading: Icon(Icons.favorite),
-                                    trailing: Icon(Icons.chevron_right),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Card(
-                                  elevation: 0,
-                                  child: ListTile(
-                                    onTap: () {
-                                      auth.signOut().then((value) {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (ctx) =>
-                                                    TypeSelectorScreen()));
-                                      }).onError((error, stackTrace) {
-                                        Fluttertoast.showToast(
-                                            msg: error!.toString());
-                                      });
-                                    },
-                                    title: Text('Login as worker'),
-                                    leading: Icon(Icons.login),
-                                    trailing: Icon(Icons.chevron_right),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Card(
-                                  elevation: 0,
-                                  child: ListTile(
-                                    onTap: () {
-                                      launchWhatsapp();
-                                    },
-                                    title: Text('Need Help?'),
-                                    leading: Icon(Icons.help_outline_outlined),
-                                    trailing: Icon(Icons.chevron_right),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Card(
-                                  elevation: 0,
-                                  child: ListTile(
-                                    onTap: () {
-                                      auth.signOut().then((value) {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (ctx) =>
-                                                    UserLoginScreen()));
-                                      }).onError((error, stackTrace) {
-                                        Fluttertoast.showToast(
-                                            msg: error!.toString());
-                                      });
-                                    },
-                                    title: Text(
-                                      'Logout',
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                    leading: Icon(
-                                      Icons.logout,
-                                      color: Colors.red,
-                                    ),
-                                    trailing: Icon(
-                                      Icons.chevron_right,
+                                                  const UserLoginScreen()));
+                                    }).onError((error, stackTrace) {
+                                      Fluttertoast.showToast(
+                                          msg: error!.toString());
+                                    });
+                                  },
+                                  title: const Text(
+                                    'Logout',
+                                    style: TextStyle(
                                       color: Colors.red,
                                     ),
                                   ),
+                                  leading: const Icon(
+                                    Icons.logout,
+                                    color: Colors.red,
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.chevron_right,
+                                    color: Colors.red,
+                                  ),
                                 ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                            ],
                           ),
                         )
                       ],
@@ -281,6 +283,6 @@ class UserProfileScreen extends StatelessWidget {
 
   void launchWhatsapp() async {
     var url = "https://wa.me/+917293222211?text=Help?";
-    await launch(url);
+    await canLaunchUrl(Uri.parse(url));
   }
 }

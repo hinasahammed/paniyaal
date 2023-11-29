@@ -7,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FavouriteScreen extends StatefulWidget {
-  const FavouriteScreen({Key? key}) : super(key: key);
+  const FavouriteScreen({super.key});
 
   @override
   State<FavouriteScreen> createState() => _FavouriteScreenState();
@@ -22,9 +22,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favourites'),
+        title: const Text('Favourites'),
         elevation: 0,
-        backgroundColor: Color(0xffdb3244),
+        backgroundColor: const Color(0xffdb3244),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -33,7 +33,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return CircularProgressIndicator(
+            return const CircularProgressIndicator(
               strokeWidth: 3,
               color: Colors.white,
             );
@@ -47,7 +47,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(
+                      return const Center(
                         child: Text('No Favourite item is here'),
                       );
                     } else {
@@ -59,7 +59,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                             ),
                             child: Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Slidable(
@@ -68,8 +68,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                     children: [
                                       SlidableAction(
                                         onPressed: (context) {
-                                          workerUid =
-                                          workerDocument['uid'];
+                                          workerUid = workerDocument['uid'];
                                           removeFavourite(workerUid);
                                         },
                                         backgroundColor: Colors.red,
@@ -78,7 +77,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                       )
                                     ],
                                   ),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     child: Card(
                                       shape: RoundedRectangleBorder(
@@ -93,7 +92,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                               children: [
                                                 Column(
                                                   children: [
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 5,
                                                     ),
                                                     Container(
@@ -117,20 +116,29 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                                       ),
                                                       child: ClipRRect(
                                                         borderRadius:
-                                                        BorderRadius.circular(100),
-                                                        child: CachedNetworkImage(
-                                                          imageUrl: workerDocument["imageUrl"],
+                                                            BorderRadius
+                                                                .circular(100),
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          imageUrl:
+                                                              workerDocument[
+                                                                  "imageUrl"],
                                                           width: 130,
                                                           height: 130,
                                                           fit: BoxFit.cover,
-                                                          placeholder: (context, url) => CircularProgressIndicator(),
-                                                          errorWidget: (context, url, error) => Icon(Icons.error),
+                                                          placeholder: (context,
+                                                                  url) =>
+                                                              const CircularProgressIndicator(),
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              const Icon(
+                                                                  Icons.error),
                                                         ),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                                VerticalDivider(
+                                                const VerticalDivider(
                                                   thickness: 0.3,
                                                   indent: 8,
                                                   endIndent: 5,
@@ -141,12 +149,12 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Text("Name: " +
-                                                        workerDocument[
-                                                            "fullName"]),
-                                                    Text("Ph: " +
-                                                        workerDocument[
-                                                            "phoneNumber"]),
+                                                    Text("Name:  ${workerDocument[
+                                                            "fullName"]}"
+                                                        ),
+                                                    Text("Ph: ${workerDocument[
+                                                            "phoneNumber"]}"
+                                                       ),
                                                     Text(workerDocument[
                                                         "jobType"]),
                                                     Text(workerDocument[
@@ -156,7 +164,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                               ],
                                             ),
                                           ),
-                                          Divider(
+                                          const Divider(
                                             thickness: 0.3,
                                           ),
                                           IntrinsicHeight(
@@ -166,20 +174,22 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                               children: [
                                                 TextButton.icon(
                                                     onPressed: () async {
-                                                      final Uri _phoneNumber =
+                                                      final Uri phoneNumber =
                                                           Uri.parse(
                                                               'tel:${workerDocument["phoneNumber"]}');
                                                       if (await canLaunchUrl(
-                                                          _phoneNumber)) {
-                                                        launchUrl(_phoneNumber);
+                                                          phoneNumber)) {
+                                                        launchUrl(phoneNumber);
                                                       }
                                                     },
                                                     style: TextButton.styleFrom(
                                                         foregroundColor:
-                                                            Color(0xffdb3244)),
-                                                    icon: Icon(Icons.phone),
-                                                    label: Text('Call')),
-                                                VerticalDivider(
+                                                            const Color(
+                                                                0xffdb3244)),
+                                                    icon:
+                                                        const Icon(Icons.phone),
+                                                    label: const Text('Call')),
+                                                const VerticalDivider(
                                                   thickness: 0.3,
                                                   endIndent: 6,
                                                 ),
@@ -192,9 +202,12 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                                     },
                                                     style: TextButton.styleFrom(
                                                         foregroundColor:
-                                                            Color(0xffdb3244)),
-                                                    icon: Icon(Icons.book),
-                                                    label: Text('Book now')),
+                                                            const Color(
+                                                                0xffdb3244)),
+                                                    icon:
+                                                        const Icon(Icons.book),
+                                                    label:
+                                                        const Text('Book now')),
                                               ],
                                             ),
                                           ),
@@ -235,12 +248,6 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         .doc(auth.currentUser!.uid)
         .update({
       uid: "booked",
-    });
-  }
-
-  void _toggleFavorite() {
-    setState(() {
-      isFavourite = !isFavourite!;
     });
   }
 

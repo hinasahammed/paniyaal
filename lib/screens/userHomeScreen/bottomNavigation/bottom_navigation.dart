@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../user_home_screen.dart';
 
 class BottomNavigation extends StatelessWidget {
-  BottomNavigation({Key? key}) : super(key: key);
+  const BottomNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class BottomNavigation extends StatelessWidget {
             onTap: (newIndex) {
               UserHomeScreen.selectedIndexNotifier.value = newIndex;
             },
-            selectedItemColor: Color(0xffdb3244),
+            selectedItemColor: const Color(0xffdb3244),
             unselectedItemColor: Colors.grey,
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),

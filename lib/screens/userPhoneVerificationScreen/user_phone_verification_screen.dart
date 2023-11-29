@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../typeSelectorScreen/type_selector_screen.dart';
 
 class UserLoginScreen extends StatefulWidget {
-  UserLoginScreen({super.key});
+  const UserLoginScreen({super.key});
 
   static String verify = "";
 
@@ -20,7 +20,6 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     countryCode.text = " +91";
     super.initState();
   }
@@ -42,7 +41,8 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
-            color: const Color(0xffdb3244),size: 30,
+            color: Color(0xffdb3244),
+            size: 30,
           ),
         ),
       ),
@@ -58,7 +58,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
               width: 200,
               height: 200,
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             const Text(
@@ -93,16 +93,16 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                     width: 40,
                     child: TextFormField(
                       controller: countryCode,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
                     ),
                   ),
-                  Text(
+                  const Text(
                     '|',
                     style: TextStyle(fontSize: 33, color: Colors.grey),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
@@ -112,7 +112,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                         phone = value;
                       },
                       keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: "Phone",
                       ),
@@ -121,7 +121,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             SizedBox(
@@ -130,7 +130,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
               child: ElevatedButton(
                 onPressed: () async {
                   await FirebaseAuth.instance.verifyPhoneNumber(
-                    phoneNumber: '${countryCode.text + phone}',
+                    phoneNumber: countryCode.text + phone,
                     verificationCompleted: (PhoneAuthCredential credential) {},
                     verificationFailed: (FirebaseAuthException e) {},
                     codeSent: (String verificationId, int? resendToken) {

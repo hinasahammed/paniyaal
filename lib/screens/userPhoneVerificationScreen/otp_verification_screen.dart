@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:paniyaal/screens/userDetailScreen/user_detail_screen.dart';
-import 'package:paniyaal/screens/userHomeScreen/user_home_screen.dart';
 import 'package:paniyaal/screens/userPhoneVerificationScreen/user_phone_verification_screen.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
-  OtpVerificationScreen({Key? key}) : super(key: key);
+  const OtpVerificationScreen({super.key});
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -31,7 +31,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
-            color: const Color(0xffdb3244),
+            color: Color(0xffdb3244),
             size: 30,
           ),
         ),
@@ -48,7 +48,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               width: 200,
               height: 200,
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             const Text(
@@ -75,7 +75,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 smsCode = value;
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             SizedBox(
@@ -91,9 +91,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
                     // Sign the user in (or link) with the credential
                     await auth.signInWithCredential(credential);
-                    isDocumentExist(context);
+                    if (context.mounted) {
+                      isDocumentExist(context);
+                    }
                   } catch (e) {
-                    print("Wrong otp");
+                    Fluttertoast.showToast(msg: e.toString());
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -110,7 +112,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text(
+                  child: const Text(
                     'Edit phone number ?',
                     style: TextStyle(color: Colors.black),
                   ),
@@ -132,10 +134,11 @@ Future isDocumentExist(BuildContext context) async {
       .doc(auth.currentUser!.uid)
       .get();
   if (document.exists) {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (ctx) => UserHomeScreen()));
+    if (context.mounted) {}
   } else {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (ctx) => UserDetailScreen()));
+    if (context.mounted) {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (ctx) => const UserDetailScreen()));
+    }
   }
 }

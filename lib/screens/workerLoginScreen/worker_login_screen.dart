@@ -6,7 +6,7 @@ import '../typeSelectorScreen/type_selector_screen.dart';
 import '../workerHomeScreen/worker_home_screen.dart';
 
 class WorkerLoginScreen extends StatefulWidget {
-  const WorkerLoginScreen({Key? key}) : super(key: key);
+  const WorkerLoginScreen({super.key});
 
   @override
   State<WorkerLoginScreen> createState() => _WorkerLoginScreenState();
@@ -37,7 +37,7 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
           },
           icon: const Icon(
             Icons.arrow_back_ios_rounded,
-            color: const Color(0xffdb3244),
+            color: Color(0xffdb3244),
             size: 30,
           ),
         ),
@@ -56,7 +56,7 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
                 width: 200,
                 height: 200,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               const Text(
@@ -86,15 +86,15 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.mail),
-                  contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                  prefixIcon: const Icon(Icons.mail),
+                  contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                   hintText: "Email",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -105,20 +105,21 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
                       controller: passwordController,
                       obscureText: _obscureText,
                       validator: (value) {
-                        RegExp regex = new RegExp(r'^.{6,}$');
+                        RegExp regex = RegExp(r'^.{6,}$');
                         if (value!.isEmpty) {
                           return ("Password is required for login");
                         }
                         if (!regex.hasMatch(value)) {
                           return ("Enter Valid Password (Min. 6 Character)");
                         }
+                        return null;
                       },
                       textInputAction: TextInputAction.done,
                       onSaved: (value) {
                         passwordController.text = value!;
                       },
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.vpn_key),
+                        prefixIcon: const Icon(Icons.vpn_key),
                         suffixIcon: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -129,7 +130,8 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
                               ? Icons.visibility
                               : Icons.visibility_off),
                         ),
-                        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(20, 15, 20, 15),
                         hintText: "Password",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -139,7 +141,7 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
@@ -157,12 +159,12 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
                   child: const Text('Login'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     "Don't have an account ?",
                     style: TextStyle(color: Colors.black),
                   ),
@@ -170,7 +172,7 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
                     onPressed: () {
                       Navigator.of(context).pushNamed('signup');
                     },
-                    child: Text(
+                    child: const Text(
                       'Sign Up',
                       style: TextStyle(color: Color(0xffdb3244)),
                     ),
@@ -193,7 +195,7 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
             .then((uid) => {
                   Fluttertoast.showToast(msg: "Login Successful"),
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => WorkerHomeScreen())),
+                      builder: (context) => const WorkerHomeScreen())),
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
@@ -220,7 +222,6 @@ class _WorkerLoginScreenState extends State<WorkerLoginScreen> {
             errorMessage = "An undefined Error happened.";
         }
         Fluttertoast.showToast(msg: errorMessage!);
-        print(error.code);
       }
     }
   }

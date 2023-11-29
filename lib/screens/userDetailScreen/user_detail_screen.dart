@@ -11,7 +11,7 @@ import 'package:paniyaal/screens/userHomeScreen/user_home_screen.dart';
 import '../../model/user_logedin_model.dart';
 
 class UserDetailScreen extends StatefulWidget {
-  const UserDetailScreen({Key? key}) : super(key: key);
+  const UserDetailScreen({super.key});
 
   @override
   State<UserDetailScreen> createState() => _UserDetailScreenState();
@@ -24,13 +24,10 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
   final picker = ImagePicker();
   String? downloadUrl;
 
-
   @override
   void dispose() {
     fullNameEditingController.dispose();
-    // TODO: implement dispose
     super.dispose();
-
   }
 
   @override
@@ -71,17 +68,17 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                         borderRadius: BorderRadius.circular(100),
                         child: _image != null
                             ? Image.file(
-                          _image!.absolute,
-                          width: 130,
-                          height: 130,
-                          fit: BoxFit.cover,
-                        )
+                                _image!.absolute,
+                                width: 130,
+                                height: 130,
+                                fit: BoxFit.cover,
+                              )
                             : Image.asset(
-                          'assets/upload.png',
-                          width: 130,
-                          height: 130,
-                          fit: BoxFit.cover,
-                        ),
+                                'assets/upload.png',
+                                width: 130,
+                                height: 130,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                     Positioned(
@@ -95,12 +92,11 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                           height: 40,
                           width: 40,
                           decoration: BoxDecoration(
-                            border:
-                            Border.all(width: 4, color: Colors.white),
+                            border: Border.all(width: 4, color: Colors.white),
                             shape: BoxShape.circle,
                             color: Colors.blue,
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.add,
                             color: Colors.white,
                           ),
@@ -124,7 +120,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                         fullNameEditingController.text = value!;
                       },
                       validator: (value) {
-                        RegExp regex = new RegExp(r'^.{3,}$');
+                        RegExp regex = RegExp(r'^.{3,}$');
                         if (value!.isEmpty) {
                           return ("Name cannot be Empty");
                         }
@@ -135,8 +131,9 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                       },
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_circle),
-                        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                        prefixIcon: const Icon(Icons.account_circle),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(20, 15, 20, 15),
                         hintText: "Full name",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -146,10 +143,10 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
@@ -158,29 +155,27 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                 child: ElevatedButton(
                   onPressed: () async {
                     final name = fullNameEditingController.text;
-                    Reference referenceRoot =
-                    FirebaseStorage.instance.ref();
+                    Reference referenceRoot = FirebaseStorage.instance.ref();
                     Reference referenceDirImages =
-                    referenceRoot.child('WorkersProfile');
-                    Reference referenceImageToUpload =
-                    referenceDirImages.child('{$name}' +
-                        DateTime.now()
-                            .millisecondsSinceEpoch
-                            .toString());
+                        referenceRoot.child('WorkersProfile');
+                    Reference referenceImageToUpload = referenceDirImages.child(
+                        '{$name}${DateTime.now().millisecondsSinceEpoch}');
                     try {
-                      await referenceImageToUpload
-                          .putFile(_image!.absolute);
+                      await referenceImageToUpload.putFile(_image!.absolute);
                       downloadUrl =
-                      await referenceImageToUpload.getDownloadURL();
+                          await referenceImageToUpload.getDownloadURL();
                     } catch (error) {
                       Fluttertoast.showToast(
                           msg: 'You have to choose an image');
                     }
                     postDetailsToFirestore();
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (ctx) => UserHomeScreen()),
-                        (route) => false);
+                    if (context.mounted) {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => const UserHomeScreen()),
+                          (route) => false);
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffdb3244),
@@ -190,7 +185,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                   child: const Text('Save'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
             ],
@@ -206,8 +201,8 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
     // sedning these values
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    final _auth = FirebaseAuth.instance;
-    User? user = _auth.currentUser;
+    final auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
     UserLogedinModel userModel = UserLogedinModel();
 
     // writing all the values
@@ -222,9 +217,10 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
         .set(userModel.toMap());
     Fluttertoast.showToast(msg: "Account Created :)");
   }
+
   Future getGallaryImage() async {
     final pickedFile =
-    await picker.pickImage(source: ImageSource.gallery, imageQuality: 5);
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 5);
     if (pickedFile != null) {
       _image = File(pickedFile.path);
       setState(() {

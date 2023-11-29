@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:paniyaal/screens/userHomeScreen/userPofileScreen/user_profile_screen.dart';
 
-
 import 'bottomNavigation/bottom_navigation.dart';
 import 'jobCategoryScreen/job_category_screen.dart';
 
 class UserHomeScreen extends StatefulWidget {
-  UserHomeScreen({
-    Key? key,}) : super(key: key);
+  const UserHomeScreen({
+    super.key,
+  });
 
   static ValueNotifier<int> selectedIndexNotifier = ValueNotifier(0);
 
@@ -17,7 +17,7 @@ class UserHomeScreen extends StatefulWidget {
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
   final _pages = [
-    JobCategoryScreen(),
+    const JobCategoryScreen(),
     UserProfileScreen(),
   ];
 
@@ -32,7 +32,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigation(),
+      bottomNavigationBar: const BottomNavigation(),
       body: SafeArea(
         child: ValueListenableBuilder(
           valueListenable: UserHomeScreen.selectedIndexNotifier,
